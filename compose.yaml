@@ -23,7 +23,7 @@ services:
       - ./backend:/app:delegated
       - backend_node_modules:/app/node_modules
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/walletoo
+      - DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@db:5432/$POSTGRES_DB
     depends_on:
       - db
 
@@ -31,10 +31,7 @@ services:
     image: postgres:15
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=walletoo
+    env_file: .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
