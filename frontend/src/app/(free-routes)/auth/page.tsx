@@ -36,12 +36,6 @@ const Auth = () => {
           </h3>
         </div>
       </div>
-
-      <p className="absolute bottom-3 text-xs text-gray-500">
-        For your security, we only offer sign-in through trusted providers. These services provide advanced protection,
-        ensuring your account is safe from unauthorized access with features like two-factor authentication and
-        continuous monitoring.
-      </p>
     </main>
   );
 };
