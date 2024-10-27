@@ -6,10 +6,6 @@ const app = new Elysia()
   // Route Hello World en dehors du groupe /api
   .get("/", () => "Hello World!")
   // ou si vous préférez un objet JSON
-  .get("/hello", () => ({
-    message: "Hello World!",
-    timestamp: new Date(),
-  }))
   .group("/api", (app) =>
     app
       .use(
