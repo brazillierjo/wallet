@@ -5,7 +5,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import ImageHeroSection from "@/assets/png/landing_hero_section.png";
-import GoogleButton from "@/components/Auth/GoogleButton";
 import Loading from "@/components/ui/Loading";
 import { AppRoutes } from "@/router/app_routes";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
@@ -35,8 +34,6 @@ const Auth = () => {
             <span className="text-blue-500">Sign in</span> or <span className="text-blue-500">Sign up</span> <br /> to
             continue
           </h3>
-
-          <GoogleButton />
         </div>
       </div>
 

@@ -6,14 +6,14 @@ import DeleteConfirmationModal from "@/components/Modals/DeleteConfirmationModal
 import ActionButton from "@/components/Table/ActionButton";
 import EditSheet from "@/components/Table/EditSheet";
 import { TableBody, TableCell, TableHead, TableHeader, TableRow, Table as TableUI } from "@/components/ui/table";
+import { OperationType } from "@/utils/enums/operationType";
 import { Operation } from "@/utils/interfaces/operation";
-import { OperationType } from "@/utils/requestCheck";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   operationType: OperationType;
   tableData: Operation[];
-  onDelete: (operationId: number) => Promise<void>;
+  onDelete: Function;
 }
 
 const Table: FC<Props> = ({ operationType, tableData, onDelete }) => {

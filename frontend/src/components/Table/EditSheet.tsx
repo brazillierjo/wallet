@@ -4,10 +4,9 @@ import { CategoryCombobox } from "@/components/Table/CategoryCombobox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { updateOperation } from "@/utils/api/operations";
+import { OperationType } from "@/utils/enums/operationType";
 import { Operation, OperationInput } from "@/utils/interfaces/operation";
-import { OperationType } from "@/utils/requestCheck";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 
 interface EditSheetProps {
@@ -28,19 +27,9 @@ const EditSheet: FC<EditSheetProps> = ({ isOpen, onClose, operation, operationTy
       category: operation.category,
     },
   });
-  const updateMutation = useMutation<Operation, Error, OperationInput>({
-    mutationFn: (data: OperationInput) => updateOperation(operationType, operation.id, data),
-    onSuccess: (updatedOperation) => {
-      queryClient.invalidateQueries({
-        queryKey: [operationType],
-      });
-      onClose();
-      onSave(updatedOperation);
-    },
-  });
 
   const onSubmit = (data: OperationInput) => {
-    updateMutation.mutate(data);
+    console.log(data);
   };
 
   return (
@@ -93,8 +82,8 @@ const EditSheet: FC<EditSheetProps> = ({ isOpen, onClose, operation, operationTy
           </div>
 
           <SheetFooter>
-            <Button type="submit" disabled={updateMutation.isPending}>
-              {updateMutation.isPending ? "Saving..." : "Save changes"}
+            <Button type="submit" disabled={true}>
+              Save
             </Button>
           </SheetFooter>
         </form>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -15,10 +14,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { AppRoutes } from "@/router/app_routes";
-import { deleteUser } from "@/utils/api/user";
 import { User } from "@/utils/interfaces/user";
-import { useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Trash2 } from "lucide-react";
 
@@ -26,18 +22,8 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const { push } = useRouter();
-
-  const mutation = useMutation({
-    mutationFn: () => {
-      return deleteUser();
-    },
-    onSuccess: () => push(AppRoutes.LANDING),
-    onError: (error) => console.log(error.message),
-  });
-
   const handleDeleteClick = () => {
-    if (confirmDelete) mutation.mutate();
+    if (confirmDelete) console.log("confirm delete");
     else setConfirmDelete(true);
   };
 

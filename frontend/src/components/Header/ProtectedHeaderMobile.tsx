@@ -8,11 +8,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import WalletooLogo from "@/components/ui/Logo/WalletooLogo";
-import { User } from "@/utils/interfaces/user";
 import { Bars2Icon } from "@heroicons/react/16/solid";
 
-const ProtectedHeaderMobile = ({ user }: { user: User }) => {
-  if (!user) return null;
+const ProtectedHeaderMobile = () => {
+  const user = {
+    id: 0,
+    email: "test@test.com",
+    name: "test name",
+    avatar: "",
+    isSubscribed: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    expenses: [],
+    incomes: [],
+  };
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">

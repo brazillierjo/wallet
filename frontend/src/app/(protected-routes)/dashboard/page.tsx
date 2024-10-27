@@ -1,5 +1,5 @@
 import OperationsTable from "@/components/Table/OperationTable";
-import { OperationType } from "@/utils/requestCheck";
+import { OperationType } from "@/utils/enums/operationType";
 
 const Dashboard = () => {
   return (

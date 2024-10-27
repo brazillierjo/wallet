@@ -2,10 +2,19 @@ import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
 import WalletooLogo from "@/components/ui/Logo/WalletooLogo";
 import LogoutButton from "@/components/ui/LogoutButton";
-import { User } from "@/utils/interfaces/user";
 
-const ProtectedHeaderDesktop = ({ user }: { user: User }) => {
-  if (!user) return null;
+const ProtectedHeaderDesktop = () => {
+  const user = {
+    id: 0,
+    email: "test@test.com",
+    name: "test name",
+    avatar: "",
+    isSubscribed: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    expenses: [],
+    incomes: [],
+  };
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">

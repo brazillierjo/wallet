@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { expenseCategories, incomeCategories } from "@/utils/categories";
+import { OperationType } from "@/utils/enums/operationType";
 import { Operation } from "@/utils/interfaces/operation";
-import { OperationType } from "@/utils/requestCheck";
 import { cn } from "@/utils/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
 
