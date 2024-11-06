@@ -1,160 +1,161 @@
-import {Elysia, t} from "elysia";
-import {prisma} from "../../lib/prisma";
-import {comparePassword, hashPassword, md5hash} from "../../utils/bcrypt";
-import {isAuthenticated} from "../../middlewares/auth";
+import {Elysia, t} from 'elysia'
+import {jwt} from '@elysiajs/jwt'
+import {PrismaClient} from '@prisma/client'
+import {compare, hash} from '@node-rs/bcrypt'
 
-export const auth = (app: Elysia) =>
-    app.group("/auth", (app) =>
-        app
-            .post(
-                "/signup",
-                async ({body, set}) => {
-                    const {email, name, password, username} = body;
-                    // validate duplicate email address
-                    const emailExists = await prisma.user.findUnique({
-                        where: {
-                            email,
-                        },
-                        select: {
-                            id: true,
-                        },
-                    });
-                    if (emailExists) {
-                        set.status = 400;
-                        return {
-                            success: false,
-                            data: null,
-                            message: "Email address already in use.",
-                        };
-                    }
+const prisma = new PrismaClient()
 
-                    // validate duplicate username
-                    const usernameExists = await prisma.user.findUnique({
-                        where: {
-                            username,
-                        },
-                        select: {
-                            id: true,
-                        },
-                    });
+// Types pour la validation
+const SignupDTO = t.Object({
+    email: t.String(),
+    password: t.String(),
+    name: t.String()
+})
 
-                    if (usernameExists) {
-                        set.status = 400;
-                        return {
-                            success: false,
-                            data: null,
-                            message: "Someone already taken this username.",
-                        };
-                    }
+const LoginDTO = t.Object({
+    email: t.String(),
+    password: t.String()
+})
 
-                    // handle password
-                    const {hash, salt} = await hashPassword(password);
-                    const emailHash = md5hash(email);
-                    const profileImage = `https://www.gravatar.com/avatar/${emailHash}?d=identicon`;
+// Configuration du plugin JWT
+const authPlugin = new Elysia()
+    .use(
+        jwt({
+            name: 'jwt',
+            secret: process.env.JWT_SECRET || 'my-super-secret-key',
+            exp: '7d'
+        })
+    )
+    .derive(({jwt}) => ({
+        signToken: async (payload: { userId: number, email: string }) => {
+            return await jwt.sign(payload)
+        },
+        verifyToken: async (token: string) => {
+            return await jwt.verify(token)
+        }
+    }))
 
-                    const newUser = await prisma.user.create({
-                        data: {
-                            name,
-                            email,
-                            hash,
-                            salt,
-                            username,
-                            profileImage,
-                        },
-                    });
+// Middleware d'authentification
+const auth = async ({headers, verifyToken, set}: any) => {
+    const token = headers.authorization?.split(' ')[1]
 
-                    return {
-                        success: true,
-                        message: "Account created",
-                        data: {
-                            user: newUser,
-                        },
-                    };
-                },
-                {
-                    body: t.Object({
-                        name: t.String(),
-                        email: t.String(),
-                        username: t.String(),
-                        password: t.String(),
-                    }),
-                }
-            )
-            .post(
-                "/login",
-                async ({body, set, jwt, setCookie}) => {
-                    const {username, password} = body;
-                    // verify email/username
-                    const user = await prisma.user.findFirst({
-                        where: {
-                            OR: [
-                                {
-                                    email: username,
-                                },
-                                {
-                                    username,
-                                },
-                            ],
-                        },
-                        select: {
-                            id: true,
-                            hash: true,
-                            salt: true,
-                        },
-                    });
+    if (!token) {
+        set.status = 401
+        return {error: 'Token non fourni'}
+    }
 
-                    if (!user) {
-                        set.status = 400;
-                        return {
-                            success: false,
-                            data: null,
-                            message: "Invalid credentials",
-                        };
-                    }
+    const payload = await verifyToken(token)
 
-                    // verify password
-                    const match = await comparePassword(password, user.salt, user.hash);
-                    if (!match) {
-                        set.status = 400;
-                        return {
-                            success: false,
-                            data: null,
-                            message: "Invalid credentials",
-                        };
-                    }
+    if (!payload) {
+        set.status = 401
+        return {error: 'Token invalide'}
+    }
 
-                    const accessToken = await jwt.sign({
-                        userId: user.id,
-                    });
+    return payload
+}
 
-                    setCookie("access_token", accessToken, {
-                        maxAge: 15 * 60, // 15 minutes
-                        path: "/",
-                    });
+// Routes d'authentification
+export const authRoutes = new Elysia()
+    .use(authPlugin)
+    .post(
+        '/signup',
+        async ({body, signToken}) => {
+            const {email, password, name} = body
 
-
-                    return {
-                        success: true,
-                        data: null,
-                        message: "Account login successfully",
-                    };
-                },
-                {
-                    body: t.Object({
-                        username: t.String(),
-                        password: t.String(),
-                    }),
-                }
-            )
-            .use(isAuthenticated)
-            // protected route
-            .get("/me", ({user}) => {
-                return {
-                    success: true,
-                    message: "Fetch authenticated user details",
-                    data: {
-                        user,
-                    },
-                };
+            // Vérifier si l'utilisateur existe déjà
+            const existingUser = await prisma.user.findUnique({
+                where: {email}
             })
-    );
+
+            if (existingUser) {
+                return {
+                    status: 400,
+                    body: {error: 'Cet email est déjà utilisé'}
+                }
+            }
+
+            // Hasher le mot de passe
+            const hashedPassword = await hash(password, 10)
+
+            // Créer l'utilisateur
+            const user = await prisma.user.create({
+                data: {
+                    email,
+                    name,
+                    password: hashedPassword
+                }
+            })
+
+            // Générer le token JWT
+            const token = await signToken({
+                userId: user.id,
+                email: user.email
+            })
+
+            return {
+                token,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name
+                }
+            }
+        },
+        {
+            body: SignupDTO
+        }
+    )
+    .post(
+        '/login',
+        async ({body, signToken}) => {
+            const {email, password} = body
+
+            // Rechercher l'utilisateur
+            const user = await prisma.user.findUnique({
+                where: {email}
+            })
+
+            if (!user) {
+                return {
+                    status: 401,
+                    body: {error: 'Email ou mot de passe incorrect'}
+                }
+            }
+
+            // Vérifier le mot de passe
+            const isValid = await compare(password, user.password)
+            if (!isValid) {
+                return {
+                    status: 401,
+                    body: {error: 'Email ou mot de passe incorrect'}
+                }
+            }
+
+            // Générer le token JWT
+            const token = await signToken({
+                userId: user.id,
+                email: user.email
+            })
+
+            return {
+                token,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name
+                }
+            }
+        },
+        {
+            body: LoginDTO
+        }
+    )
+    // Route protégée d'exemple
+    .get('/me', async ({auth: payload}) => {
+        const user = await prisma.user.findUnique({
+            where: {id: payload.userId}
+        })
+        return user
+    }, {
+        beforeHandle: auth
+    })
