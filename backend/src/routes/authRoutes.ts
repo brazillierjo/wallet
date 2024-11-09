@@ -1,6 +1,6 @@
 import {Elysia} from "elysia";
-import {signupBodySchema} from "./schemas/schema";
-import {prisma} from "./lib/prisma";
+import {signupBodySchema} from "../schemas/schema";
+import {prisma} from "../lib/prisma";
 
 export const authRoutes = new Elysia({prefix: "/auth"})
     .post(
