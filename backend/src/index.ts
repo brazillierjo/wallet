@@ -1,7 +1,6 @@
 import {cookie} from "@elysiajs/cookie";
 import {jwt} from "@elysiajs/jwt";
 import Elysia from "elysia";
-import {auth} from "./modules/auth";
 
 const app = new Elysia()
     .get("/", () => "Hello World!")
@@ -14,7 +13,6 @@ const app = new Elysia()
                 })
             )
             .use(cookie())
-            .use(auth)
     )
     .listen(3001);
 
