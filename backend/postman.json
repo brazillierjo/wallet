@@ -1,0 +1,421 @@
+{
+  "info": {
+    "name": "Wallet - API Routes",
+    "description": "Collection d'APIs pour la gestion des finances d'un utilisateur",
+    "_postman_id": "12345-abcde-67890-fghij",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Test API",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3001/api",
+          "host": [
+            "http://localhost:3001/api"
+          ],
+          "path": [
+            "/"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/auth/register",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\": \"example@email.com\", \"password\": \"yourpassword\", \"name\": \"John Doe\"}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/auth/login",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\": \"example@email.com\", \"password\": \"yourpassword\"}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/auth/refresh",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"refreshToken\": \"your_refresh_token_here\"}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/auth/logout",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"refreshToken\": \"your_refresh_token_here\"}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/user/profile",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "user",
+                "profile"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:3001/api/user/profile",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "user",
+                "profile"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"New Name\", \"avatar\": \"new_avatar_url\"}"
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Incomes",
+      "item": [
+        {
+          "name": "Get Incomes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/incomes",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "incomes"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Add Income",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/incomes",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "incomes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"label\": \"Salary\", \"amount\": 5000, \"category\": \"Income\"}"
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "Get Expenses",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/expenses",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "expenses"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Add Expense",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:3001/api/expenses",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "expenses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"label\": \"Rent\", \"amount\": 1200, \"category\": \"Housing\"}"
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stats",
+      "item": [
+        {
+          "name": "Overview",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/stats/overview",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "stats",
+                "overview"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/stats/categories",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "stats",
+                "categories"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Trends",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/stats/trends",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "stats",
+                "trends"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "Budget",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/recommendations/budget",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "recommendations",
+                "budget"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Tips",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/recommendations/tips",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "recommendations",
+                "tips"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
