@@ -1,8 +1,12 @@
-import { t } from "elysia";
+import { t } from 'elysia';
 
 const updateUserProfileSchema = t.Object({
-  name: t.String().min(1).optional(),
-  avatar: (t.String() as any).pattern(/^https?:\/\/.+\..+/).optional(),
+  name: t.Optional(
+    t.String(),
+  ),
+  avatar: t.Optional(
+    t.String(),
+  ),
 });
 
 type UpdateUserProfileSchema = typeof updateUserProfileSchema.type;
