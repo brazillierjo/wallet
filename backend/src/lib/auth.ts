@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-const authenticate = (headers: Record<string, string | string[] | undefined>): number => {
+export const authenticate = (headers: Record<string, string | string[] | undefined>): number => {
   const authHeader = headers['Authorization'] || headers['authorization'];
 
   const authValue = Array.isArray(authHeader) ? authHeader[0] : authHeader;
@@ -17,5 +17,3 @@ const authenticate = (headers: Record<string, string | string[] | undefined>): n
     throw new Error('Unauthorized');
   }
 };
-
-export default authenticate;

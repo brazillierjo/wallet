@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { prisma } from '../lib/prisma';
 import { updateUserProfileSchema } from '../schemas/userSchemas';
-import authenticate from '../lib/auth';
+import { authenticate } from '../lib/auth';
 
 export const userRoutes = new Elysia({ prefix: '/user' })
   .get('/profile', async ({ headers }) => {

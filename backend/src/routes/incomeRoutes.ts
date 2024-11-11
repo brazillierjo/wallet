@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
 import { prisma } from '../lib/prisma';
-import authenticate from '../lib/auth';
+import { authenticate } from '../lib/auth';
 import { createOperationSchema } from '../schemas/operationSchemas';
 
 export const incomeRoutes = new Elysia({ prefix: '/incomes' })
