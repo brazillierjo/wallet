@@ -8,7 +8,7 @@ import { statsRoutes } from '@routes/statsRoutes';
 import { userRoutes } from '@routes/userRoutes';
 
 dotenv.config({
-  path: path.resolve(__dirname, '../../.env'),
+  path: path.resolve(process.cwd(), '.env'),
 });
 
 const app = new Elysia({ prefix: '/api' })
