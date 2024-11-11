@@ -105,4 +105,37 @@ export const userRoutes = new Elysia({prefix: "/user"})
         {
             body: updateUserProfileSchema,
         }
+    )
+
+    .delete(
+        "/account",
+        async ({headers}) => {
+            const authHeader = headers["Authorization"] || headers["authorization"];
+            if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                return {
+                    status: "Unauthorized",
+                    message: "No token provided",
+                };
+            }
+
+            const token = authHeader.split(" ")[1];
+
+            try {
+                const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
+                const userId = parseInt(decoded.userId, 10);
+
+                await prisma.user.delete({
+                    where: {id: userId},
+                });
+
+                return {
+                    message: "Account deleted successfully",
+                };
+            } catch (error) {
+                return {
+                    status: "Unauthorized",
+                    message: "Invalid or expired token",
+                };
+            }
+        }
     );

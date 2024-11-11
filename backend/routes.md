@@ -21,6 +21,10 @@
   Récupère les informations du profil de l'utilisateur connecté.  
   **Authentification requise** : Bearer token.
 
+- **`DELETE /user/profile`**  
+  Supprime le compte de l'utilisateur connecté.  
+  **Authentification requise** : Bearer token.
+
 - **`PUT /user/profile`**  
   Met à jour les informations du profil de l'utilisateur connecté (par exemple, `name`, `avatar`).  
   **Authentification requise** : Bearer token.

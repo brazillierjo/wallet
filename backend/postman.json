@@ -184,6 +184,28 @@
               }
             ]
           }
+        },
+        {
+          "name": "Delete Account",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:3001/api/user/account",
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "user",
+                "account"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
         }
       ]
     },
