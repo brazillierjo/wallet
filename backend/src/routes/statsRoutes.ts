@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
-import { prisma } from '../lib/prisma';
-import { authenticate } from '../lib/auth';
+import { prisma } from '@lib/prisma';
+import { authenticate } from '@lib/auth';
 
 export const statsRoutes = new Elysia({ prefix: '/stats' })
   .get('/overview', async ({ headers, query }) => {

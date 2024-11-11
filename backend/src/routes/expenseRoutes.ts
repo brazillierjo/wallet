@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
-import { prisma } from '../lib/prisma';
-import { authenticate } from '../lib/auth';
-import { createOperationSchema } from '../schemas/operationSchemas';
+import { prisma } from '@lib/prisma';
+import { authenticate } from '@lib/auth';
+import { createOperationSchema } from '@schemas/operationSchemas';
 
 export const expenseRoutes = new Elysia({ prefix: '/expenses' })
   .get('/', async ({ headers, query }) => {

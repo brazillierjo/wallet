@@ -1,11 +1,11 @@
 import { Elysia } from 'elysia';
-import { authRoutes } from './routes/authRoutes';
+import { authRoutes } from '@routes/authRoutes';
 import dotenv from 'dotenv';
 import path from 'path';
-import { userRoutes } from './routes/userRoutes';
-import { incomeRoutes } from './routes/incomeRoutes';
-import { expenseRoutes } from './routes/expenseRoutes';
-import { statsRoutes } from './routes/statsRoutes';
+import { incomeRoutes } from '@routes/incomeRoutes';
+import { expenseRoutes } from '@routes/expenseRoutes';
+import { statsRoutes } from '@routes/statsRoutes';
+import { userRoutes } from '@routes/userRoutes';
 
 dotenv.config({
   path: path.resolve(__dirname, '../../.env'),
