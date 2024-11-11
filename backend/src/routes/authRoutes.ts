@@ -1,5 +1,5 @@
 import {Elysia} from "elysia";
-import {registerBodySchema, loginBodySchema, refreshBodySchema} from "../schemas/schema";
+import {registerBodySchema, loginBodySchema, refreshBodySchema} from "../schemas/authSchemas";
 import {prisma} from "../lib/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
