@@ -5,6 +5,4 @@ const updateUserProfileSchema = t.Object({
   avatar: t.Optional(t.String()),
 });
 
-type UpdateUserProfileSchema = typeof updateUserProfileSchema.type;
-
-export { updateUserProfileSchema, UpdateUserProfileSchema };
+export { updateUserProfileSchema };

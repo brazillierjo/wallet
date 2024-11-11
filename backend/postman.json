@@ -12,8 +12,12 @@
         "method": "GET",
         "url": {
           "raw": "http://localhost:3001/api",
-          "host": ["http://localhost:3001/api"],
-          "path": ["/"]
+          "host": [
+            "http://localhost:3001/api"
+          ],
+          "path": [
+            "/"
+          ]
         }
       }
     },
@@ -26,8 +30,13 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/register",
-              "host": ["http://localhost:3001/api"],
-              "path": ["auth", "register"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -47,8 +56,13 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/login",
-              "host": ["http://localhost:3001/api"],
-              "path": ["auth", "login"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -68,8 +82,13 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/refresh",
-              "host": ["http://localhost:3001/api"],
-              "path": ["auth", "refresh"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -89,8 +108,13 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/logout",
-              "host": ["http://localhost:3001/api"],
-              "path": ["auth", "logout"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -115,8 +139,13 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/user/profile",
-              "host": ["http://localhost:3001/api"],
-              "path": ["user", "profile"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "user",
+                "profile"
+              ]
             },
             "header": [
               {
@@ -132,8 +161,13 @@
             "method": "PUT",
             "url": {
               "raw": "http://localhost:3001/api/user/profile",
-              "host": ["http://localhost:3001/api"],
-              "path": ["user", "profile"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "user",
+                "profile"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -157,8 +191,13 @@
             "method": "DELETE",
             "url": {
               "raw": "http://localhost:3001/api/user/account",
-              "host": ["http://localhost:3001/api"],
-              "path": ["user", "account"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "user",
+                "account"
+              ]
             },
             "header": [
               {
@@ -179,8 +218,36 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/incomes",
-              "host": ["http://localhost:3001/api"],
-              "path": ["incomes"]
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "incomes"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get Income By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/incomes/:id",
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "incomes",
+                ":id"
+              ]
             },
             "header": [
               {
@@ -196,8 +263,13 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/incomes",
-              "host": ["http://localhost:3001/api"],
-              "path": ["incomes"]
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "incomes"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -214,6 +286,60 @@
               }
             ]
           }
+        },
+        {
+          "name": "Update Income",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:3001/api/incomes/:id",
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "incomes",
+                ":id"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"label\": \"Updated Salary\", \"amount\": 5500, \"category\": \"Income\"}"
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Income",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:3001/api/incomes/:id",
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "incomes",
+                ":id"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
         }
       ]
     },
@@ -226,8 +352,36 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/expenses",
-              "host": ["http://localhost:3001/api"],
-              "path": ["expenses"]
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "expenses"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get Expense By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3001/api/expenses/:id",
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "expenses",
+                ":id"
+              ]
             },
             "header": [
               {
@@ -243,8 +397,13 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/expenses",
-              "host": ["http://localhost:3001/api"],
-              "path": ["expenses"]
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "expenses"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -261,6 +420,60 @@
               }
             ]
           }
+        },
+        {
+          "name": "Update Expense",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:3001/api/expenses/:id",
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "expenses",
+                ":id"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"label\": \"Updated Rent\", \"amount\": 1300, \"category\": \"Housing\"}"
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Expense",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:3001/api/expenses/:id",
+              "host": [
+                "http://localhost:3001"
+              ],
+              "path": [
+                "api",
+                "expenses",
+                ":id"
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
         }
       ]
     },
@@ -273,8 +486,13 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/overview",
-              "host": ["http://localhost:3001/api"],
-              "path": ["stats", "overview"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "stats",
+                "overview"
+              ]
             },
             "header": [
               {
@@ -290,8 +508,13 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/categories",
-              "host": ["http://localhost:3001/api"],
-              "path": ["stats", "categories"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "stats",
+                "categories"
+              ]
             },
             "header": [
               {
@@ -307,8 +530,13 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/trends",
-              "host": ["http://localhost:3001/api"],
-              "path": ["stats", "trends"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "stats",
+                "trends"
+              ]
             },
             "header": [
               {
@@ -329,8 +557,13 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/recommendations/budget",
-              "host": ["http://localhost:3001/api"],
-              "path": ["recommendations", "budget"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "recommendations",
+                "budget"
+              ]
             },
             "header": [
               {
@@ -346,8 +579,13 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/recommendations/tips",
-              "host": ["http://localhost:3001/api"],
-              "path": ["recommendations", "tips"]
+              "host": [
+                "http://localhost:3001/api"
+              ],
+              "path": [
+                "recommendations",
+                "tips"
+              ]
             },
             "header": [
               {

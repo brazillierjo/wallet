@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
 import { prisma } from '../lib/prisma';
-import { UpdateUserProfileSchema, updateUserProfileSchema } from '../schemas/userSchemas';
+import { updateUserProfileSchema } from '../schemas/userSchemas';
 import authenticate from '../lib/auth';
 
 export const userRoutes = new Elysia({ prefix: '/user' })
@@ -46,7 +46,7 @@ export const userRoutes = new Elysia({ prefix: '/user' })
       body,
     }: {
       headers: Record<string, string | string[] | undefined>;
-      body: Partial<UpdateUserProfileSchema>;
+      body: typeof updateUserProfileSchema;
     }) => {
       try {
         const userId = authenticate(headers);
