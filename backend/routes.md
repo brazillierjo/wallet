@@ -80,27 +80,13 @@
 ## Statistiques et analyses
 
 - **`GET /stats/overview`**  
-  Récupère un résumé des finances mensuelles de l'utilisateur, incluant total des `incomes`, des `expenses`, et solde net.  
+  Récupère un résumé des finances mensuelles de l'utilisateur, incluant total des `incomes`, des `expenses`, et solde
+  net ainsi que l'`income` le plus élevé et l'`expense` la plus haute.  
   **Authentification requise** : Bearer token.
 
 - **`GET /stats/categories`**  
-  Récupère les données financières par catégorie pour une visualisation détaillée (utile pour des graphiques par catégorie de dépenses et revenus).  
-  **Authentification requise** : Bearer token.
-
-- **`GET /stats/trends`**  
-  Analyse les tendances de dépenses et de revenus sur une période choisie pour observer les évolutions et aider à la planification.  
-  **Authentification requise** : Bearer token.
-
----
-
-## Recommandations financières
-
-- **`GET /recommendations/budget`**  
-  Fournit des conseils de budget pour aider l'utilisateur à optimiser ses dépenses et maximiser ses économies en fonction de ses données financières actuelles.  
-  **Authentification requise** : Bearer token.
-
-- **`GET /recommendations/tips`**  
-  Fournit des recommandations personnalisées (par exemple, en fonction des catégories où les dépenses sont élevées ou des habitudes de dépenses et revenus).  
+  Récupère les données financières par catégorie pour une visualisation détaillée (utile pour des graphiques par
+  catégorie de dépenses et revenus).  
   **Authentification requise** : Bearer token.
 
 ---
@@ -111,5 +97,4 @@
 2. **User** : `/user/profile`
 3. **Incomes** : `/incomes`, `/incomes/:id`
 4. **Expenses** : `/expenses`, `/expenses/:id`
-5. **Stats** : `/stats/overview`, `/stats/categories`, `/stats/trends`
-6. **Recommendations** : `/recommendations/budget`, `/recommendations/tips`
+5. **Stats** : `/stats/overview`, `/stats/categories`
