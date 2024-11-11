@@ -12,12 +12,8 @@
         "method": "GET",
         "url": {
           "raw": "http://localhost:3001/api",
-          "host": [
-            "http://localhost:3001/api"
-          ],
-          "path": [
-            "/"
-          ]
+          "host": ["http://localhost:3001/api"],
+          "path": ["/"]
         }
       }
     },
@@ -30,13 +26,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/register",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "register"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "register"]
             },
             "body": {
               "mode": "raw",
@@ -56,13 +47,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/login",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "login"]
             },
             "body": {
               "mode": "raw",
@@ -82,13 +68,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/refresh",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "refresh"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "refresh"]
             },
             "body": {
               "mode": "raw",
@@ -108,13 +89,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/logout",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "logout"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "logout"]
             },
             "body": {
               "mode": "raw",
@@ -139,13 +115,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/user/profile",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "user",
-                "profile"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["user", "profile"]
             },
             "header": [
               {
@@ -161,13 +132,8 @@
             "method": "PUT",
             "url": {
               "raw": "http://localhost:3001/api/user/profile",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "user",
-                "profile"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["user", "profile"]
             },
             "body": {
               "mode": "raw",
@@ -191,13 +157,8 @@
             "method": "DELETE",
             "url": {
               "raw": "http://localhost:3001/api/user/account",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "user",
-                "account"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["user", "account"]
             },
             "header": [
               {
@@ -218,12 +179,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/incomes",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "incomes"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["incomes"]
             },
             "header": [
               {
@@ -239,12 +196,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/incomes",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "incomes"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["incomes"]
             },
             "body": {
               "mode": "raw",
@@ -273,12 +226,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/expenses",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "expenses"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["expenses"]
             },
             "header": [
               {
@@ -294,12 +243,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/expenses",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "expenses"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["expenses"]
             },
             "body": {
               "mode": "raw",
@@ -328,13 +273,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/overview",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "stats",
-                "overview"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["stats", "overview"]
             },
             "header": [
               {
@@ -350,13 +290,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/categories",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "stats",
-                "categories"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["stats", "categories"]
             },
             "header": [
               {
@@ -372,13 +307,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/trends",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "stats",
-                "trends"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["stats", "trends"]
             },
             "header": [
               {
@@ -399,13 +329,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/recommendations/budget",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "recommendations",
-                "budget"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["recommendations", "budget"]
             },
             "header": [
               {
@@ -421,13 +346,8 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/recommendations/tips",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "recommendations",
-                "tips"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["recommendations", "tips"]
             },
             "header": [
               {
