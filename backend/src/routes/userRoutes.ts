@@ -1,28 +1,12 @@
-import { Elysia } from "elysia";
-import { prisma } from "../lib/prisma";
-import jwt from "jsonwebtoken";
-import {
-  UpdateUserProfileSchema,
-  updateUserProfileSchema,
-} from "../schemas/userSchemas";
+import { Elysia } from 'elysia';
+import { prisma } from '../lib/prisma';
+import { UpdateUserProfileSchema, updateUserProfileSchema } from '../schemas/userSchemas';
+import authenticate from '../lib/auth';
 
-const JWT_SECRET = process.env.JWT_SECRET!;
-
-export const userRoutes = new Elysia({ prefix: "/user" })
-  .get("/profile", async ({ headers }) => {
-    const authHeader = headers["Authorization"] || headers["authorization"];
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return {
-        status: "Unauthorized",
-        message: "No token provided",
-      };
-    }
-
-    const token = authHeader.split(" ")[1];
-
+export const userRoutes = new Elysia({ prefix: '/user' })
+  .get('/profile', async ({ headers }) => {
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-      const userId = parseInt(decoded.userId, 10);
+      const userId = authenticate(headers);
 
       const user = await prisma.user.findUnique({
         where: { id: userId },
@@ -36,47 +20,36 @@ export const userRoutes = new Elysia({ prefix: "/user" })
 
       if (!user) {
         return {
-          status: "Not Found",
-          message: "User not found",
+          status: 'Not Found',
+          message: 'User not found',
         };
       }
 
       return {
-        message: "User profile fetched successfully",
+        message: 'User profile fetched successfully',
         data: {
           user,
         },
       };
     } catch (error) {
       return {
-        status: "Unauthorized",
-        message: "Invalid or expired token",
+        status: 'Unauthorized',
+        message: 'Invalid or expired token',
       };
     }
   })
 
   .put(
-    "/profile",
+    '/profile',
     async ({
       headers,
       body,
     }: {
-      headers: Record<string, string>;
+      headers: Record<string, string | string[] | undefined>;
       body: Partial<UpdateUserProfileSchema>;
     }) => {
-      const authHeader = headers["Authorization"] || headers["authorization"];
-      if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return {
-          status: "Unauthorized",
-          message: "No token provided",
-        };
-      }
-
-      const token = authHeader.split(" ")[1];
-
       try {
-        const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-        const userId = parseInt(decoded.userId, 10); // Conversion en nombre
+        const userId = authenticate(headers);
 
         const updatedUser = await prisma.user.update({
           where: { id: userId },
@@ -90,49 +63,38 @@ export const userRoutes = new Elysia({ prefix: "/user" })
         });
 
         return {
-          message: "User profile updated successfully",
+          message: 'User profile updated successfully',
           data: {
             user: updatedUser,
           },
         };
       } catch (error) {
         return {
-          status: "Unauthorized",
-          message: "Invalid or expired token",
+          status: 'Unauthorized',
+          message: 'Invalid or expired token',
         };
       }
     },
     {
       body: updateUserProfileSchema,
-    },
+    }
   )
 
-  .delete("/account", async ({ headers }) => {
-    const authHeader = headers["Authorization"] || headers["authorization"];
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return {
-        status: "Unauthorized",
-        message: "No token provided",
-      };
-    }
-
-    const token = authHeader.split(" ")[1];
-
+  .delete('/account', async ({ headers }) => {
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-      const userId = parseInt(decoded.userId, 10);
+      const userId = authenticate(headers);
 
       await prisma.user.delete({
         where: { id: userId },
       });
 
       return {
-        message: "Account deleted successfully",
+        message: 'Account deleted successfully',
       };
     } catch (error) {
       return {
-        status: "Unauthorized",
-        message: "Invalid or expired token",
+        status: 'Unauthorized',
+        message: 'Invalid or expired token',
       };
     }
   });
