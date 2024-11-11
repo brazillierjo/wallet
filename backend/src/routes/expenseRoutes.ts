@@ -3,13 +3,13 @@ import { prisma } from '../lib/prisma';
 import authenticate from '../lib/auth';
 import { createOperationSchema } from '../schemas/operationSchemas';
 
-export const incomeRoutes = new Elysia({ prefix: '/incomes' })
+export const expenseRoutes = new Elysia({ prefix: '/expenses' })
   .get('/', async ({ headers, query }) => {
     try {
       const userId = authenticate(headers);
       const { month, year } = query;
 
-      const incomes = await prisma.income.findMany({
+      const expenses = await prisma.expense.findMany({
         where: {
           userId,
           ...(month &&
@@ -31,8 +31,8 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
       });
 
       return {
-        message: 'Incomes fetched successfully',
-        data: incomes,
+        message: 'Expenses fetched successfully',
+        data: expenses,
       };
     } catch (error) {
       return {
@@ -54,7 +54,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
       try {
         const userId = authenticate(headers);
 
-        const income = await prisma.income.create({
+        const expense = await prisma.expense.create({
           data: {
             userId,
             label: body.label,
@@ -72,8 +72,8 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
         });
 
         return {
-          message: 'Income added successfully',
-          data: income,
+          message: 'Expense added successfully',
+          data: expense,
         };
       } catch (error) {
         return {
@@ -90,10 +90,10 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
   .get('/:id', async ({ headers, params }) => {
     try {
       const userId = authenticate(headers);
-      const incomeId = parseInt(params.id, 10);
+      const expenseId = parseInt(params.id, 10);
 
-      const income = await prisma.income.findFirst({
-        where: { id: incomeId, userId },
+      const expense = await prisma.expense.findFirst({
+        where: { id: expenseId, userId },
         select: {
           id: true,
           label: true,
@@ -104,16 +104,16 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
         },
       });
 
-      if (!income) {
+      if (!expense) {
         return {
           status: 'Not Found',
-          message: 'Income not found',
+          message: 'Expense not found',
         };
       }
 
       return {
-        message: 'Income fetched successfully',
-        data: income,
+        message: 'Expense fetched successfully',
+        data: expense,
       };
     } catch (error) {
       return {
@@ -136,10 +136,10 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
     }) => {
       try {
         const userId = authenticate(headers);
-        const incomeId = parseInt(params.id, 10);
+        const expenseId = parseInt(params.id, 10);
 
-        const updatedIncome = await prisma.income.updateMany({
-          where: { id: incomeId, userId },
+        const updatedExpense = await prisma.expense.updateMany({
+          where: { id: expenseId, userId },
           data: {
             label: body.label,
             amount: body.amount,
@@ -147,7 +147,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
           },
         });
 
-        if (updatedIncome.count === 0) {
+        if (updatedExpense.count === 0) {
           return {
             status: 'Not Found',
             message: 'Income not found or not updated',
@@ -157,7 +157,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
         return {
           message: 'Income updated successfully',
           data: {
-            id: incomeId,
+            id: expenseId,
             ...body,
           },
         };
@@ -176,21 +176,21 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
   .delete('/:id', async ({ headers, params }) => {
     try {
       const userId = authenticate(headers);
-      const incomeId = parseInt(params.id, 10);
+      const expenseId = parseInt(params.id, 10);
 
-      const deletedIncome = await prisma.income.deleteMany({
-        where: { id: incomeId, userId },
+      const deletedExpense = await prisma.expense.deleteMany({
+        where: { id: expenseId, userId },
       });
 
-      if (deletedIncome.count === 0) {
+      if (deletedExpense.count === 0) {
         return {
           status: 'Not Found',
-          message: 'Income not found or not deleted',
+          message: 'Expense not found or not deleted',
         };
       }
 
       return {
-        message: 'Income deleted successfully',
+        message: 'Expense deleted successfully',
       };
     } catch (error) {
       return {
