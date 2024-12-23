@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, type JSX } from "react";
 import { Metadata } from "next/types";
 
 export const metadata: Metadata = {
