@@ -2,22 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import ImageHeroSection from "@/assets/png/landing_hero_section.png";
-import Loading from "@/components/ui/Loading";
 import { AppRoutes } from "@/router/app_routes";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
-import { useSession } from "next-auth/react";
 
 const Auth = () => {
-  const { status } = useSession();
-
-  if (status === "loading") return <Loading isFullScreen />;
-  if (status === "authenticated") redirect(AppRoutes.DASHBOARD);
-
-  console.log(status);
-
   return (
     <main className="min-h-screen">
       <Link href={AppRoutes.LANDING}>

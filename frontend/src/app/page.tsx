@@ -9,13 +9,8 @@ import WalletooLogo from "@/components/ui/Logo/WalletooLogo";
 import { TracingBeam } from "@/components/ui/TracingBeam";
 import { AppRoutes } from "@/router/app_routes";
 import { ArrowRightIcon, CurrencyDollarIcon, InformationCircleIcon } from "@heroicons/react/16/solid";
-import { useSession } from "next-auth/react";
 
 export default function Landing() {
-  const { status } = useSession();
-
-  const isAuthenticated = status === "authenticated";
-
   return (
     <TracingBeam className="w-full">
       <div className="flex flex-col">
@@ -27,7 +22,7 @@ export default function Landing() {
             { href: "#pricing", title: "Pricing", icon: <CurrencyDollarIcon /> },
             {
               href: AppRoutes.AUTH,
-              title: isAuthenticated ? "My Wallet" : "Get Started",
+              title: "My Wallet",
               icon: <ArrowRightIcon />,
             },
           ]}
