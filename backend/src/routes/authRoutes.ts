@@ -27,8 +27,8 @@ const generateRefreshToken = (userId: number): string => {
  */
 const setAuthCookies = (set: any, accessToken: string, refreshToken: string) => {
   set.headers['Set-Cookie'] = [
-    `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}`, // 1 heure
-    `refreshToken=${refreshToken}; HttpOnly; Secure; Path=/; Max-Age=${7 * 24 * 60 * 60}`, // 7 jours
+    `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}; SameSite=Strict`,
+    `refreshToken=${refreshToken}; HttpOnly; Secure; Path=/; Max-Age=${7 * 24 * 60 * 60}; SameSite=Strict`,
   ].join('; ');
 };
 
@@ -101,6 +101,17 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
     async ({ body, set }) => {
       try {
         const decoded = jwt.verify(body.refreshToken, JWT_SECRET);
+
+        const user = await prisma.user.findUnique({
+          where: { id: (decoded as any).userId },
+        });
+
+        if (!user) {
+          return {
+            status: 'Unauthorized',
+            message: 'User no longer exists',
+          };
+        }
 
         const accessToken = generateAccessToken((decoded as any).userId);
 
