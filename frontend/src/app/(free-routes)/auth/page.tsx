@@ -27,13 +27,13 @@ const Auth = () => {
         <div>
           <h3 className="mb-10 text-4xl font-bold">
             {isLogin ? (
-              <span>
+              <p>
                 <span className="text-blue-500">Sign in</span> to continue
-              </span>
+              </p>
             ) : (
-              <span>
+              <p>
                 <span className="text-blue-500">Sign up</span> to continue
-              </span>
+              </p>
             )}
           </h3>
 

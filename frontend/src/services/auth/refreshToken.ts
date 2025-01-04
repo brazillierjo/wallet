@@ -1,13 +1,14 @@
 import { ApiRoutes } from "@/router/api_routes";
-import { fetchAPI } from "@/utils/fetchApi";
 
-export interface RefreshTokenResponse {
-  accessToken: string;
-}
-
-export const refreshToken = async (refreshToken: string): Promise<RefreshTokenResponse> => {
-  return await fetchAPI<RefreshTokenResponse>(ApiRoutes.AUTH_REFRESH, {
+export const refreshTokenMutation = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${ApiRoutes.AUTH_REFRESH}`, {
     method: "POST",
-    body: JSON.stringify({ refreshToken }),
+    credentials: "include",
   });
+
+  if (!response.ok) {
+    throw new Error("Failed to refresh token");
+  }
+
+  return response.json();
 };

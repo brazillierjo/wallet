@@ -1,32 +1,84 @@
 "use client";
 
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { useLogin } from "@/hooks/mutations/auth/useLogin";
+import { AppRoutes } from "@/router/app_routes";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+type LoginForm = z.infer<typeof loginSchema>;
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const loginMutation = useLogin();
 
-  const handleSubmit = async () => {
+  const onSubmit: SubmitHandler<LoginForm> = async (formData) => {
     try {
-      await loginMutation.mutateAsync({ email, password });
-      alert("Login successful!");
+      await loginMutation.mutateAsync(formData, {
+        onSuccess: () => {
+          router.push(AppRoutes.DASHBOARD);
+        },
+      });
     } catch (error) {
       console.error(error);
-      alert("Login failed.");
     }
   };
 
   return (
-    <div>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-      <button onClick={handleSubmit} disabled={loginMutation.isPending}>
-        Login
-      </button>
+    <div className="flex items-center justify-center">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <h1 className="text-center text-xl font-bold text-gray-900">Welcome Back</h1>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-6">
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              {...register("email")}
+              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            />
+
+            {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
+          </div>
+
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              {...register("password")}
+              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            />
+
+            {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
+          </div>
+
+          <button
+            type="submit"
+            className={`w-full rounded-lg bg-blue-500 p-3 font-semibold text-white shadow transition hover:bg-blue-600 ${
+              loginMutation.isPending ? "opacity-50" : ""
+            }`}
+            disabled={loginMutation.isPending}
+          >
+            {loginMutation.isPending ? "Logging In..." : "Login"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
