@@ -1,13 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import ImageHeroSection from "@/assets/png/landing_hero_section.png";
+import Login from "@/components/Login";
+import Register from "@/components/Register";
 import { AppRoutes } from "@/router/app_routes";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 
 const Auth = () => {
+  const [isLogin, setIsLogin] = useState(true);
+
   return (
     <main className="min-h-screen">
       <Link href={AppRoutes.LANDING}>
@@ -21,9 +26,22 @@ const Auth = () => {
 
         <div>
           <h3 className="mb-10 text-4xl font-bold">
-            <span className="text-blue-500">Sign in</span> or <span className="text-blue-500">Sign up</span> <br /> to
-            continue
+            {isLogin ? (
+              <span>
+                <span className="text-blue-500">Sign in</span> to continue
+              </span>
+            ) : (
+              <span>
+                <span className="text-blue-500">Sign up</span> to continue
+              </span>
+            )}
           </h3>
+
+          {isLogin ? <Login /> : <Register />}
+
+          <button className="mt-4 text-sm text-blue-500 underline" onClick={() => setIsLogin(!isLogin)}>
+            {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+          </button>
         </div>
       </div>
     </main>

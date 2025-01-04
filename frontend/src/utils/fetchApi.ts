@@ -1,33 +1,24 @@
-type RequestBody = BodyInit | Record<string, unknown> | null;
+export const fetchAPI = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-type ApiResponse<T> = {
-  status: number;
-  message?: string;
-  data?: T;
-};
-
-async function fetchApi<T = unknown>(
-  url: string,
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
-  body: RequestBody = null
-): Promise<ApiResponse<T>> {
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-  };
-
-  const jsonBody = body && typeof body === "object" ? JSON.stringify(body) : body;
-
-  const response = await fetch(url, {
-    method,
-    headers,
-    body: jsonBody,
+  const response = await fetch(`${baseUrl}${endpoint}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    },
+    credentials: "include",
+    ...options,
   });
 
   if (!response.ok) {
-    throw new Error(`Erreur HTTP: ${response.status}`);
+    if (response.status === 401) {
+      throw new Error("Unauthorized. Please log in again.");
+    }
+
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  return response.json() as Promise<ApiResponse<T>>;
-}
+  const responseData: T = await response.json();
 
-export default fetchApi;
+  return responseData;
+};

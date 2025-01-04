@@ -8,10 +8,34 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 const JWT_EXPIRATION = '1h';
 const JWT_REFRESH_EXPIRATION = '7d';
 
+/**
+ * Génère un accessToken
+ */
+const generateAccessToken = (userId: number): string => {
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+};
+
+/**
+ * Génère un refreshToken
+ */
+const generateRefreshToken = (userId: number): string => {
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: JWT_REFRESH_EXPIRATION });
+};
+
+/**
+ * Définit les cookies pour l'accessToken et le refreshToken
+ */
+const setAuthCookies = (set: any, accessToken: string, refreshToken: string) => {
+  set.headers['Set-Cookie'] = [
+    `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}`, // 1 heure
+    `refreshToken=${refreshToken}; HttpOnly; Secure; Path=/; Max-Age=${7 * 24 * 60 * 60}`, // 7 jours
+  ].join('; ');
+};
+
 export const authRoutes = new Elysia({ prefix: '/auth' })
   .post(
     '/register',
-    async ({ body }) => {
+    async ({ body, set }) => {
       const password = await bcrypt.hash(body.password, 10);
 
       const user = await prisma.user.create({
@@ -21,11 +45,13 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
         },
       });
 
+      const accessToken = generateAccessToken(user.id);
+      const refreshToken = generateRefreshToken(user.id);
+
+      setAuthCookies(set, accessToken, refreshToken);
+
       return {
-        message: 'Account created successfully',
-        data: {
-          user,
-        },
+        message: 'Account created and logged in successfully',
       };
     },
     {
@@ -44,7 +70,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
   .post(
     '/login',
-    async ({ body }) => {
+    async ({ body, set }) => {
       const user = await prisma.user.findUnique({
         where: { email: body.email },
       });
@@ -56,20 +82,13 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
         };
       }
 
-      const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET, {
-        expiresIn: JWT_EXPIRATION,
-      });
+      const accessToken = generateAccessToken(user.id);
+      const refreshToken = generateRefreshToken(user.id);
 
-      const refreshToken = jwt.sign({ userId: user.id }, JWT_SECRET, {
-        expiresIn: JWT_REFRESH_EXPIRATION,
-      });
+      setAuthCookies(set, accessToken, refreshToken);
 
       return {
         message: 'Login successful',
-        data: {
-          accessToken,
-          refreshToken,
-        },
       };
     },
     {
@@ -79,19 +98,17 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
   .post(
     '/refresh',
-    async ({ body }) => {
+    async ({ body, set }) => {
       try {
         const decoded = jwt.verify(body.refreshToken, JWT_SECRET);
 
-        const accessToken = jwt.sign({ userId: (decoded as any).userId }, JWT_SECRET, {
-          expiresIn: JWT_EXPIRATION,
-        });
+        const accessToken = generateAccessToken((decoded as any).userId);
+
+        set.headers['Set-Cookie'] =
+          `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}`; // 1 heure
 
         return {
           message: 'Token refreshed successfully',
-          data: {
-            accessToken,
-          },
         };
       } catch (error) {
         return {
@@ -105,14 +122,13 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
     }
   )
 
-  .post(
-    '/logout',
-    async () => {
-      return {
-        message: 'Logout successful',
-      };
-    },
-    {
-      body: refreshBodySchema,
-    }
-  );
+  .post('/logout', async ({ set }) => {
+    set.headers['Set-Cookie'] = [
+      `accessToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
+      `refreshToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
+    ].join('; ');
+
+    return {
+      message: 'Logout successful',
+    };
+  });

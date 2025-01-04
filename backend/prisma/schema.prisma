@@ -30,7 +30,7 @@ model Income {
   category  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation("UserIncomes", fields: [userId], references: [id])
+  user      User     @relation("UserIncomes", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Expense {
@@ -41,5 +41,5 @@ model Expense {
   category  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation("UserExpenses", fields: [userId], references: [id])
+  user      User     @relation("UserExpenses", fields: [userId], references: [id], onDelete: Cascade)
 }

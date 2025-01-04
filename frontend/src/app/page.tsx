@@ -21,7 +21,7 @@ export default function Landing() {
             { href: "#about", title: "About", icon: <InformationCircleIcon /> },
             { href: "#pricing", title: "Pricing", icon: <CurrencyDollarIcon /> },
             {
-              href: AppRoutes.AUTH,
+              href: AppRoutes.DASHBOARD,
               title: "My Wallet",
               icon: <ArrowRightIcon />,
             },
