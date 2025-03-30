@@ -8,22 +8,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import WhereDoISpendLogo from "@/components/ui/Logo/WhereDoISpendLogo";
+import { useUser } from "@/hooks/useUser";
 import { Bars2Icon } from "@heroicons/react/16/solid";
 
 import LogoutButtonMobile from "../ui/LogoutButtonMobile";
 
 const ProtectedHeaderMobile = () => {
-  const user = {
-    id: 0,
-    email: "test@test.com",
-    name: "test name",
-    avatar: "",
-    isSubscribed: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    expenses: [],
-    incomes: [],
-  };
+  const { user, isLoading } = useUser();
+
+  if (isLoading || !user) {
+    return null;
+  }
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">

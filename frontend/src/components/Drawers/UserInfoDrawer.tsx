@@ -21,6 +21,7 @@ import { Trash2 } from "lucide-react";
 const UserInfoDrawer = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+
   const drawerId = "user-info-drawer";
 
   const handleDeleteClick = () => {
@@ -45,8 +46,10 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
       <DrawerContent id={drawerId} className="bg-background dark:bg-customBlack-500">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle className="text-customWhite-500">User Information</DrawerTitle>
-            <DrawerDescription className="text-customWhite-300">View and manage user details</DrawerDescription>
+            <DrawerTitle className="text-customBlack-500 dark:text-customWhite-300">User Information</DrawerTitle>
+            <DrawerDescription className="text-customBlack-500 dark:text-customWhite-300">
+              View and manage user details
+            </DrawerDescription>
           </DrawerHeader>
 
           <div className="p-4 pb-0">
@@ -56,22 +59,22 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
                 <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
               </Avatar>
               <div>
-                <h3 className="text-lg font-semibold text-customWhite-500">{user.name}</h3>
-                <p className="text-sm text-customWhite-300">{user.email}</p>
+                <h3 className="text-lg font-semibold text-customBlack-500 dark:text-customWhite-300">{user.name}</h3>
+                <p className="text-sm text-customBlack-500 dark:text-customWhite-300">{user.email}</p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <p className="text-sm text-customWhite-500">
+              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
                 <span className="font-medium">Account Created:</span>{" "}
-                <span className="text-customWhite-300">
+                <span className="text-customBlack-500 dark:text-customWhite-300">
                   {user?.updatedAt ? format(new Date(user.updatedAt), "PP") : "N/A"}
                 </span>
               </p>
 
-              <p className="text-sm text-customWhite-500">
+              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
                 <span className="font-medium">Last Updated:</span>{" "}
-                <span className="text-customWhite-300">
+                <span className="text-customBlack-500 dark:text-customWhite-300">
                   {user?.updatedAt ? format(new Date(user.updatedAt), "PP") : "N/A"}
                 </span>
               </p>
