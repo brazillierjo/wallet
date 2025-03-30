@@ -64,24 +64,27 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
           <div className="p-4 pb-0">
             <div className="mb-4 flex flex-col">
               <AvatarSelector user={user} />
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold text-customBlack-500 dark:text-customWhite-300">
-                  {user.name ?? "User"}
-                </h3>
 
-                <p className="text-sm text-customBlack-500 dark:text-customWhite-300">{user.email}</p>
+              <div className="mt-8">
+                <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
+                  <span className="font-normal">Name :</span> {user.name ?? "User"}
+                </p>
+
+                <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
+                  <span className="font-normal">Email :</span> {user.email}
+                </p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
+              <p className="text-customBlack-500 dark:text-customWhite-300">
                 <span className="font-medium">Account Created:</span>{" "}
                 <span className="text-customBlack-500 dark:text-customWhite-300">
                   {user?.updatedAt ? format(new Date(user.updatedAt), "PP") : "N/A"}
                 </span>
               </p>
 
-              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
+              <p className="text-customBlack-500 dark:text-customWhite-300">
                 <span className="font-medium">Last Updated:</span>{" "}
                 <span className="text-customBlack-500 dark:text-customWhite-300">
                   {user?.updatedAt ? format(new Date(user.updatedAt), "PP") : "N/A"}
