@@ -8,17 +8,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import WhereDoISpendLogo from "@/components/ui/Logo/WhereDoISpendLogo";
-import { useUser } from "@/hooks/useUser";
 import { Bars2Icon } from "@heroicons/react/16/solid";
 
 import LogoutButtonMobile from "../ui/LogoutButtonMobile";
 
 const ProtectedHeaderMobile = () => {
-  const { user, isLoading } = useUser();
-
-  if (isLoading || !user) {
-    return null;
-  }
+  const user2 = {
+    id: 0,
+    email: "test@test.com",
+    name: "test name",
+    avatar: "",
+    isSubscribed: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    expenses: [],
+    incomes: [],
+  };
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">
@@ -38,11 +43,11 @@ const ProtectedHeaderMobile = () => {
             className="flex w-52 origin-top-right flex-col gap-2 rounded-xl bg-white p-1 text-sm/6 text-white dark:bg-customBlack-800"
           >
             <DropdownMenuItem asChild>
-              <UserInfoDrawer user={user} />
+              <UserInfoDrawer user={user2} />
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <UserPlanDrawer user={user} />
+              <UserPlanDrawer user={user2} />
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>

@@ -5,6 +5,13 @@ interface APIError extends Error {
   status?: number;
 }
 
+// Fonction pour récupérer le token d'accès depuis les cookies
+const getAccessToken = (): string | null => {
+  const cookies = document.cookie.split(";");
+  const accessTokenCookie = cookies.find((cookie) => cookie.trim().startsWith("accessToken="));
+  return accessTokenCookie ? accessTokenCookie.split("=")[1] : null;
+};
+
 // Flag pour éviter les appels multiples de refresh token
 let isRefreshing = false;
 
@@ -32,12 +39,14 @@ const processQueue = (error: any = null) => {
 // Fonction principale pour gérer les requêtes API avec gestion automatique du refresh token
 export const fetchAPI = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const accessToken = getAccessToken();
 
   try {
     // 1. Tentative de la requête initiale
     const response = await fetch(`${baseUrl}${endpoint}`, {
       headers: {
         "Content-Type": "application/json",
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
         ...(options.headers || {}),
       },
       credentials: "include", // Important pour envoyer les cookies avec la requête

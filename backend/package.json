@@ -14,7 +14,6 @@
     "@elysiajs/cors": "^1.2.0",
     "@elysiajs/jwt": "^1.2.0",
     "@node-rs/bcrypt": "^1.10.7",
-    "@prisma/client": "^5.22.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
     "elysia": "latest",
@@ -22,12 +21,15 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "@prisma/client": "^6.5.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.9",
     "bun-types": "latest",
+    "i": "^0.3.7",
+    "npm": "^11.2.0",
     "prettier": "^3.5.3",
-    "prisma": "^5.22.0"
+    "prisma": "^6.5.0"
   },
   "module": "src/index.js"
 }
