@@ -2,7 +2,6 @@ import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
 import WhereDoISpendLogo from "@/components/ui/Logo/WhereDoISpendLogo";
 import LogoutButton from "@/components/ui/LogoutButton";
-import { useUser } from "@/hooks/useUser";
 
 const ProtectedHeaderDesktop = () => {
   const user = {
