@@ -3,13 +3,20 @@ import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET!;
 
 export const authenticate = (headers: Record<string, string | string[] | undefined>): number => {
-  const authHeader = headers['Authorization'] || headers['authorization'];
+  // Récupérer le cookie accessToken
+  const cookieHeader = headers.cookie;
+  const cookieString = Array.isArray(cookieHeader) ? cookieHeader[0] : cookieHeader;
+  const cookies = cookieString?.split(';') || [];
+  const accessTokenCookie = cookies.find((cookie: string) =>
+    cookie.trim().startsWith('accessToken=')
+  );
 
-  const authValue = Array.isArray(authHeader) ? authHeader[0] : authHeader;
+  if (!accessTokenCookie) {
+    throw new Error('Unauthorized');
+  }
 
-  if (!authValue?.startsWith('Bearer ')) throw new Error('Unauthorized');
+  const token = accessTokenCookie.split('=')[1];
 
-  const token = authValue.split(' ')[1];
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
     return parseInt(decoded.userId, 10);
