@@ -21,6 +21,7 @@ import { Trash2 } from "lucide-react";
 const UserInfoDrawer = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const drawerId = "user-info-drawer";
 
   const handleDeleteClick = () => {
     if (confirmDelete) console.log("confirm delete");
@@ -30,12 +31,18 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button className="w-full lg:w-fit" variant="secondary">
+        <Button
+          className="w-full lg:w-fit"
+          variant="secondary"
+          aria-haspopup="dialog"
+          aria-expanded={isOpen}
+          aria-controls={drawerId}
+        >
           My account
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="bg-background dark:bg-customBlack-500">
+      <DrawerContent id={drawerId} className="bg-background dark:bg-customBlack-500">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle className="text-customWhite-500">User Information</DrawerTitle>
