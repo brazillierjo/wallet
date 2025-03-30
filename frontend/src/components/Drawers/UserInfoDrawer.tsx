@@ -70,6 +70,7 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
           <Button className="w-full lg:hidden" variant="secondary">
             My profile
           </Button>
+
           <Button variant="ghost" className="relative hidden h-8 w-8 rounded-full lg:flex">
             <Avatar className="h-8 w-8">
               <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
