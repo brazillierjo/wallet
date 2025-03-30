@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AvatarSelector from "@/components/ui/avatar-selector";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -45,33 +46,25 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button
-          className="w-full lg:w-fit"
-          variant="secondary"
-          aria-haspopup="dialog"
-          aria-expanded={isOpen}
-          aria-controls={drawerId}
-        >
-          My account
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+          <Avatar className="h-10 w-10 rounded-full bg-slate-200 dark:border-white">
+            <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
+            <AvatarFallback>{user.name?.charAt(0) ?? "?"}</AvatarFallback>
+          </Avatar>
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent id={drawerId} className="bg-background dark:bg-customBlack-500">
+      <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle className="text-customBlack-500 dark:text-customWhite-300">User Information</DrawerTitle>
-            <DrawerDescription className="text-customBlack-500 dark:text-customWhite-300">
-              View and manage user details
-            </DrawerDescription>
+            <DrawerTitle>User Profile</DrawerTitle>
+            <DrawerDescription>Manage your account settings and preferences.</DrawerDescription>
           </DrawerHeader>
 
           <div className="p-4 pb-0">
-            <div className="mb-4 flex items-center space-x-4">
-              <Avatar className="h-20 w-20">
-                <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
-                <AvatarFallback>{user.name?.charAt(0) ?? "?"}</AvatarFallback>
-              </Avatar>
-              <div>
+            <div className="mb-4 flex flex-col items-center">
+              <AvatarSelector user={user} />
+              <div className="mt-4 text-center">
                 <h3 className="text-lg font-semibold text-customBlack-500 dark:text-customWhite-300">
                   {user.name ?? "User"}
                 </h3>
