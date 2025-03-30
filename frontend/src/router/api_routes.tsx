@@ -1,12 +1,12 @@
 export enum ApiRoutes {
-  AUTH_REGISTER = "/auth/register",
-  AUTH_LOGIN = "/auth/login",
-  AUTH_REFRESH = "/auth/refresh",
-  AUTH_LOGOUT = "/auth/logout",
+  AUTH_REGISTER = "/api/auth/register",
+  AUTH_LOGIN = "/api/auth/login",
+  AUTH_REFRESH = "/api/auth/refresh",
+  AUTH_LOGOUT = "/api/auth/logout",
 
-  USER = "/user/profile",
-  USER_DELETE = "/user/account",
+  USER = "/api/user/profile",
+  USER_DELETE = "/api/user/account",
 
-  INCOMES = "/incomes",
-  EXPENSES = "/expenses",
+  INCOMES = "/api/incomes",
+  EXPENSES = "/api/expenses",
 }
