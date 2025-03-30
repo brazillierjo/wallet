@@ -1,5 +1,4 @@
 import { ApiRoutes } from "@/router/api_routes";
-import { fetchAPI } from "@/utils/fetchApi";
 
 export interface LoginRequest {
   email: string;
@@ -17,8 +16,18 @@ export interface LoginResponse {
 }
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  return await fetchAPI<LoginResponse>(ApiRoutes.AUTH_LOGIN, {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const response = await fetch(`${baseUrl}${ApiRoutes.AUTH_LOGIN}`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return await response.json();
 };

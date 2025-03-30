@@ -1,5 +1,4 @@
 import { ApiRoutes } from "@/router/api_routes";
-import { fetchAPI } from "@/utils/fetchApi";
 
 export interface RegisterRequest {
   email: string;
@@ -15,8 +14,18 @@ export interface RegisterResponse {
 }
 
 export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
-  return await fetchAPI<RegisterResponse>(ApiRoutes.AUTH_REGISTER, {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const response = await fetch(`${baseUrl}${ApiRoutes.AUTH_REGISTER}`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return await response.json();
 };

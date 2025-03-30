@@ -5,11 +5,17 @@ import LogoutButton from "@/components/ui/LogoutButton";
 import { useUser } from "@/hooks/useUser";
 
 const ProtectedHeaderDesktop = () => {
-  const { user, isLoading } = useUser();
-
-  if (isLoading || !user) {
-    return null;
-  }
+  const user = {
+    id: 0,
+    email: "test@test.com",
+    name: "test name",
+    avatar: "",
+    isSubscribed: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    expenses: [],
+    incomes: [],
+  };
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">
