@@ -15,16 +15,21 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Input } from "@/components/ui/input";
 import { useDeleteUser } from "@/hooks/mutations/user/useDeleteUser";
+import { useUpdateUser } from "@/hooks/mutations/user/useUpdateUser";
 import { User } from "@/utils/interfaces/user";
 import { format } from "date-fns";
-import { Trash2 } from "lucide-react";
+import { Edit2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 const UserInfoDrawer = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const { mutateAsync: deleteUser, isPending } = useDeleteUser();
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [name, setName] = useState(user.name);
+  const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
+  const { mutate: updateUser, isPending: isUpdating } = useUpdateUser();
 
   const drawerId = "user-info-drawer";
 
@@ -43,11 +48,28 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
     }
   };
 
+  const handleNameUpdate = () => {
+    if (name.trim() === "") {
+      toast.error("Name cannot be empty");
+      return;
+    }
+
+    updateUser(
+      { name: name.trim() },
+      {
+        onSuccess: () => {
+          setIsEditingName(false);
+          toast.success("Name updated successfully");
+        },
+      }
+    );
+  };
+
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-10 w-10 rounded-full bg-slate-200 dark:border-white">
+          <Avatar className="h-8 w-8">
             <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
             <AvatarFallback>{user.name?.charAt(0) ?? "?"}</AvatarFallback>
           </Avatar>
@@ -66,35 +88,82 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
               <AvatarSelector user={user} />
 
               <div className="mt-8">
-                <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
-                  <span className="font-normal">Name :</span> {user.name ?? "User"}
-                </p>
+                <div className="group relative">
+                  {isEditingName ? (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="h-8 w-full"
+                        autoFocus
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            handleNameUpdate();
+                          }
+                        }}
+                      />
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleNameUpdate}
+                        disabled={isUpdating}
+                        className="h-8 w-8 p-0"
+                      >
+                        ✓
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setIsEditingName(false);
+                          setName(user.name);
+                        }}
+                        className="h-8 w-8 p-0"
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                  ) : (
+                    <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
+                      <span className="font-normal">Name :</span>{" "}
+                      <span className="group-hover:cursor-pointer">{user.name ?? "User"}</span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="ml-2 h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
+                        onClick={() => setIsEditingName(true)}
+                      >
+                        <Edit2 className="h-4 w-4" />
+                      </Button>
+                    </p>
+                  )}
 
-                <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
-                  <span className="font-normal">Email :</span> {user.email}
-                </p>
+                  <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
+                    <span className="font-normal">Email :</span> {user.email}
+                  </p>
+                </div>
               </div>
             </div>
 
             <div className="space-y-2">
-              <p className="text-customBlack-500 dark:text-customWhite-300">
+              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
                 <span className="font-medium">Account Created:</span>{" "}
                 <span className="text-customBlack-500 dark:text-customWhite-300">
-                  {user?.updatedAt ? format(new Date(user.updatedAt), "PP") : "N/A"}
+                  {user?.createdAt ? format(new Date(user.createdAt), "PPp") : "N/A"}
                 </span>
               </p>
 
-              <p className="text-customBlack-500 dark:text-customWhite-300">
+              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
                 <span className="font-medium">Last Updated:</span>{" "}
                 <span className="text-customBlack-500 dark:text-customWhite-300">
-                  {user?.updatedAt ? format(new Date(user.updatedAt), "PP") : "N/A"}
+                  {user?.updatedAt ? format(new Date(user.updatedAt), "PPp") : "N/A"}
                 </span>
               </p>
             </div>
           </div>
 
           <DrawerFooter>
-            <Button variant="destructive" onClick={handleDeleteClick} disabled={isPending}>
+            <Button variant="destructive" onClick={handleDeleteClick} disabled={isDeleting}>
               <Trash2 className="mr-2 h-4 w-4" />
               {confirmDelete ? "Confirm Delete" : "Delete User"}
             </Button>
