@@ -86,13 +86,19 @@ export const userRoutes = new Elysia({ prefix: '/user' })
     }
   )
 
-  .delete('/account', async ({ headers }) => {
+  .delete('/account', async ({ headers, set }) => {
     try {
       const userId = authenticate(headers);
 
       await prisma.user.delete({
         where: { id: userId },
       });
+
+      // Clear auth cookies
+      set.headers['Set-Cookie'] = [
+        `accessToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
+        `refreshToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
+      ].join('; ');
 
       return {
         message: 'Account deleted successfully',

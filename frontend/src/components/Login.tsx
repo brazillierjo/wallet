@@ -6,6 +6,7 @@ import { useLogin } from "@/hooks/mutations/auth/useLogin";
 import { AppRoutes } from "@/router/app_routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -31,8 +32,14 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginForm> = async (formData) => {
     try {
       await loginMutation.mutateAsync(formData, {
-        onSuccess: () => {
-          router.push(AppRoutes.DASHBOARD);
+        onSuccess: (res) => {
+          if (res.status === "Unauthorized" && res.message === "Invalid credentials") {
+            toast.error("Invalid credentials", {
+              description: "Please check your email and password",
+            });
+          } else {
+            router.push(AppRoutes.DASHBOARD);
+          }
         },
       });
     } catch (error) {
@@ -70,12 +77,9 @@ const Login = () => {
 
           <button
             type="submit"
-            className={`w-full rounded-lg bg-blue-500 p-3 font-semibold text-white shadow transition hover:bg-blue-600 ${
-              loginMutation.isPending ? "opacity-50" : ""
-            }`}
-            disabled={loginMutation.isPending}
+            className="w-full rounded-lg bg-blue-500 p-3 text-white transition-all duration-300 hover:bg-blue-600"
           >
-            {loginMutation.isPending ? "Logging In..." : "Login"}
+            Sign in
           </button>
         </form>
       </div>

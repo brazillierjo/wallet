@@ -1,6 +1,6 @@
 import { getUser } from "@/services/user/getUser";
 import { User } from "@/utils/interfaces/user";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 interface UserResponse {
   message: string;
@@ -9,9 +9,14 @@ interface UserResponse {
   };
 }
 
+interface ApiError {
+  status: string;
+  message: string;
+}
+
 export const useGetUser = () => {
-  return useQuery<UserResponse, Error>({
+  return useQuery<UserResponse, ApiError>({
     queryKey: ["user"],
-    queryFn: () => getUser(),
-  });
+    queryFn: getUser,
+  } as UseQueryOptions<UserResponse, ApiError>);
 };
