@@ -1,15 +1,76 @@
-# Next.js Dockerized Application
+# Frontend
 
-## Prérequis
+## 🏗️ Architecture
 
-- [Docker](https://www.docker.com/) installé sur votre machine.
+- Built with [Next.js](https://nextjs.org/) 14 using App Router
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [shadcn/ui](https://ui.shadcn.com/) for beautiful and accessible components
+- Modern and responsive design
 
-## Installation
+## 🚀 Quick Start
 
-docker build -t walletoo .
+### Prerequisites
+- Node.js 18+ installed on your machine
+- Git for cloning the repository
 
-docker run -d -p 3000:3000 walletoo
+### Installation
 
-docker run -d -p 3000:3000 walletoo
+1. Install dependencies:
+```bash
+npm install
+```
 
-http://localhost:3000
+2. Start the development server:
+```bash
+npm run dev
+```
+
+The frontend will be available at [http://localhost:3000](http://localhost:3000)
+
+## 📁 Project Structure
+
+```
+frontend/
+├── app/                # App router pages
+├── components/         # React components
+├── public/            # Static files
+└── package.json       # Frontend dependencies
+```
+
+## 🛠️ Development
+
+The application is configured for development with hot-reload enabled. Any changes you make to the code will automatically trigger a rebuild.
+
+## 📜 Available Scripts
+
+```bash
+# Start development server
+npm run dev
+
+# Build the application
+npm run build
+
+# Start production server
+npm run start
+
+# Run tests
+npm run test
+
+# Lint the code
+npm run lint
+```
+
+## 📝 Environment Variables
+
+Create a `.env` file in the root of the frontend directory with the following variables:
+
+```env
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:3001
+
+# Port configuration
+PORT=3000
+
+# Node Environment
+NODE_ENV=development
+```
