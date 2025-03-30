@@ -62,12 +62,13 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
           </DrawerHeader>
 
           <div className="p-4 pb-0">
-            <div className="mb-4 flex flex-col items-center">
+            <div className="mb-4 flex flex-col">
               <AvatarSelector user={user} />
-              <div className="mt-4 text-center">
+              <div className="mt-4">
                 <h3 className="text-lg font-semibold text-customBlack-500 dark:text-customWhite-300">
                   {user.name ?? "User"}
                 </h3>
+
                 <p className="text-sm text-customBlack-500 dark:text-customWhite-300">{user.email}</p>
               </div>
             </div>
