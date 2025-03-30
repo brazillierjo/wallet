@@ -10,6 +10,8 @@ import {
 import WhereDoISpendLogo from "@/components/ui/Logo/WhereDoISpendLogo";
 import { Bars2Icon } from "@heroicons/react/16/solid";
 
+import LogoutButtonMobile from "../ui/LogoutButtonMobile";
+
 const ProtectedHeaderMobile = () => {
   const user = {
     id: 0,
@@ -30,7 +32,7 @@ const ProtectedHeaderMobile = () => {
       <div className="flex items-center gap-6">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" className="cursor-pointer" size="icon">
               <Bars2Icon className="h-6 w-6" />
               <span className="sr-only">Open menu</span>
             </Button>
@@ -46,6 +48,10 @@ const ProtectedHeaderMobile = () => {
 
             <DropdownMenuItem asChild>
               <UserPlanDrawer user={user} />
+            </DropdownMenuItem>
+
+            <DropdownMenuItem asChild>
+              <LogoutButtonMobile />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
