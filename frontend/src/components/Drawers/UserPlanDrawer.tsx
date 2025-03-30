@@ -31,7 +31,7 @@ const UserPlanDrawer = ({ user }: { user: User }) => {
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle className="text-customBlack-500 dark:text-customWhite-300">Current user plan</DrawerTitle>
-            <DrawerDescription className="text-customBlack-500 dark:text-customWhite-300">
+            <DrawerDescription className="text-customBlack-500 dark:text-customWhite-300" asChild>
               {!user?.isSubscribed ? (
                 <p className="my-6 flex items-center justify-start gap-3 text-base">
                   <CheckCircleIcon className="h-5 w-5 text-yellow-500" /> Pro plan
