@@ -128,16 +128,18 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
                       </Button>
                     </div>
                   ) : (
-                    <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
+                    <p
+                      onClick={() => setIsEditingName(true)}
+                      className="font-semibold text-customBlack-500 dark:text-customWhite-300"
+                    >
                       <span className="font-normal">Name :</span>{" "}
                       <span className="group-hover:cursor-pointer">{user.name ?? "User"}</span>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="ml-2 h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
-                        onClick={() => setIsEditingName(true)}
+                        className="ml-2 h-6 w-6 p-0 opacity-0 transition-opacity group-hover:opacity-100"
                       >
-                        <Edit2 className="h-4 w-4" />
+                        <Edit2 className="h-3 w-3" />
                       </Button>
                     </p>
                   )}
