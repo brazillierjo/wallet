@@ -37,7 +37,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
     } catch (error) {
       return {
         status: 'Unauthorized',
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired token' + error,
       };
     }
   })
@@ -78,7 +78,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
       } catch (error) {
         return {
           status: 'Unauthorized',
-          message: 'Invalid or expired token',
+          message: 'Invalid or expired token' + error,
         };
       }
     },
@@ -118,7 +118,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
     } catch (error) {
       return {
         status: 'Unauthorized',
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired token' + error,
       };
     }
   })
@@ -164,7 +164,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
       } catch (error) {
         return {
           status: 'Unauthorized',
-          message: 'Invalid or expired token',
+          message: 'Invalid or expired token' + error,
         };
       }
     },
@@ -195,7 +195,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
     } catch (error) {
       return {
         status: 'Unauthorized',
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired token' + error,
       };
     }
   });

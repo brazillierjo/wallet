@@ -34,7 +34,7 @@ export const userRoutes = new Elysia({ prefix: '/user' })
     } catch (error) {
       return {
         status: 'Unauthorized',
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired token' + error,
       };
     }
   })
@@ -71,7 +71,7 @@ export const userRoutes = new Elysia({ prefix: '/user' })
       } catch (error) {
         return {
           status: 'Unauthorized',
-          message: 'Invalid or expired token',
+          message: 'Invalid or expired token' + error,
         };
       }
     },
@@ -94,7 +94,7 @@ export const userRoutes = new Elysia({ prefix: '/user' })
     } catch (error) {
       return {
         status: 'Unauthorized',
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired token' + error,
       };
     }
   });

@@ -57,7 +57,7 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
     } catch (error) {
       return {
         status: 'Unauthorized',
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired token' + error,
       };
     }
   })
@@ -101,7 +101,7 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
     } catch (error) {
       return {
         status: 'Unauthorized',
-        message: 'Invalid or expired token',
+        message: 'Invalid or expired token' + error,
       };
     }
   });
