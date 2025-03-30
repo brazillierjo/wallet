@@ -63,7 +63,7 @@ const UserPlanDrawer = ({ user }: { user: User }) => {
               </div>
             ) : (
               <>
-                <h4 className="mb-4">Why choose Walletoo&apos;s Pro plan?</h4>
+                <h4 className="mb-4">Why choose WhereDoISpend&apos;s Pro plan?</h4>
 
                 <ul className="mb-7 list-inside list-decimal space-y-2 text-xs">
                   <li>Advanced financial comparisons with industry standards</li>

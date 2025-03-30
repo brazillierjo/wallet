@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import WalletooLogo from "@/components/ui/Logo/WalletooLogo";
+import WhereDoISpendLogo from "@/components/ui/Logo/WhereDoISpendLogo";
 import { Bars2Icon } from "@heroicons/react/16/solid";
 
 const ProtectedHeaderMobile = () => {
@@ -25,7 +25,7 @@ const ProtectedHeaderMobile = () => {
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">
-      <WalletooLogo />
+      <WhereDoISpendLogo />
 
       <div className="flex items-center gap-6">
         <DropdownMenu>

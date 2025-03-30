@@ -17,7 +17,7 @@ const appFont = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Walletoo | Simplified Financial Management",
+  title: "WhereDoISpend | Simplified Financial Management",
   description: "Manage your monthly budget with ease.",
 };
 

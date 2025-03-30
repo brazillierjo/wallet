@@ -1,6 +1,6 @@
 import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
-import WalletooLogo from "@/components/ui/Logo/WalletooLogo";
+import WhereDoISpendLogo from "@/components/ui/Logo/WhereDoISpendLogo";
 import LogoutButton from "@/components/ui/LogoutButton";
 
 const ProtectedHeaderDesktop = () => {
@@ -18,7 +18,7 @@ const ProtectedHeaderDesktop = () => {
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">
-      <WalletooLogo />
+      <WhereDoISpendLogo />
 
       <div className="flex items-center gap-6">
         <UserInfoDrawer user={user} />

@@ -2,9 +2,9 @@ import { FC, ReactNode, type JSX } from "react";
 import { Metadata } from "next/types";
 
 export const metadata: Metadata = {
-  title: "Walletoo - Mon dashboard",
+  title: "WhereDoISpend - Mon dashboard",
   description:
-    "Access your Walletoo dashboard to view insights, manage your account, and stay updated. Easily navigate through your data and activities.",
+    "Access your WhereDoISpend dashboard to view insights, manage your account, and stay updated. Easily navigate through your data and activities.",
 };
 
 type Props = {
