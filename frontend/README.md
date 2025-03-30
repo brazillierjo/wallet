@@ -2,7 +2,7 @@
 
 ## 🏗️ Architecture
 
-- Built with [Next.js](https://nextjs.org/) 14 using App Router
+- Built with [Next.js](https://nextjs.org/) 15 using App Router
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 - [shadcn/ui](https://ui.shadcn.com/) for beautiful and accessible components
 - Modern and responsive design
@@ -10,17 +10,20 @@
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ installed on your machine
 - Git for cloning the repository
 
 ### Installation
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Start the development server:
+
 ```bash
 npm run dev
 ```
