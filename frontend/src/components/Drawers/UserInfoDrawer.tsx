@@ -14,21 +14,32 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useDeleteUser } from "@/hooks/mutations/user/useDeleteUser";
 import { User } from "@/utils/interfaces/user";
 import { format } from "date-fns";
 import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 const UserInfoDrawer = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-
-  console.log(user);
+  const { mutateAsync: deleteUser, isPending } = useDeleteUser();
 
   const drawerId = "user-info-drawer";
 
   const handleDeleteClick = () => {
-    if (confirmDelete) console.log("confirm delete");
-    else setConfirmDelete(true);
+    if (confirmDelete) {
+      toast.promise(deleteUser(), {
+        loading: "Deleting your account...",
+        success: "Account deleted successfully",
+        error: "Failed to delete account",
+      });
+    } else {
+      setConfirmDelete(true);
+      toast.warning("Click again to confirm account deletion", {
+        description: "This action cannot be undone",
+      });
+    }
   };
 
   return (
@@ -86,9 +97,9 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
           </div>
 
           <DrawerFooter>
-            <Button variant="destructive" onClick={handleDeleteClick}>
+            <Button variant="destructive" onClick={handleDeleteClick} disabled={isPending}>
               <Trash2 className="mr-2 h-4 w-4" />
-              Delete User
+              {confirmDelete ? "Confirm Delete" : "Delete User"}
             </Button>
 
             <DrawerClose asChild>
