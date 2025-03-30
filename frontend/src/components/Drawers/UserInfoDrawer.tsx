@@ -31,8 +31,6 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const { mutate: updateUser, isPending: isUpdating } = useUpdateUser();
 
-  const drawerId = "user-info-drawer";
-
   const handleDeleteClick = () => {
     if (confirmDelete) {
       toast.promise(deleteUser(), {
@@ -68,15 +66,20 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
-            <AvatarFallback>{user.name?.charAt(0) ?? "?"}</AvatarFallback>
-          </Avatar>
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button className="w-full lg:hidden" variant="secondary">
+            My profile
+          </Button>
+          <Button variant="ghost" className="relative hidden h-8 w-8 rounded-full lg:flex">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
+              <AvatarFallback>{user.name?.charAt(0) ?? "?"}</AvatarFallback>
+            </Avatar>
+          </Button>
+        </div>
       </DrawerTrigger>
 
-      <DrawerContent>
+      <DrawerContent className="bg-background dark:bg-customBlack-500">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle>User Profile</DrawerTitle>
