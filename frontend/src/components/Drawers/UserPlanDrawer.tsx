@@ -30,8 +30,8 @@ const UserPlanDrawer = ({ user }: { user: User }) => {
       <DrawerContent className="bg-background dark:bg-customBlack-500">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle className="text-customWhite-500">Current user plan</DrawerTitle>
-            <DrawerDescription className="text-customWhite-300">
+            <DrawerTitle className="text-customBlack-500 dark:text-customWhite-300">Current user plan</DrawerTitle>
+            <DrawerDescription className="text-customBlack-500 dark:text-customWhite-300">
               {!user?.isSubscribed ? (
                 <p className="my-6 flex items-center justify-start gap-3 text-base">
                   <CheckCircleIcon className="h-5 w-5 text-yellow-500" /> Pro plan
@@ -80,7 +80,9 @@ const UserPlanDrawer = ({ user }: { user: User }) => {
 
           <DrawerFooter>
             <DrawerClose asChild>
-              <Button variant="outline">Close</Button>
+              <Button variant="outline" className="w-full">
+                Close
+              </Button>
             </DrawerClose>
           </DrawerFooter>
         </div>
