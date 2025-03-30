@@ -22,6 +22,8 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
+  console.log(user);
+
   const drawerId = "user-info-drawer";
 
   const handleDeleteClick = () => {
@@ -55,11 +57,13 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
           <div className="p-4 pb-0">
             <div className="mb-4 flex items-center space-x-4">
               <Avatar className="h-20 w-20">
-                <AvatarImage src={user.avatar ?? ""} alt={user.name} />
-                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
+                <AvatarFallback>{user.name?.charAt(0) ?? "?"}</AvatarFallback>
               </Avatar>
               <div>
-                <h3 className="text-lg font-semibold text-customBlack-500 dark:text-customWhite-300">{user.name}</h3>
+                <h3 className="text-lg font-semibold text-customBlack-500 dark:text-customWhite-300">
+                  {user.name ?? "User"}
+                </h3>
                 <p className="text-sm text-customBlack-500 dark:text-customWhite-300">{user.email}</p>
               </div>
             </div>

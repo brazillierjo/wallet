@@ -1,5 +1,3 @@
-import { Operation } from "./operation";
-
 export interface User {
   id: number;
   email: string;
@@ -8,6 +6,4 @@ export interface User {
   isSubscribed: boolean;
   createdAt: Date;
   updatedAt: Date;
-  expenses: Operation[];
-  incomes: Operation[];
 }

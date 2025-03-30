@@ -15,6 +15,9 @@ export const userRoutes = new Elysia({ prefix: '/user' })
           name: true,
           email: true,
           avatar: true,
+          isSubscribed: true,
+          createdAt: true,
+          updatedAt: true,
         },
       });
 
@@ -59,6 +62,9 @@ export const userRoutes = new Elysia({ prefix: '/user' })
             name: true,
             email: true,
             avatar: true,
+            isSubscribed: true,
+            createdAt: true,
+            updatedAt: true,
           },
         });
 
