@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Wallet - API Routes",
-    "description": "Collection d'APIs pour la gestion des finances d'un utilisateur",
+    "description": "Collection d'APIs pour la gestion des finances d'un utilisateur. L'authentification se fait via des cookies HttpOnly. Le token d'accès est automatiquement envoyé dans le cookie 'accessToken' après la connexion.",
     "_postman_id": "12345-abcde-67890-fghij",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -12,12 +12,8 @@
         "method": "GET",
         "url": {
           "raw": "http://localhost:3001/api",
-          "host": [
-            "http://localhost:3001/api"
-          ],
-          "path": [
-            "/"
-          ]
+          "host": ["http://localhost:3001/api"],
+          "path": ["/"]
         }
       }
     },
@@ -30,13 +26,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/register",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "register"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "register"]
             },
             "body": {
               "mode": "raw",
@@ -56,13 +47,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/login",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "login"]
             },
             "body": {
               "mode": "raw",
@@ -82,13 +68,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/refresh",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "refresh"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "refresh"]
             },
             "body": {
               "mode": "raw",
@@ -108,13 +89,8 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/auth/logout",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "auth",
-                "logout"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["auth", "logout"]
             },
             "body": {
               "mode": "raw",
@@ -139,20 +115,9 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/user/profile",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "user",
-                "profile"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["user", "profile"]
+            }
           }
         },
         {
@@ -161,23 +126,14 @@
             "method": "PUT",
             "url": {
               "raw": "http://localhost:3001/api/user/profile",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "user",
-                "profile"
-              ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["user", "profile"]
             },
             "body": {
               "mode": "raw",
               "raw": "{\"name\": \"New Name\", \"avatar\": \"new_avatar_url\"}"
             },
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -191,20 +147,9 @@
             "method": "DELETE",
             "url": {
               "raw": "http://localhost:3001/api/user/account",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "user",
-                "account"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["user", "account"]
+            }
           }
         }
       ]
@@ -218,20 +163,9 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/incomes",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "incomes"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "incomes"]
+            }
           }
         },
         {
@@ -240,21 +174,9 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/incomes/:id",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "incomes",
-                ":id"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "incomes", ":id"]
+            }
           }
         },
         {
@@ -263,23 +185,14 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/incomes",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "incomes"
-              ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "incomes"]
             },
             "body": {
               "mode": "raw",
               "raw": "{\"label\": \"Salary\", \"amount\": 5000, \"category\": \"Income\"}"
             },
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -293,24 +206,14 @@
             "method": "PUT",
             "url": {
               "raw": "http://localhost:3001/api/incomes/:id",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "incomes",
-                ":id"
-              ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "incomes", ":id"]
             },
             "body": {
               "mode": "raw",
               "raw": "{\"label\": \"Updated Salary\", \"amount\": 5500, \"category\": \"Income\"}"
             },
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -324,21 +227,9 @@
             "method": "DELETE",
             "url": {
               "raw": "http://localhost:3001/api/incomes/:id",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "incomes",
-                ":id"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "incomes", ":id"]
+            }
           }
         }
       ]
@@ -352,20 +243,9 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/expenses",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "expenses"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "expenses"]
+            }
           }
         },
         {
@@ -374,21 +254,9 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/expenses/:id",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "expenses",
-                ":id"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "expenses", ":id"]
+            }
           }
         },
         {
@@ -397,23 +265,14 @@
             "method": "POST",
             "url": {
               "raw": "http://localhost:3001/api/expenses",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "expenses"
-              ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "expenses"]
             },
             "body": {
               "mode": "raw",
               "raw": "{\"label\": \"Rent\", \"amount\": 1200, \"category\": \"Housing\"}"
             },
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -427,24 +286,14 @@
             "method": "PUT",
             "url": {
               "raw": "http://localhost:3001/api/expenses/:id",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "expenses",
-                ":id"
-              ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "expenses", ":id"]
             },
             "body": {
               "mode": "raw",
               "raw": "{\"label\": \"Updated Rent\", \"amount\": 1300, \"category\": \"Housing\"}"
             },
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -458,21 +307,9 @@
             "method": "DELETE",
             "url": {
               "raw": "http://localhost:3001/api/expenses/:id",
-              "host": [
-                "http://localhost:3001"
-              ],
-              "path": [
-                "api",
-                "expenses",
-                ":id"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001"],
+              "path": ["api", "expenses", ":id"]
+            }
           }
         }
       ]
@@ -486,20 +323,9 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/overview",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "stats",
-                "overview"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["stats", "overview"]
+            }
           }
         },
         {
@@ -508,20 +334,9 @@
             "method": "GET",
             "url": {
               "raw": "http://localhost:3001/api/stats/categories",
-              "host": [
-                "http://localhost:3001/api"
-              ],
-              "path": [
-                "stats",
-                "categories"
-              ]
-            },
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              }
-            ]
+              "host": ["http://localhost:3001/api"],
+              "path": ["stats", "categories"]
+            }
           }
         }
       ]
