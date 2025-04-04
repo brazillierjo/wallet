@@ -10,8 +10,15 @@ interface AuthLayoutProps {
 const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <ProtectedSidebar>{children}</ProtectedSidebar>
-      <Footer />
+      <ProtectedSidebar>
+        <div className="flex h-full flex-col">
+          {children}
+
+          <div className="mt-auto">
+            <Footer />
+          </div>
+        </div>
+      </ProtectedSidebar>
     </div>
   );
 };

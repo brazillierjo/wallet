@@ -20,6 +20,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { cn } from "@/lib/utils";
 import { AppRoutes } from "@/router/app_routes";
@@ -91,10 +92,8 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
         </SidebarMenu>
       </SidebarContent>
 
-      <SidebarFooter className="border-t p-4">
-        <div className="flex flex-col gap-2">
-          <LogoutButton variant={isCollapsed ? "icon" : "full"} />
-        </div>
+      <SidebarFooter>
+        <ThemeToggle />
       </SidebarFooter>
     </Sidebar>
   );
@@ -118,7 +117,8 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
           <div className="flex h-16 items-center border-b px-4">
             <SidebarTrigger />
           </div>
-          <main className="p-4">{children}</main>
+
+          <main className="h-full">{children}</main>
         </div>
       </div>
 
