@@ -77,9 +77,7 @@ const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
               </>
             )}
 
-            <Button className="w-full" variant="default">
-              {user?.isSubscribed ? "Change plan" : "Subscribe"}
-            </Button>
+            <Button className="w-full">{user?.isSubscribed ? "Change plan" : "Subscribe"}</Button>
           </div>
 
           <DrawerFooter>
