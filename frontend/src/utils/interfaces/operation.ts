@@ -1,5 +1,5 @@
 export interface Operation {
-  id: number;
+  id: string;
   label: string;
   amount: number;
   category?: string;

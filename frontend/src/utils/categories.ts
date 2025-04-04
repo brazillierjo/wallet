@@ -1,4 +1,4 @@
-export const incomeCategories: string[] = [
+export const incomeCategories = [
   "Salary",
   "Freelance",
   "Rental",
@@ -9,22 +9,25 @@ export const incomeCategories: string[] = [
   "Dividends",
   "Grants",
   "Other income",
-];
+] as const;
 
-export const expenseCategories: string[] = [
-  "Rent/Mortgage",
-  "Utilities",
-  "Groceries",
+export const expenseCategories = [
+  "Housing",
   "Transportation",
+  "Food",
+  "Utilities",
   "Insurance",
-  "Health care",
+  "Healthcare",
   "Entertainment",
+  "Shopping",
   "Education",
-  "Debt payments",
+  "Debt",
   "Savings",
-  "Subscriptions",
-  "Taxes",
-  "Clothing",
+  "Gifts",
   "Travel",
+  "Taxes",
   "Other expenses",
-];
+] as const;
+
+export type IncomeCategory = (typeof incomeCategories)[number];
+export type ExpenseCategory = (typeof expenseCategories)[number];
