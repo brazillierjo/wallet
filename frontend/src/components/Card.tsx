@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 
-import { cn } from "@/tools/cn";
+import { cn } from "@/utils/cn";
 
 interface Props {
   children: ReactNode;

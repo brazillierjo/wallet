@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 import { Providers } from "@/app/providers";
-import { cn } from "@/tools/cn";
+import { cn } from "@/utils/cn";
 
 import "../styles/globals.css";
 

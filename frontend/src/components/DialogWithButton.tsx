@@ -2,7 +2,7 @@
 
 import { FC, ReactNode, useState } from "react";
 
-import { cn } from "@/tools/cn";
+import { cn } from "@/utils/cn";
 import { Description, Dialog, DialogPanel } from "@headlessui/react";
 
 interface Props {

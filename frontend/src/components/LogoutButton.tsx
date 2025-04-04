@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useLogout } from "@/hooks/mutations/auth/useLogout";
-import { cn } from "@/lib/utils";
 import { AppRoutes } from "@/router/app_routes";
+import { cn } from "@/utils/utils";
 import { LogOut } from "lucide-react";
 
 interface LogoutButtonProps {

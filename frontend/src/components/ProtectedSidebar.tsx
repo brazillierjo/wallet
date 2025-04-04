@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 
 import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
-import WaletooLogo from "@/components/ui/Logo/WaletooLogo";
-import LogoutButton from "@/components/ui/LogoutButton";
+import WaletooLogo from "@/components/Logo/WaletooLogo";
+import LogoutButton from "@/components/LogoutButton";
 import {
   Sidebar,
   SidebarContent,
@@ -22,8 +22,8 @@ import {
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useGetUser } from "@/hooks/mutations/user/useGetUser";
-import { cn } from "@/lib/utils";
 import { AppRoutes } from "@/router/app_routes";
+import { cn } from "@/utils/utils";
 import { LayoutDashboard, Receipt, User } from "lucide-react";
 
 interface ProtectedSidebarProps {

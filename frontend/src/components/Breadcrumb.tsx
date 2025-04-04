@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 
 import { AppRoutes } from "@/router/app_routes";
-import { cn } from "@/tools/cn";
+import { cn } from "@/utils/cn";
 
 interface BreadcrumbItem {
   label: string;

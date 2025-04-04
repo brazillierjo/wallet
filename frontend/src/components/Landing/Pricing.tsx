@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { AppRoutes } from "@/router/app_routes";
-import { cn } from "@/tools/cn";
+import { cn } from "@/utils/cn";
 import { Switch } from "@headlessui/react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 

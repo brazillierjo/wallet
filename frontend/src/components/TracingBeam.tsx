@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-import { cn } from "@/tools/cn";
+import { cn } from "@/utils/cn";
 import { motion, useScroll, useSpring, useTransform, useVelocity } from "framer-motion";
 
 export const TracingBeam = ({ children, className }: { children: React.ReactNode; className?: string }) => {

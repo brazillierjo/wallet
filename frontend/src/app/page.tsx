@@ -1,12 +1,12 @@
 "use client";
 
+import { FloatingDock } from "@/components/FloatingDock";
 import Footer from "@/components/Footer/Footer";
 import HeroSection from "@/components/Landing/HeroSection";
 import KeyFeatures from "@/components/Landing/KeyFeatures";
 import Pricing from "@/components/Landing/Pricing";
-import { FloatingDock } from "@/components/ui/FloatingDock";
-import WaletooLogo from "@/components/ui/Logo/WaletooLogo";
-import { TracingBeam } from "@/components/ui/TracingBeam";
+import WaletooLogo from "@/components/Logo/WaletooLogo";
+import { TracingBeam } from "@/components/TracingBeam";
 import { AppRoutes } from "@/router/app_routes";
 import { ArrowRightIcon, CurrencyDollarIcon, InformationCircleIcon } from "@heroicons/react/16/solid";
 
