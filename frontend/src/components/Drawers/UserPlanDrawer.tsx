@@ -13,20 +13,23 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { User } from "@/utils/interfaces/user";
 import { CheckCircleIcon, ClockIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
-const UserPlanDrawer = ({ user }: { user: User }) => {
-  const [isOpen, setIsOpen] = useState(false);
+interface UserPlanDrawerProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
+  const { data: userResponse } = useGetUser();
+  const user = userResponse?.data?.user;
+
+  if (!user) return null;
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <Button className="w-full lg:w-fit" variant="secondary">
-          My plan
-        </Button>
-      </DrawerTrigger>
-
       <DrawerContent className="bg-background dark:bg-customBlack-500">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
@@ -63,7 +66,7 @@ const UserPlanDrawer = ({ user }: { user: User }) => {
               </div>
             ) : (
               <>
-                <h4 className="mb-4">Why choose WhereDoISpend&apos;s Pro plan?</h4>
+                <h4 className="mb-4">Why choose Waletoo&apos;s Pro plan?</h4>
 
                 <ul className="mb-7 list-inside list-decimal space-y-2 text-xs">
                   <li>Advanced financial comparisons with industry standards</li>

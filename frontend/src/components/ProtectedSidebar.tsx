@@ -1,11 +1,11 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
-import { Button } from "@/components/ui/button";
+import WaletooLogo from "@/components/ui/Logo/WaletooLogo";
 import LogoutButton from "@/components/ui/LogoutButton";
 import {
   Sidebar,
@@ -19,31 +19,34 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useUser } from "@/hooks/queries/user/useUser";
+import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { cn } from "@/lib/utils";
 import { AppRoutes } from "@/router/app_routes";
-import { CreditCard, LayoutDashboard, LogOut } from "lucide-react";
+import { LayoutDashboard, Receipt } from "lucide-react";
 
 interface ProtectedSidebarProps {
   children: React.ReactNode;
 }
 
-// Composant interne qui utilise useSidebar
-const SidebarContentWrapper = () => {
+type SidebarContentWrapperProps = {
+  setDrawerPlanOpen: (open: boolean) => void;
+};
+
+const SidebarContentWrapper = ({ setDrawerPlanOpen }: SidebarContentWrapperProps) => {
   const pathname = usePathname();
-  const { data: user } = useUser();
   const { state } = useSidebar();
+
   const isCollapsed = state === "collapsed";
 
   return (
     <Sidebar>
       <SidebarHeader className="flex h-16 items-center border-b px-4">
         <Link href={AppRoutes.DASHBOARD} className="flex items-center gap-2 font-semibold">
-          <span className="text-xl">Wallet</span>
+          <WaletooLogo />
         </Link>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="p-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
@@ -59,12 +62,23 @@ const SidebarContentWrapper = () => {
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <button
+                onClick={() => setDrawerPlanOpen(true)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent"
+              >
+                <Receipt className="h-5 w-5" />
+                <span>My plan</span>
+              </button>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
 
       <SidebarFooter className="border-t p-4">
         <div className="flex flex-col gap-2">
-          {user && <UserPlanDrawer user={user} />}
           <LogoutButton variant={isCollapsed ? "icon" : "full"} />
         </div>
       </SidebarFooter>
@@ -73,10 +87,18 @@ const SidebarContentWrapper = () => {
 };
 
 const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
+  const [drawerPlanOpen, setDrawerPlanOpen] = useState(false);
+
+  const { data: userResponse } = useGetUser();
+  const user = userResponse?.data?.user;
+
+  if (!user) return null;
+
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-full w-full">
-        <SidebarContentWrapper />
+        <SidebarContentWrapper setDrawerPlanOpen={setDrawerPlanOpen} />
+
         <div className="flex-1">
           <div className="flex h-16 items-center border-b px-4">
             <SidebarTrigger />
@@ -84,6 +106,8 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
           <main className="p-4">{children}</main>
         </div>
       </div>
+
+      <UserPlanDrawer isOpen={drawerPlanOpen} setIsOpen={setDrawerPlanOpen} />
     </SidebarProvider>
   );
 };

@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import WhereDoISpendLogo from "@/components/ui/Logo/WhereDoISpendLogo";
+import WaletooLogo from "@/components/ui/Logo/WaletooLogo";
 import LogoutButtonMobile from "@/components/ui/LogoutButtonMobile";
 import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { Bars2Icon } from "@heroicons/react/16/solid";
@@ -22,7 +22,7 @@ const ProtectedHeaderMobile = () => {
 
   return (
     <div className="flex w-full justify-between bg-customWhite-500 px-4 py-2 dark:bg-customBlack-500">
-      <WhereDoISpendLogo />
+      <WaletooLogo />
 
       <div className="flex items-center gap-6">
         <DropdownMenu>

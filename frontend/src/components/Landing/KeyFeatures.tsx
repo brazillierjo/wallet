@@ -15,9 +15,9 @@ const KeyFeatures = () => {
           </h2>
 
           <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            WhereDoISpend provides a comprehensive set of tools designed to give you full control over your personal
-            finances. Benefit from personalized insights, expert financial advice, and smart tools to manage your money
-            more effectively.
+            Waletoo provides a comprehensive set of tools designed to give you full control over your personal finances.
+            Benefit from personalized insights, expert financial advice, and smart tools to manage your money more
+            effectively.
           </p>
         </div>
       </div>

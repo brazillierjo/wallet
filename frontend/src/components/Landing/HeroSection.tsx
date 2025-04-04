@@ -11,16 +11,15 @@ const HeroSection = () => {
       <div className="flex flex-col justify-center gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-            Empower your financial journey with WhereDoISpend
+            Empower your financial journey with Waletoo
           </h1>
 
           <p className="mt-4 max-w-[600px] md:text-xl">
-            Enter your income and expenses effortlessly, and gain tailored insights with personalized charts.
-            WhereDoISpend offers expert guidance to help you make informed financial decisions and optimize your
-            financial health.
+            Enter your income and expenses effortlessly, and gain tailored insights with personalized charts. Waletoo
+            offers expert guidance to help you make informed financial decisions and optimize your financial health.
           </p>
 
-          <p className="mt-4">WhereDoISpend does not connect with your bank account.</p>
+          <p className="mt-4">Waletoo does not connect with your bank account.</p>
         </div>
 
         <Link

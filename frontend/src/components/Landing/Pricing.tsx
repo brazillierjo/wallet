@@ -19,7 +19,7 @@ const Pricing = () => {
             <div className="inline-block rounded-lg px-3 py-1 text-sm">Pricing</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Affordable plans for everyone</h2>
             <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              WhereDoISpend offers flexible pricing plans to fit your needs and budget. Start your journey to financial
+              Waletoo offers flexible pricing plans to fit your needs and budget. Start your journey to financial
               freedom today.
             </p>
           </div>
