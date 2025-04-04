@@ -17,19 +17,27 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { useDeleteUser } from "@/hooks/mutations/user/useDeleteUser";
+import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { useUpdateUser } from "@/hooks/mutations/user/useUpdateUser";
 import { User } from "@/utils/interfaces/user";
 import { format } from "date-fns";
 import { Edit2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-const UserInfoDrawer = ({ user }: { user: User }) => {
-  const [isOpen, setIsOpen] = useState(false);
+interface UserInfoDrawerProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
-  const [name, setName] = useState(user.name);
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const { mutate: updateUser, isPending: isUpdating } = useUpdateUser();
+  const { data: userResponse } = useGetUser();
+
+  const user = userResponse?.data?.user;
+  const [name, setName] = useState(user?.name);
 
   const handleDeleteClick = () => {
     if (confirmDelete) {
@@ -47,13 +55,13 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
   };
 
   const handleNameUpdate = () => {
-    if (name.trim() === "") {
+    if (name?.trim() === "") {
       toast.error("Name cannot be empty");
       return;
     }
 
     updateUser(
-      { name: name.trim() },
+      { name: name?.trim() },
       {
         onSuccess: () => {
           setIsEditingName(false);
@@ -63,23 +71,10 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
     );
   };
 
+  if (!user) return null;
+
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
-        <div className="flex items-center gap-2">
-          <Button className="w-full lg:hidden" variant="secondary">
-            My profile
-          </Button>
-
-          <Button variant="ghost" className="relative hidden h-8 w-8 rounded-full lg:flex">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src={user.avatar ?? ""} alt={user.name ?? "User"} />
-              <AvatarFallback>{user.name?.charAt(0) ?? "?"}</AvatarFallback>
-            </Avatar>
-          </Button>
-        </div>
-      </DrawerTrigger>
-
       <DrawerContent className="bg-background dark:bg-customBlack-500">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
@@ -96,7 +91,7 @@ const UserInfoDrawer = ({ user }: { user: User }) => {
                   {isEditingName ? (
                     <div className="flex items-center gap-2">
                       <Input
-                        value={name}
+                        value={user?.name}
                         onChange={(e) => setName(e.target.value)}
                         className="h-8 w-full"
                         autoFocus

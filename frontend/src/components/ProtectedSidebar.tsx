@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
 import WaletooLogo from "@/components/ui/Logo/WaletooLogo";
 import LogoutButton from "@/components/ui/LogoutButton";
@@ -22,7 +23,7 @@ import {
 import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { cn } from "@/lib/utils";
 import { AppRoutes } from "@/router/app_routes";
-import { LayoutDashboard, Receipt } from "lucide-react";
+import { LayoutDashboard, Receipt, User } from "lucide-react";
 
 interface ProtectedSidebarProps {
   children: React.ReactNode;
@@ -30,9 +31,10 @@ interface ProtectedSidebarProps {
 
 type SidebarContentWrapperProps = {
   setDrawerPlanOpen: (open: boolean) => void;
+  setDrawerUserInfoOpen: (open: boolean) => void;
 };
 
-const SidebarContentWrapper = ({ setDrawerPlanOpen }: SidebarContentWrapperProps) => {
+const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: SidebarContentWrapperProps) => {
   const pathname = usePathname();
   const { state } = useSidebar();
 
@@ -66,6 +68,18 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen }: SidebarContentWrapperProps
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <button
+                onClick={() => setDrawerUserInfoOpen(true)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent"
+              >
+                <User className="h-5 w-5" />
+                <span>Account</span>
+              </button>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <button
                 onClick={() => setDrawerPlanOpen(true)}
                 className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent"
               >
@@ -88,6 +102,7 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen }: SidebarContentWrapperProps
 
 const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
   const [drawerPlanOpen, setDrawerPlanOpen] = useState(false);
+  const [drawerUserInfoOpen, setDrawerUserInfoOpen] = useState(false);
 
   const { data: userResponse } = useGetUser();
   const user = userResponse?.data?.user;
@@ -97,7 +112,7 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-full w-full">
-        <SidebarContentWrapper setDrawerPlanOpen={setDrawerPlanOpen} />
+        <SidebarContentWrapper setDrawerPlanOpen={setDrawerPlanOpen} setDrawerUserInfoOpen={setDrawerUserInfoOpen} />
 
         <div className="flex-1">
           <div className="flex h-16 items-center border-b px-4">
@@ -107,6 +122,7 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
         </div>
       </div>
 
+      <UserInfoDrawer isOpen={drawerUserInfoOpen} setIsOpen={setDrawerUserInfoOpen} />
       <UserPlanDrawer isOpen={drawerPlanOpen} setIsOpen={setDrawerPlanOpen} />
     </SidebarProvider>
   );
