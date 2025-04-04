@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { Edit2, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
+import { DeleteOperationDrawer } from "./delete-operation-drawer";
 import { OperationFormDialog } from "./operation-form-dialog";
 
 interface OperationsTableProps {
@@ -26,7 +27,7 @@ interface OperationsTableProps {
 
 export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: OperationsTableProps) => {
   const [editingOperation, setEditingOperation] = useState<Operation | null>(null);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [deletingOperation, setDeletingOperation] = useState<Operation | null>(null);
 
   const deleteIncome = useDeleteIncome();
   const deleteExpense = useDeleteExpense();
@@ -37,30 +38,24 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: O
     setEditingOperation(operation);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirmDeleteId === id) {
-      // Confirmation clicked, proceed with deletion
-      const deleteMutation = type === OperationType.INCOMES ? deleteIncome : deleteExpense;
+  const handleDelete = (operation: Operation) => {
+    setDeletingOperation(operation);
+  };
 
-      deleteMutation.mutate(id, {
-        onSuccess: () => {
-          toast.success(`${type === OperationType.INCOMES ? "Income" : "Expense"} deleted successfully`);
-          setConfirmDeleteId(null);
-        },
-        onError: () => {
-          toast.error(`Failed to delete ${type === OperationType.INCOMES ? "income" : "expense"}`);
-        },
-      });
-    } else {
-      // First click, show confirmation
-      setConfirmDeleteId(id);
-      toast.warning(
-        `Click again to confirm deletion of this ${type === OperationType.INCOMES ? "income" : "expense"}`,
-        {
-          description: "This action cannot be undone",
-        }
-      );
-    }
+  const handleConfirmDelete = () => {
+    if (!deletingOperation) return;
+
+    const deleteMutation = type === OperationType.INCOMES ? deleteIncome : deleteExpense;
+
+    deleteMutation.mutate(deletingOperation.id, {
+      onSuccess: () => {
+        toast.success(`${type === OperationType.INCOMES ? "Income" : "Expense"} deleted successfully`);
+        setDeletingOperation(null);
+      },
+      onError: () => {
+        toast.error(`Failed to delete ${type === OperationType.INCOMES ? "income" : "expense"}`);
+      },
+    });
   };
 
   const handleEditSubmit = (data: OperationInput) => {
@@ -128,12 +123,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: O
                       <Button variant="ghost" size="icon" onClick={() => handleEdit(operation)}>
                         <Edit2 className="h-4 w-4" />
                       </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(operation.id)}
-                        className={confirmDeleteId === operation.id ? "text-red-500" : ""}
-                      >
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(operation)}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -155,6 +145,15 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: O
           type={type}
         />
       )}
+
+      <DeleteOperationDrawer
+        open={!!deletingOperation}
+        onOpenChange={(open) => !open && setDeletingOperation(null)}
+        onConfirm={handleConfirmDelete}
+        operation={deletingOperation}
+        type={type}
+        isLoading={type === OperationType.INCOMES ? deleteIncome.isPending : deleteExpense.isPending}
+      />
     </div>
   );
 };
