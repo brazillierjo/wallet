@@ -123,10 +123,7 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
                       </Button>
                     </div>
                   ) : (
-                    <p
-                      onClick={() => setIsEditingName(true)}
-                      className="font-semibold text-customBlack-500 dark:text-customWhite-300"
-                    >
+                    <p onClick={() => setIsEditingName(true)} className="font-semibold">
                       <span className="font-normal">Name :</span>{" "}
                       <span className="group-hover:cursor-pointer">{user.name ?? "User"}</span>
                       <Button
@@ -139,7 +136,7 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
                     </p>
                   )}
 
-                  <p className="font-semibold text-customBlack-500 dark:text-customWhite-300">
+                  <p className="font-semibold">
                     <span className="font-normal">Email :</span> {user.email}
                   </p>
                 </div>
@@ -147,18 +144,14 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
             </div>
 
             <div className="space-y-2">
-              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
+              <p className="text-sm">
                 <span className="font-medium">Account Created:</span>{" "}
-                <span className="text-customBlack-500 dark:text-customWhite-300">
-                  {user?.createdAt ? format(new Date(user.createdAt), "PPp") : "N/A"}
-                </span>
+                <span className="">{user?.createdAt ? format(new Date(user.createdAt), "PPp") : "N/A"}</span>
               </p>
 
-              <p className="text-sm text-customBlack-500 dark:text-customWhite-300">
+              <p className="text-sm">
                 <span className="font-medium">Last Updated:</span>{" "}
-                <span className="text-customBlack-500 dark:text-customWhite-300">
-                  {user?.updatedAt ? format(new Date(user.updatedAt), "PPp") : "N/A"}
-                </span>
+                <span className="">{user?.updatedAt ? format(new Date(user.updatedAt), "PPp") : "N/A"}</span>
               </p>
             </div>
           </div>

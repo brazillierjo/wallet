@@ -92,8 +92,11 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
         </SidebarMenu>
       </SidebarContent>
 
-      <SidebarFooter>
-        <ThemeToggle />
+      <SidebarFooter className="border-t p-4">
+        <div className="flex flex-col gap-2">
+          <LogoutButton variant={isCollapsed ? "icon" : "full"} />
+          <ThemeToggle />
+        </div>
       </SidebarFooter>
     </Sidebar>
   );

@@ -31,11 +31,11 @@ const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerContent className="bg-background dark:bg-customBlack-500">
+      <DrawerContent className="bg-background">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle className="text-customBlack-500 dark:text-customWhite-300">Current user plan</DrawerTitle>
-            <DrawerDescription className="text-customBlack-500 dark:text-customWhite-300" asChild>
+            <DrawerTitle>Current user plan</DrawerTitle>
+            <DrawerDescription asChild>
               {!user?.isSubscribed ? (
                 <p className="my-6 flex items-center justify-start gap-3 text-base">
                   <CheckCircleIcon className="h-5 w-5 text-yellow-500" /> Pro plan
@@ -52,7 +52,7 @@ const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
             {user?.isSubscribed ? (
               <div>
                 <div className="mb-4 flex items-center justify-between font-semibold">
-                  <p className="flex items-center rounded-full bg-customBlack-300 px-2 py-1 text-xs font-semibold text-white dark:bg-customWhite-300 dark:text-customBlack-800">
+                  <p className="flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                     <ClockIcon className="mr-1 h-3 w-3" /> TODO Days Left
                   </p>
 

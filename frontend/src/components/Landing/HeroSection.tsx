@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ImageHeroSection from "@/assets/png/landing_hero_section.png";
+import { Button } from "@/components/ui/button";
 import { AppRoutes } from "@/router/app_routes";
 import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
 
@@ -22,12 +23,9 @@ const HeroSection = () => {
           <p className="mt-4">Waletoo does not connect with your bank account.</p>
         </div>
 
-        <Link
-          href={AppRoutes.AUTH}
-          className="mx-auto inline-flex h-10 w-fit items-center justify-center rounded-md border border-input px-8 text-sm font-medium shadow-sm transition-all duration-200 hover:shadow-lg lg:mx-0"
-        >
-          Get started now
-        </Link>
+        <Button asChild className="mx-auto w-fit lg:mx-0">
+          <Link href={AppRoutes.AUTH}>Get started now</Link>
+        </Button>
       </div>
 
       <div className="my-auto">

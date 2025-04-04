@@ -8,11 +8,7 @@ interface Props {
 }
 
 const Card: FC<Props> = ({ children, classNames }) => {
-  return (
-    <div className={cn("w-full rounded bg-customWhite-500 px-4 py-0 shadow-xl dark:bg-customBlack-500", classNames)}>
-      {children}
-    </div>
-  );
+  return <div className={cn("w-full rounded px-4 py-0 shadow-xl", classNames)}>{children}</div>;
 };
 
 export default Card;

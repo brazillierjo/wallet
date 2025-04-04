@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
 import { AppRoutes } from "@/router/app_routes";
 import { cn } from "@/tools/cn";
 import { Switch } from "@headlessui/react";
@@ -118,11 +119,10 @@ const Pricing = () => {
               </li>
             </ul>
 
-            <Link
-              href={AppRoutes.AUTH}
-              className="w-full rounded-md bg-customBlack-300 py-2 text-center text-sm font-semibold text-white dark:bg-customWhite-300 dark:text-customBlack-800"
-            >
-              Go premium !
+            <Link href={AppRoutes.AUTH}>
+              <Button variant="default" className="w-full">
+                Go premium !
+              </Button>
             </Link>
           </div>
         </div>
