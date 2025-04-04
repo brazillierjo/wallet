@@ -56,8 +56,8 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
               <Link
                 href={AppRoutes.DASHBOARD}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent",
-                  pathname === AppRoutes.DASHBOARD ? "bg-accent" : "transparent"
+                  "flex items-center gap-3 rounded-lg px-3 py-2 text-foreground transition-all hover:bg-accent",
+                  pathname === AppRoutes.DASHBOARD ? "bg-secondary" : "transparent"
                 )}
               >
                 <LayoutDashboard className="h-5 w-5" />
