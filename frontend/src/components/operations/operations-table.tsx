@@ -94,20 +94,19 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: O
               <TableHead>Label</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Amount</TableHead>
-              <TableHead>Date</TableHead>
               <TableHead className="w-[100px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center">
+                <TableCell colSpan={4} className="text-center">
                   Loading...
                 </TableCell>
               </TableRow>
             ) : operations.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center">
+                <TableCell colSpan={4} className="text-center">
                   No {title.toLowerCase()} found
                 </TableCell>
               </TableRow>
@@ -117,7 +116,6 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: O
                   <TableCell className="font-medium">{operation.label}</TableCell>
                   <TableCell>{operation.category || "-"}</TableCell>
                   <TableCell>{operation.amount.toFixed(2)} €</TableCell>
-                  <TableCell>{format(new Date(operation.createdAt), "MMM d, yyyy")}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
                       <Button variant="ghost" size="icon" onClick={() => handleEdit(operation)}>
