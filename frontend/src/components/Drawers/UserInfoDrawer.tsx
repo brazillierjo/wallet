@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import AvatarSelector from "@/components/ui/avatar-selector";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,13 +12,11 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { useDeleteUser } from "@/hooks/mutations/user/useDeleteUser";
 import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { useUpdateUser } from "@/hooks/mutations/user/useUpdateUser";
-import { User } from "@/utils/interfaces/user";
 import { format } from "date-fns";
 import { Edit2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -75,7 +72,7 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerContent className="bg-background dark:bg-customBlack-500">
+      <DrawerContent className="bg-background">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle>User Profile</DrawerTitle>

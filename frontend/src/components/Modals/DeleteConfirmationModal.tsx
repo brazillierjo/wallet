@@ -24,7 +24,7 @@ interface ConfirmDeletionModalProps {
 const DeleteConfirmationModal: FC<ConfirmDeletionModalProps> = ({ isOpen, onClose, onDelete, label, id }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white sm:max-w-[425px] dark:border-customBlack-300 dark:bg-customBlack-800">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
             <AlertTriangleIcon className="h-5 w-5 text-destructive" />

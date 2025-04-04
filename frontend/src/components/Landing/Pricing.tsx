@@ -38,7 +38,7 @@ const Pricing = () => {
           >
             <span
               className={cn(
-                "inline-block h-4 w-4 transform rounded-full bg-white transition dark:bg-customBlack-300",
+                "inline-block h-4 w-4 transform rounded-full bg-white transition dark:bg-black",
                 yearlyPrice ? "translate-x-6" : "translate-x-1"
               )}
             />

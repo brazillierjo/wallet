@@ -8,12 +8,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        customBlack: {
-          "300": "#20273c",
-          "500": "#0e1726",
-          "800": "#060818",
-        },
-
         google: {
           "text-gray": "#3c4043",
           "button-blue": "#1a73e8",
