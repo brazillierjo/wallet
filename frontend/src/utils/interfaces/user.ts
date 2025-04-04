@@ -1,9 +1,7 @@
 export interface User {
-  id: number;
-  email: string;
+  id: string;
   name: string;
-  avatar?: string | null;
+  email: string;
   isSubscribed: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  // Add other user properties as needed
 }
