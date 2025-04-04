@@ -84,8 +84,8 @@ Create a `.env` file in the root of the backend directory with the following var
 # PostgreSQL
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-POSTGRES_DB=where-do-i-spend
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/where-do-i-spend?schema=public"
+POSTGRES_DB=waletoo
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/waletoo?schema=public"
 
 # Port configuration
 PORT=3001
