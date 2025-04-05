@@ -89,6 +89,7 @@
   "Sidebar": {
     "dashboard": "Dashboard",
     "account": "Account",
-    "myPlan": "My plan"
+    "myPlan": "My plan",
+    "logout": "Logout"
   }
 }

@@ -89,6 +89,7 @@
   "Sidebar": {
     "dashboard": "Tableau de bord",
     "account": "Compte",
-    "myPlan": "Mon forfait"
+    "myPlan": "Mon forfait",
+    "logout": "Déconnexion"
   }
 }
