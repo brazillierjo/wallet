@@ -60,6 +60,15 @@ npm install
 npm run dev
 ```
 
+## GitHub Actions
+
+Le projet utilise GitHub Actions pour l'automatisation du déploiement. Un workflow est configuré pour déployer automatiquement l'application sur un VPS lorsque des modifications sont poussées sur les branches `main` et `dev`. Le déploiement inclut :
+
+- Installation des dépendances
+- Migration de la base de données
+- Build et démarrage des applications frontend et backend
+- Gestion des environnements de production et pré-production
+
 ## Configuration
 
 Les fichiers `.env` sont nécessaires pour le frontend et le backend. Assurez-vous de les configurer correctement en suivant les exemples fournis dans les dossiers respectifs.
