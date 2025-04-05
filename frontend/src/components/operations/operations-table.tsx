@@ -92,7 +92,6 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">{title}</h2>
         <Button onClick={onAdd} size="sm">
-          <Plus className="mr-2 h-4 w-4" />
           Add
           <KeyboardShortcut keys={keyboardShortcut} />
         </Button>
