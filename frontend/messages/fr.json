@@ -85,5 +85,10 @@
         "button": "S'inscrire"
       }
     }
+  },
+  "Sidebar": {
+    "dashboard": "Tableau de bord",
+    "account": "Compte",
+    "myPlan": "Mon forfait"
   }
 }

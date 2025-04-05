@@ -3,6 +3,7 @@
 import { FC, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
@@ -38,6 +39,7 @@ type SidebarContentWrapperProps = {
 const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: SidebarContentWrapperProps) => {
   const pathname = usePathname();
   const { state } = useSidebar();
+  const t = useTranslations("Sidebar");
 
   const isCollapsed = state === "collapsed";
 
@@ -61,7 +63,7 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
                 )}
               >
                 <LayoutDashboard className="h-5 w-5" />
-                <span>Dashboard</span>
+                <span>{t("dashboard")}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -73,7 +75,7 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
                 className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent"
               >
                 <User className="h-5 w-5" />
-                <span>Account</span>
+                <span>{t("account")}</span>
               </button>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -85,7 +87,7 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
                 className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent"
               >
                 <Receipt className="h-5 w-5" />
-                <span>My plan</span>
+                <span>{t("myPlan")}</span>
               </button>
             </SidebarMenuButton>
           </SidebarMenuItem>

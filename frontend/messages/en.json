@@ -85,5 +85,10 @@
         "button": "Sign Up"
       }
     }
+  },
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "account": "Account",
+    "myPlan": "My plan"
   }
 }
