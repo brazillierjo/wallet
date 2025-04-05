@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { KeyboardShortcut, useKeyboardShortcut } from "@/components/ui/keyboard-shortcut";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useDeleteExpense } from "@/hooks/mutations/expense/useDeleteExpense";
 import { useUpdateExpense } from "@/hooks/mutations/expense/useUpdateExpense";
@@ -10,7 +11,6 @@ import { useDeleteIncome } from "@/hooks/mutations/income/useDeleteIncome";
 import { useUpdateIncome } from "@/hooks/mutations/income/useUpdateIncome";
 import { OperationType } from "@/utils/enums/operationType";
 import { Operation, OperationInput } from "@/utils/interfaces/operation";
-import { format } from "date-fns";
 import { Edit2, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -23,9 +23,10 @@ interface OperationsTableProps {
   isLoading: boolean;
   onAdd: () => void;
   type: OperationType;
+  shortcut?: string[];
 }
 
-export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: OperationsTableProps) => {
+export const OperationsTable = ({ title, operations, isLoading, onAdd, type, shortcut }: OperationsTableProps) => {
   const [editingOperation, setEditingOperation] = useState<Operation | null>(null);
   const [deletingOperation, setDeletingOperation] = useState<Operation | null>(null);
 
@@ -33,6 +34,15 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: O
   const deleteExpense = useDeleteExpense();
   const updateIncome = useUpdateIncome();
   const updateExpense = useUpdateExpense();
+
+  // Définir le raccourci par défaut en fonction du type d'opération
+  const defaultShortcut = type === OperationType.INCOMES ? ["Command", "A"] : ["Command", "Z"];
+
+  // Utiliser le raccourci fourni en props ou le raccourci par défaut
+  const keyboardShortcut = shortcut || defaultShortcut;
+
+  // Utiliser le hook pour gérer le raccourci clavier
+  useKeyboardShortcut(keyboardShortcut, onAdd);
 
   const handleEdit = (operation: Operation) => {
     setEditingOperation(operation);
@@ -84,6 +94,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type }: O
         <Button onClick={onAdd} size="sm">
           <Plus className="mr-2 h-4 w-4" />
           Add
+          <KeyboardShortcut keys={keyboardShortcut} />
         </Button>
       </div>
 
