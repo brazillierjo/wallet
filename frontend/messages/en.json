@@ -91,5 +91,14 @@
     "account": "Account",
     "myPlan": "My plan",
     "logout": "Logout"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "incomeCreated": "Income created successfully",
+    "expenseCreated": "Expense created successfully",
+    "failedToCreateIncome": "Failed to create income",
+    "failedToCreateExpense": "Failed to create expense"
   }
 }

@@ -91,5 +91,14 @@
     "account": "Compte",
     "myPlan": "Mon forfait",
     "logout": "Déconnexion"
+  },
+  "Dashboard": {
+    "title": "Tableau de bord",
+    "incomes": "Revenus",
+    "expenses": "Dépenses",
+    "incomeCreated": "Revenu créé avec succès",
+    "expenseCreated": "Dépense créée avec succès",
+    "failedToCreateIncome": "Échec de la création du revenu",
+    "failedToCreateExpense": "Échec de la création de la dépense"
   }
 }
