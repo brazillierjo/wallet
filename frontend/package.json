@@ -7,7 +7,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "cross-env PORT=$PORT next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "npm rebuild sharp"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
