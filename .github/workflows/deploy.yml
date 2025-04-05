@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to VPS
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -35,15 +35,21 @@ jobs:
               NAME_SUFFIX="-preprod"
             fi
 
+            echo "📁 Target folder: $FOLDER"
+            echo "🌐 Frontend port: $PORT_FRONT"
+            echo "🛠️  Backend port: $PORT_BACK"
+
             cd ~/apps/$FOLDER
             git reset --hard
             git pull origin $BRANCH
 
+            echo "📦 Installing backend dependencies..."
             cd backend
             bun install
             bunx prisma migrate deploy
             pm2 restart wallet-backend$NAME_SUFFIX || pm2 start "bun run start" --name wallet-backend$NAME_SUFFIX -- --port $PORT_BACK
 
+            echo "🌐 Building frontend..."
             cd ../frontend
             npm install
             npm run build
