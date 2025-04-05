@@ -1,8 +1,18 @@
 {
+  "Toast": {
+    "invalidCredentials": "Identifiants invalides",
+    "checkCredentials": "Veuillez vérifier votre email et votre mot de passe"
+  },
   "AuthPage": {
+    "back": "Retour",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "toContinue": "pour continuer",
     "title": "Bienvenue",
     "email": "Email",
     "password": "Mot de passe",
-    "login": "Connexion"
+    "login": "Connexion",
+    "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous",
+    "alreadyHaveAccount": "Vous avez déjà un compte ? Connectez-vous"
   }
 }

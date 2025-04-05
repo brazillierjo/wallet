@@ -36,12 +36,10 @@ const Login = () => {
       await loginMutation.mutateAsync(formData, {
         onSuccess: (res) => {
           if (res.status === "Unauthorized" && res.message === "Invalid credentials") {
-            toast.error("Invalid credentials", {
-              description: "Please check your email and password",
+            toast.error(t("Toast.invalidCredentials"), {
+              description: t("Toast.checkCredentials"),
             });
-          } else {
-            router.push(AppRoutes.DASHBOARD);
-          }
+          } else router.push(AppRoutes.DASHBOARD);
         },
       });
     } catch (error) {

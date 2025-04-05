@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import ImageHeroSection from "@/assets/png/landing_hero_section.png";
 import Login from "@/components/Login";
@@ -14,11 +15,13 @@ import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
 
+  const t = useTranslations("AuthPage");
+
   return (
     <main className="min-h-screen">
       <Link href={AppRoutes.LANDING}>
         <Button variant="ghost" className="flex items-center gap-2">
-          <ArrowLeftCircleIcon className="h-6 w-6" /> Back
+          <ArrowLeftCircleIcon className="h-6 w-6" /> {t("back")}
         </Button>
       </Link>
 
@@ -29,11 +32,11 @@ const Auth = () => {
           <h3 className="mb-10 text-4xl font-bold">
             {isLogin ? (
               <p>
-                <span className="text-blue-500">Sign in</span> to continue
+                <span className="text-blue-500">{t("signIn")}</span> {t("toContinue")}
               </p>
             ) : (
               <p>
-                <span className="text-blue-500">Sign up</span> to continue
+                <span className="text-blue-500">{t("signUp")}</span> {t("toContinue")}
               </p>
             )}
           </h3>
@@ -41,7 +44,7 @@ const Auth = () => {
           {isLogin ? <Login /> : <Register />}
 
           <button className="mt-4 text-sm text-blue-500 underline" onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+            {isLogin ? t("dontHaveAccount") : t("alreadyHaveAccount")}
           </button>
         </div>
       </div>

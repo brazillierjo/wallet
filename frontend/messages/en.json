@@ -1,8 +1,18 @@
 {
+  "Toast": {
+    "invalidCredentials": "Invalid credentials",
+    "checkCredentials": "Please check your email and password"
+  },
   "AuthPage": {
+    "back": "Back",
+    "signIn": "SignIn",
+    "signUp": "SignUp",
+    "toContinue": "to continue",
     "title": "Welcome Back",
     "email": "Email",
     "password": "Password",
-    "login": "Login"
+    "login": "Login",
+    "dontHaveAccount": "Don't have an account? Sign up",
+    "alreadyHaveAccount": "Already have an account? Sign in"
   }
 }
