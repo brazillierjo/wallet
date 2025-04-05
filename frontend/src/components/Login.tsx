@@ -50,7 +50,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <h1 className="text-center text-xl font-bold text-gray-900">Welcome Back</h1>
+        <h1 className="text-center text-xl font-bold text-gray-900 dark:text-gray-300">Welcome Back</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-6">
           <div>
@@ -58,7 +58,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               {...register("email")}
-              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+              className="block w-full rounded-lg border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
             />
 
             {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
@@ -69,7 +69,7 @@ const Login = () => {
               type="password"
               placeholder="Password"
               {...register("password")}
-              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+              className="block w-full rounded-lg border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
             />
 
             {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
