@@ -99,6 +99,23 @@
     "incomeCreated": "Revenu créé avec succès",
     "expenseCreated": "Dépense créée avec succès",
     "failedToCreateIncome": "Échec de la création du revenu",
-    "failedToCreateExpense": "Échec de la création de la dépense"
+    "failedToCreateExpense": "Échec de la création de la dépense",
+    "incomeDeleted": "Revenu supprimé avec succès",
+    "expenseDeleted": "Dépense supprimée avec succès",
+    "failedToDeleteIncome": "Échec de la suppression du revenu",
+    "failedToDeleteExpense": "Échec de la suppression de la dépense",
+    "incomeUpdated": "Revenu mis à jour avec succès",
+    "expenseUpdated": "Dépense mise à jour avec succès",
+    "failedToUpdateIncome": "Échec de la mise à jour du revenu",
+    "failedToUpdateExpense": "Échec de la mise à jour de la dépense",
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "label": "Libellé",
+    "category": "Catégorie",
+    "amount": "Montant",
+    "actions": "Actions",
+    "loading": "Chargement...",
+    "noOperations": "Aucun {type} trouvé"
   }
 }

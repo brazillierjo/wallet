@@ -99,6 +99,23 @@
     "incomeCreated": "Income created successfully",
     "expenseCreated": "Expense created successfully",
     "failedToCreateIncome": "Failed to create income",
-    "failedToCreateExpense": "Failed to create expense"
+    "failedToCreateExpense": "Failed to create expense",
+    "incomeDeleted": "Income deleted successfully",
+    "expenseDeleted": "Expense deleted successfully",
+    "failedToDeleteIncome": "Failed to delete income",
+    "failedToDeleteExpense": "Failed to delete expense",
+    "incomeUpdated": "Income updated successfully",
+    "expenseUpdated": "Expense updated successfully",
+    "failedToUpdateIncome": "Failed to update income",
+    "failedToUpdateExpense": "Failed to update expense",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "label": "Label",
+    "category": "Category",
+    "amount": "Amount",
+    "actions": "Actions",
+    "loading": "Loading...",
+    "noOperations": "No {type} found"
   }
 }

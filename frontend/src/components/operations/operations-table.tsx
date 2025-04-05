@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { KeyboardShortcut, useKeyboardShortcut } from "@/components/ui/keyboard-shortcut";
@@ -27,6 +28,7 @@ interface OperationsTableProps {
 }
 
 export const OperationsTable = ({ title, operations, isLoading, onAdd, type, shortcut }: OperationsTableProps) => {
+  const t = useTranslations("Dashboard");
   const [editingOperation, setEditingOperation] = useState<Operation | null>(null);
   const [deletingOperation, setDeletingOperation] = useState<Operation | null>(null);
 
@@ -59,11 +61,11 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
 
     deleteMutation.mutate(deletingOperation.id, {
       onSuccess: () => {
-        toast.success(`${type === OperationType.INCOMES ? "Income" : "Expense"} deleted successfully`);
+        toast.success(type === OperationType.INCOMES ? t("incomeDeleted") : t("expenseDeleted"));
         setDeletingOperation(null);
       },
       onError: () => {
-        toast.error(`Failed to delete ${type === OperationType.INCOMES ? "income" : "expense"}`);
+        toast.error(type === OperationType.INCOMES ? t("failedToDeleteIncome") : t("failedToDeleteExpense"));
       },
     });
   };
@@ -77,11 +79,11 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
       { id: editingOperation.id, data },
       {
         onSuccess: () => {
-          toast.success(`${type === OperationType.INCOMES ? "Income" : "Expense"} updated successfully`);
+          toast.success(type === OperationType.INCOMES ? t("incomeUpdated") : t("expenseUpdated"));
           setEditingOperation(null);
         },
         onError: () => {
-          toast.error(`Failed to update ${type === OperationType.INCOMES ? "income" : "expense"}`);
+          toast.error(type === OperationType.INCOMES ? t("failedToUpdateIncome") : t("failedToUpdateExpense"));
         },
       }
     );
@@ -92,7 +94,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">{title}</h2>
         <Button onClick={onAdd} size="sm">
-          Add
+          {t("add")}
           <KeyboardShortcut keys={keyboardShortcut} />
         </Button>
       </div>
@@ -101,23 +103,23 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Label</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead className="w-[100px]">Actions</TableHead>
+              <TableHead>{t("label")}</TableHead>
+              <TableHead>{t("category")}</TableHead>
+              <TableHead>{t("amount")}</TableHead>
+              <TableHead className="w-[100px]">{t("actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
-                  Loading...
+                  {t("loading")}
                 </TableCell>
               </TableRow>
             ) : operations.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
-                  No {title.toLowerCase()} found
+                  {t("noOperations", { type: title.toLowerCase() })}
                 </TableCell>
               </TableRow>
             ) : (
@@ -148,7 +150,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
           open={!!editingOperation}
           onOpenChange={(open) => !open && setEditingOperation(null)}
           onSubmit={handleEditSubmit}
-          title={`Edit ${type === OperationType.INCOMES ? "Income" : "Expense"}`}
+          title={`${t("edit")} ${type === OperationType.INCOMES ? t("incomes") : t("expenses")}`}
           initialData={editingOperation}
           type={type}
         />
