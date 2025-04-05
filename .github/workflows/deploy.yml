@@ -28,12 +28,16 @@ jobs:
               PORT_FRONT=3000
               PORT_BACK=3001
               NAME_SUFFIX=""
-            else
+            elif [ "$BRANCH" = "dev" ]; then
               FOLDER=wallet-preprod
               PORT_FRONT=3100
               PORT_BACK=3101
               NAME_SUFFIX="-preprod"
+            else
+              echo "🚫 Branch $BRANCH is not configured for deployment."
+              exit 0
             fi
+
 
             echo "📁 Target folder: $FOLDER"
             echo "🌐 Frontend port: $PORT_FRONT"
