@@ -47,4 +47,4 @@ jobs:
             cd ../frontend
             npm install
             npm run build
-            pm2 restart wallet-frontend$NAME_SUFFIX || pm2 start "npm run start" --name wallet-frontend$NAME_SUFFIX -- --port $PORT_FRONT
+            pm2 restart wallet-frontend$NAME_SUFFIX || PORT=$PORT_FRONT pm2 start "npm run start" --name wallet-frontend$NAME_SUFFIX
