@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { useRegister } from "@/hooks/mutations/auth/useRegister";
 import { AppRoutes } from "@/router/app_routes";
@@ -8,21 +9,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-const registerSchema = z
-  .object({
-    name: z.string().min(1, "Name is required"),
-    email: z.string().email("Invalid email format"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string().min(8, "Password confirmation is required"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords must match",
-  });
-
-type RegisterForm = z.infer<typeof registerSchema>;
-
 const Register = () => {
+  const router = useRouter();
+  const t = useTranslations("AuthPage");
+  const tValidation = useTranslations("Validation");
+
+  // Définir le schéma à l'intérieur du composant pour accéder aux traductions
+  const registerSchema = z
+    .object({
+      name: z.string().min(1, tValidation("nameRequired")),
+      email: z.string().email(tValidation("invalidEmail")),
+      password: z.string().min(8, tValidation("passwordMin")),
+      confirmPassword: z.string().min(8, tValidation("passwordConfirmRequired")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      path: ["confirmPassword"],
+      message: tValidation("passwordsMustMatch"),
+    });
+
+  type RegisterForm = z.infer<typeof registerSchema>;
+
   const {
     register,
     handleSubmit,
@@ -31,7 +37,7 @@ const Register = () => {
   } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
   });
-  const router = useRouter();
+
   const registerMutation = useRegister();
 
   const onSubmit: SubmitHandler<RegisterForm> = (formData) => {

@@ -10,16 +10,18 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const loginSchema = z.object({
-  email: z.string().email("Invalid email format"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
-
-type LoginForm = z.infer<typeof loginSchema>;
-
 const Login = () => {
   const router = useRouter();
   const t = useTranslations("AuthPage");
+  const tToast = useTranslations("Toast");
+  const tValidation = useTranslations("Validation");
+
+  const loginSchema = z.object({
+    email: z.string().email(tValidation("invalidEmail")),
+    password: z.string().min(8, tValidation("passwordMin")),
+  });
+
+  type LoginForm = z.infer<typeof loginSchema>;
 
   const {
     register,
@@ -36,8 +38,8 @@ const Login = () => {
       await loginMutation.mutateAsync(formData, {
         onSuccess: (res) => {
           if (res.status === "Unauthorized" && res.message === "Invalid credentials") {
-            toast.error(t("Toast.invalidCredentials"), {
-              description: t("Toast.checkCredentials"),
+            toast.error(tToast("invalidCredentials"), {
+              description: tToast("checkCredentials"),
             });
           } else router.push(AppRoutes.DASHBOARD);
         },

@@ -14,5 +14,12 @@
     "login": "Login",
     "dontHaveAccount": "Don't have an account? Sign up",
     "alreadyHaveAccount": "Already have an account? Sign in"
+  },
+  "Validation": {
+    "invalidEmail": "Invalid email format",
+    "passwordMin": "Password must be at least 8 characters",
+    "nameRequired": "Name is required",
+    "passwordConfirmRequired": "Password confirmation is required",
+    "passwordsMustMatch": "Passwords must match"
   }
 }

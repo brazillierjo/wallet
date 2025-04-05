@@ -14,5 +14,12 @@
     "login": "Connexion",
     "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous",
     "alreadyHaveAccount": "Vous avez déjà un compte ? Connectez-vous"
+  },
+  "Validation": {
+    "invalidEmail": "Format d'email invalide",
+    "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
+    "nameRequired": "Le nom est requis",
+    "passwordConfirmRequired": "La confirmation du mot de passe est requise",
+    "passwordsMustMatch": "Les mots de passe doivent correspondre"
   }
 }
