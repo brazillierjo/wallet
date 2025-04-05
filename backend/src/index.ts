@@ -43,6 +43,6 @@ const app = new Elysia({ prefix: '/api' })
   }))
   .use(authRoutes)
   .use(protectedRoutes)
-  .listen(3001);
+  .listen(Number(process.env.PORT) || 3001);
 
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
