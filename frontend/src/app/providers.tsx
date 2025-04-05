@@ -11,12 +11,18 @@ export function Providers({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient();
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+        storageKey="waletoo-theme"
+      >
         {children}
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster />
-      </QueryClientProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
