@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import ImageHeroSection from "@/assets/png/landing_hero_section.png";
 import { Button } from "@/components/ui/button";
@@ -7,24 +8,21 @@ import { AppRoutes } from "@/router/app_routes";
 import { ArrowDownCircleIcon } from "@heroicons/react/16/solid";
 
 const HeroSection = () => {
+  const t = useTranslations("Landing.HeroSection");
+
   return (
     <section className="relative flex w-full flex-col gap-6 px-4 py-20 md:px-6 md:py-24 lg:h-screen lg:flex-row lg:py-32">
       <div className="flex flex-col justify-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-            Empower your financial journey with Waletoo
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">{t("title")}</h1>
 
-          <p className="mt-4 max-w-[600px] md:text-xl">
-            Enter your income and expenses effortlessly, and gain tailored insights with personalized charts. Waletoo
-            offers expert guidance to help you make informed financial decisions and optimize your financial health.
-          </p>
+          <p className="mt-4 max-w-[600px] md:text-xl">{t("subtitle")}</p>
 
-          <p className="mt-4">Waletoo does not connect with your bank account.</p>
+          <p className="mt-4">{t("disclaimer")}</p>
         </div>
 
         <Button asChild className="mx-auto w-fit lg:mx-0">
-          <Link href={AppRoutes.AUTH}>Get started now</Link>
+          <Link href={AppRoutes.AUTH}>{t("getStarted")}</Link>
         </Button>
       </div>
 

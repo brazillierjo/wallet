@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { AppRoutes } from "@/router/app_routes";
@@ -11,23 +12,23 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Pricing = () => {
   const [yearlyPrice, setYearlyPrice] = useState(false);
+  const t = useTranslations("Landing.Pricing");
 
   return (
     <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
       <div className="px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <div className="inline-block rounded-lg px-3 py-1 text-sm">Pricing</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Affordable plans for everyone</h2>
+            <div className="inline-block rounded-lg px-3 py-1 text-sm">{t("title")}</div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{t("heading")}</h2>
             <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Waletoo offers flexible pricing plans to fit your needs and budget. Start your journey to financial
-              freedom today.
+              {t("description")}
             </p>
           </div>
         </div>
 
         <div className="mt-12 flex items-center justify-center gap-3">
-          <span className={cn(!yearlyPrice ? "text-blue-500" : "")}>Monthly</span>
+          <span className={cn(!yearlyPrice ? "text-blue-500" : "")}>{t("monthly")}</span>
           <Switch
             checked={yearlyPrice}
             onChange={setYearlyPrice}
@@ -43,37 +44,37 @@ const Pricing = () => {
               )}
             />
           </Switch>
-          <span className={cn(yearlyPrice ? "text-blue-500" : "")}>Yearly</span>
+          <span className={cn(yearlyPrice ? "text-blue-500" : "")}>{t("yearly")}</span>
         </div>
 
         <div className="mx-auto grid max-w-2xl items-center gap-6 pb-12 pt-4 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col justify-between space-y-4 rounded-lg border p-6">
             <div>
-              <h3 className="text-2xl font-bold">Free</h3>
-              <p className="text-4xl font-bold">$0</p>
-              <p className="text-muted-foreground">{yearlyPrice ? "per year" : "per month"}</p>
+              <h3 className="text-2xl font-bold">{t("free.title")}</h3>
+              <p className="text-4xl font-bold">{t("free.price")}</p>
+              <p className="text-muted-foreground">{yearlyPrice ? t("perYear") : t("perMonth")}</p>
             </div>
 
             <ul className="grid gap-2">
               <li>
                 <CheckIcon className="mr-2 inline-block h-4 w-4" />
-                Custom financial charts
+                {t("free.features.0")}
               </li>
               <li>
                 <CheckIcon className="mr-2 inline-block h-4 w-4" />
-                Financial insights
+                {t("free.features.1")}
               </li>
               <li>
                 <XMarkIcon className="mr-2 inline-block h-4 w-4" />
-                Advanced financial comparisons
+                {t("free.features.2")}
               </li>
               <li>
                 <XMarkIcon className="mr-2 inline-block h-4 w-4" />
-                Personalized financial alerts
+                {t("free.features.3")}
               </li>
               <li>
                 <XMarkIcon className="mr-2 inline-block h-4 w-4" />
-                Recommendations for optimizing your budget
+                {t("free.features.4")}
               </li>
             </ul>
 
@@ -81,47 +82,47 @@ const Pricing = () => {
               href={AppRoutes.AUTH}
               className="inline-flex h-10 items-center justify-center rounded-md border-white px-8 text-sm font-medium shadow transition-all duration-150 hover:shadow-lg dark:border"
             >
-              Sign Up
+              {t("free.button")}
             </Link>
           </div>
 
           <div className="flex flex-col justify-between space-y-4 rounded-lg border p-6">
             <div>
-              <h3 className="text-2xl font-bold">Premium</h3>
-              <p className="text-4xl font-bold">{yearlyPrice ? "$29.99" : "$2.99"}</p>
-              <p className="80">{yearlyPrice ? "per year" : "per month"}</p>
+              <h3 className="text-2xl font-bold">{t("premium.title")}</h3>
+              <p className="text-4xl font-bold">{yearlyPrice ? t("premium.yearlyPrice") : t("premium.price")}</p>
+              <p className="80">{yearlyPrice ? t("perYear") : t("perMonth")}</p>
             </div>
 
             <ul className="grid gap-2">
               <li>
                 <CheckIcon className="mr-2 inline-block h-4 w-4" />
-                Custom financial charts
+                {t("premium.features.0")}
               </li>
 
               <li>
                 <CheckIcon className="mr-2 inline-block h-4 w-4" />
-                Advanced financial insights
+                {t("premium.features.1")}
               </li>
 
               <li>
                 <CheckIcon className="mr-2 inline-block h-4 w-4" />
-                Advanced financial comparisons
+                {t("premium.features.2")}
               </li>
 
               <li>
                 <CheckIcon className="mr-2 inline-block h-4 w-4" />
-                Personalized financial alerts
+                {t("premium.features.3")}
               </li>
 
               <li>
                 <CheckIcon className="mr-2 inline-block h-4 w-4" />
-                Recommendations for optimizing your budget
+                {t("premium.features.4")}
               </li>
             </ul>
 
             <Link href={AppRoutes.AUTH}>
               <Button variant="default" className="w-full">
-                Go premium !
+                {t("premium.button")}
               </Button>
             </Link>
           </div>

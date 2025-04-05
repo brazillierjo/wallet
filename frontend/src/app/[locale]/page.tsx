@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { FloatingDock } from "@/components/FloatingDock";
 import Footer from "@/components/Footer/Footer";
 import HeroSection from "@/components/Landing/HeroSection";
@@ -11,6 +13,8 @@ import { AppRoutes } from "@/router/app_routes";
 import { ArrowRightIcon, CurrencyDollarIcon, InformationCircleIcon } from "@heroicons/react/16/solid";
 
 export default function Landing() {
+  const t = useTranslations("Landing.Navigation");
+
   return (
     <TracingBeam className="w-full">
       <div className="flex flex-col">
@@ -18,11 +22,11 @@ export default function Landing() {
           desktopClassName="fixed left-1/2 -translate-x-1/2 bottom-4"
           mobileClassName="fixed bottom-4 right-4"
           items={[
-            { href: "#about", title: "About", icon: <InformationCircleIcon /> },
-            { href: "#pricing", title: "Pricing", icon: <CurrencyDollarIcon /> },
+            { href: "#about", title: t("about"), icon: <InformationCircleIcon /> },
+            { href: "#pricing", title: t("pricing"), icon: <CurrencyDollarIcon /> },
             {
               href: AppRoutes.DASHBOARD,
-              title: "My Wallet",
+              title: t("myWallet"),
               icon: <ArrowRightIcon />,
             },
           ]}
