@@ -67,7 +67,7 @@ Le projet utilise GitHub Actions pour l'automatisation du déploiement. Un workf
 - Installation des dépendances
 - Migration de la base de données
 - Build et démarrage des applications frontend et backend
-- Gestion des environnements de production et pré-production
+- Gestion des environnements de production et pré-production via les différentes branches git
 
 ## Configuration
 
