@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,14 +16,14 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { expenseCategories, incomeCategories } from "@/utils/categories";
 import { OperationType } from "@/utils/enums/operationType";
-import { Operation, OperationInput } from "@/utils/interfaces/operation";
+import { OperationInput } from "@/utils/interfaces/operation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { z } from "zod";
 
 const formSchema = z.object({
   label: z.string().min(1, "Label is required"),
-  amount: z.coerce.number().min(0, "Amount must be positive"),
+  amount: z.number().min(0, "Amount must be positive"),
   category: z.string().optional(),
 });
 
@@ -32,7 +34,7 @@ interface OperationFormDialogProps {
   title: string;
   isLoading?: boolean;
   type: OperationType;
-  initialData?: Operation;
+  initialData?: OperationInput;
 }
 
 export const OperationFormDialog = ({
@@ -44,6 +46,7 @@ export const OperationFormDialog = ({
   type,
   initialData,
 }: OperationFormDialogProps) => {
+  const t = useTranslations("Dashboard");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -67,9 +70,7 @@ export const OperationFormDialog = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
-            {initialData ? "Edit the operation details below." : "Add a new operation by filling out the form below."}
-          </DialogDescription>
+          <DialogDescription>{initialData ? t("form.editDescription") : t("form.addDescription")}</DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
@@ -79,9 +80,9 @@ export const OperationFormDialog = ({
               name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>{t("label")}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter label" {...field} />
+                    <Input placeholder={t("form.enterLabel")} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,9 +94,9 @@ export const OperationFormDialog = ({
               name="amount"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Amount</FormLabel>
+                  <FormLabel>{t("amount")}</FormLabel>
                   <FormControl>
-                    <Input type="number" step="0.01" placeholder="Enter amount" {...field} />
+                    <Input type="number" step="0.01" placeholder={t("form.enterAmount")} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,15 +108,15 @@ export const OperationFormDialog = ({
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>{t("category")}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a category" />
+                        <SelectValue placeholder={t("form.selectCategory")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
+                      {categories.map((category: string) => (
                         <SelectItem key={category} value={category}>
                           {category}
                         </SelectItem>
@@ -129,7 +130,7 @@ export const OperationFormDialog = ({
 
             <DialogFooter>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Saving..." : initialData ? "Update" : "Create"}
+                {isLoading ? t("form.saving") : initialData ? t("form.update") : t("form.create")}
               </Button>
             </DialogFooter>
           </form>

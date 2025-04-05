@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -31,37 +33,42 @@ export const DeleteOperationDrawer = ({
   type,
   isLoading = false,
 }: DeleteOperationDrawerProps) => {
+  const t = useTranslations("Dashboard");
+
   if (!operation) return null;
+
+  const operationType = type === OperationType.INCOMES ? t("incomes") : t("expenses");
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle className="text-destructive">
-              Delete {type === OperationType.INCOMES ? "Income" : "Expense"}
-            </DrawerTitle>
-            <DrawerDescription>
-              Are you sure you want to delete this {type === OperationType.INCOMES ? "income" : "expense"}? This action
-              cannot be undone.
-            </DrawerDescription>
+            <DrawerTitle className="text-destructive">{t("deleteDialog.title", { type: operationType })}</DrawerTitle>
+            <DrawerDescription>{t("deleteDialog.description", { type: operationType })}</DrawerDescription>
           </DrawerHeader>
 
           <div className="p-4 pb-0">
             <div className="space-y-2">
               <p className="font-medium">{operation.label}</p>
-              <p className="text-sm text-muted-foreground">Amount: {operation.amount.toFixed(2)} €</p>
-              {operation.category && <p className="text-sm text-muted-foreground">Category: {operation.category}</p>}
+              <p className="text-sm text-muted-foreground">
+                {t("deleteDialog.amount", { amount: operation.amount.toFixed(2) })}
+              </p>
+              {operation.category && (
+                <p className="text-sm text-muted-foreground">
+                  {t("deleteDialog.category", { category: operation.category })}
+                </p>
+              )}
             </div>
           </div>
 
           <DrawerFooter>
             <Button variant="destructive" onClick={onConfirm} disabled={isLoading} className="gap-2">
               <Trash2 className="h-4 w-4" />
-              {isLoading ? "Deleting..." : "Delete"}
+              {isLoading ? t("deleteDialog.deleting") : t("delete")}
             </Button>
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">{t("deleteDialog.cancel")}</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

@@ -116,6 +116,24 @@
     "amount": "Montant",
     "actions": "Actions",
     "loading": "Chargement...",
-    "noOperations": "Aucun {type} trouvé"
+    "noOperations": "Aucun {type} trouvé",
+    "form": {
+      "editDescription": "Modifiez les détails de l'opération ci-dessous.",
+      "addDescription": "Ajoutez une nouvelle opération en remplissant le formulaire ci-dessous.",
+      "enterLabel": "Saisissez un libellé",
+      "enterAmount": "Saisissez un montant",
+      "selectCategory": "Sélectionnez une catégorie",
+      "saving": "Enregistrement...",
+      "update": "Mettre à jour",
+      "create": "Créer"
+    },
+    "deleteDialog": {
+      "title": "Supprimer {type}",
+      "description": "Êtes-vous sûr de vouloir supprimer ce {type} ? Cette action ne peut pas être annulée.",
+      "amount": "Montant : {amount} €",
+      "category": "Catégorie : {category}",
+      "deleting": "Suppression...",
+      "cancel": "Annuler"
+    }
   }
 }

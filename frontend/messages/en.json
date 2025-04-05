@@ -116,6 +116,24 @@
     "amount": "Amount",
     "actions": "Actions",
     "loading": "Loading...",
-    "noOperations": "No {type} found"
+    "noOperations": "No {type} found",
+    "form": {
+      "editDescription": "Edit the operation details below.",
+      "addDescription": "Add a new operation by filling out the form below.",
+      "enterLabel": "Enter label",
+      "enterAmount": "Enter amount",
+      "selectCategory": "Select a category",
+      "saving": "Saving...",
+      "update": "Update",
+      "create": "Create"
+    },
+    "deleteDialog": {
+      "title": "Delete {type}",
+      "description": "Are you sure you want to delete this {type}? This action cannot be undone.",
+      "amount": "Amount: {amount} €",
+      "category": "Category: {category}",
+      "deleting": "Deleting...",
+      "cancel": "Cancel"
+    }
   }
 }
