@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { useLogin } from "@/hooks/mutations/auth/useLogin";
 import { AppRoutes } from "@/router/app_routes";
@@ -18,6 +19,7 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const router = useRouter();
+  const t = useTranslations("AuthPage");
 
   const {
     register,
@@ -50,13 +52,13 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <h1 className="text-center text-xl font-bold text-gray-900">Welcome Back</h1>
+        <h1 className="text-center text-xl font-bold text-gray-900">{t("title")}</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-6">
           <div>
             <input
               type="email"
-              placeholder="Email"
+              placeholder={t("email")}
               {...register("email")}
               className="block w-full rounded-lg border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
             />
@@ -67,7 +69,7 @@ const Login = () => {
           <div>
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t("password")}
               {...register("password")}
               className="block w-full rounded-lg border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
             />
@@ -79,7 +81,7 @@ const Login = () => {
             type="submit"
             className="w-full rounded-lg bg-blue-500 p-3 text-white transition-all duration-300 hover:bg-blue-600"
           >
-            Sign in
+            {t("login")}
           </button>
         </form>
       </div>

@@ -1,0 +1,8 @@
+{
+  "AuthPage": {
+    "title": "Welcome Back",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login"
+  }
+}
