@@ -3,6 +3,13 @@
     "invalidCredentials": "Invalid credentials",
     "checkCredentials": "Please check your email and password"
   },
+  "Validation": {
+    "invalidEmail": "Invalid email format",
+    "passwordMin": "Password must be at least 8 characters",
+    "nameRequired": "Name is required",
+    "passwordConfirmRequired": "Password confirmation is required",
+    "passwordsMustMatch": "Passwords must match"
+  },
   "AuthPage": {
     "back": "Back",
     "signIn": "SignIn",
@@ -15,11 +22,68 @@
     "dontHaveAccount": "Don't have an account? Sign up",
     "alreadyHaveAccount": "Already have an account? Sign in"
   },
-  "Validation": {
-    "invalidEmail": "Invalid email format",
-    "passwordMin": "Password must be at least 8 characters",
-    "nameRequired": "Name is required",
-    "passwordConfirmRequired": "Password confirmation is required",
-    "passwordsMustMatch": "Passwords must match"
+  "Landing": {
+    "Navigation": {
+      "about": "About",
+      "pricing": "Pricing",
+      "myWallet": "My Wallet"
+    },
+    "HeroSection": {
+      "title": "Empower your financial journey with Waletoo",
+      "subtitle": "Enter your income and expenses effortlessly, and gain tailored insights with personalized charts. Waletoo offers expert guidance to help you make informed financial decisions and optimize your financial health.",
+      "disclaimer": "Waletoo does not connect with your bank account.",
+      "getStarted": "Get started now"
+    },
+    "KeyFeatures": {
+      "title": "Key Features",
+      "heading": "Take control of your personal finances with confidence",
+      "description": "Waletoo provides a comprehensive set of tools designed to give you full control over your personal finances. Benefit from personalized insights, expert financial advice, and smart tools to manage your money more effectively.",
+      "feature1": {
+        "title": "Tailored Financial Visualizations",
+        "description": "Visualize your income and expenses with ease, and get a clear picture of your financial situation."
+      },
+      "feature2": {
+        "title": "Expert financial guidance (Premium)",
+        "description": "Receive tailored advice and insights from top financial experts. Identify areas where you can save more and spend wisely."
+      },
+      "feature3": {
+        "title": "Personalized Advice",
+        "description": "Get tailored financial advice based on your unique situation, goals, and spending habits."
+      }
+    },
+    "Pricing": {
+      "title": "Pricing",
+      "heading": "Affordable plans for everyone",
+      "description": "Waletoo offers flexible pricing plans to fit your needs and budget. Start your journey to financial freedom today.",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "perMonth": "per month",
+      "perYear": "per year",
+      "free": {
+        "title": "Free",
+        "price": "$0",
+        "features": [
+          "Custom financial charts",
+          "Financial insights",
+          "Advanced financial comparisons",
+          "Personalized financial alerts",
+          "Recommendations for optimizing your budget"
+        ],
+        "button": "Sign Up"
+      },
+      "premium": {
+        "title": "Premium",
+        "price": "$2.99",
+        "yearlyPrice": "$29.99",
+        "features": [
+          "Custom financial charts",
+          "Financial insights",
+          "Advanced financial comparisons",
+          "Personalized financial alerts",
+          "Recommendations for optimizing your budget"
+        ],
+        "button": "Sign Up"
+      }
+    }
   }
 }
