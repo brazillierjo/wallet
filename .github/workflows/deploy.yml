@@ -1,0 +1,50 @@
+name: Deploy on VPS
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            BRANCH=${{ github.ref_name }}
+
+            if [ "$BRANCH" = "main" ]; then
+              FOLDER=wallet
+              PORT_FRONT=3000
+              PORT_BACK=3001
+              NAME_SUFFIX=""
+            else
+              FOLDER=wallet-preprod
+              PORT_FRONT=3100
+              PORT_BACK=3101
+              NAME_SUFFIX="-preprod"
+            fi
+
+            cd ~/apps/$FOLDER
+            git reset --hard
+            git pull origin $BRANCH
+
+            cd backend
+            bun install
+            bunx prisma migrate deploy
+            pm2 restart wallet-backend$NAME_SUFFIX || pm2 start "bun run start" --name wallet-backend$NAME_SUFFIX -- --port $PORT_BACK
+
+            cd ../frontend
+            npm install
+            npm run build
+            pm2 restart wallet-frontend$NAME_SUFFIX || pm2 start "npm run start" --name wallet-frontend$NAME_SUFFIX -- --port $PORT_FRONT
