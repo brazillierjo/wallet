@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "cross-env PORT=$PORT next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -53,6 +53,7 @@
     "@types/node": "^22.10.2",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
+    "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-config-next": "15.1.2",
     "postcss": "^8.4.49",
