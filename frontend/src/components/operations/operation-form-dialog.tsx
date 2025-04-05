@@ -23,7 +23,7 @@ import { z } from "zod";
 
 const formSchema = z.object({
   label: z.string().min(1, "Label is required"),
-  amount: z.number().min(0, "Amount must be positive"),
+  amount: z.coerce.number().min(0, "Amount must be positive"),
   category: z.string().optional(),
 });
 
@@ -96,7 +96,18 @@ export const OperationFormDialog = ({
                 <FormItem>
                   <FormLabel>{t("amount")}</FormLabel>
                   <FormControl>
-                    <Input type="number" step="0.01" placeholder={t("form.enterAmount")} {...field} />
+                    <Input
+                      type="text"
+                      placeholder={t("form.enterAmount")}
+                      {...field}
+                      value={field.value === 0 ? "" : field.value}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "" || /^\d*\.?\d*$/.test(value)) {
+                          field.onChange(value === "" ? 0 : parseFloat(value));
+                        }
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
