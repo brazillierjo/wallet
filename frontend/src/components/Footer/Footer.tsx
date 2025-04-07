@@ -1,5 +1,6 @@
 import LanguageSelector from "@/components/ui/LanguageSelector";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const Footer = () => {
   return (
@@ -8,6 +9,7 @@ const Footer = () => {
 
       <div className="order-1 flex items-center gap-4 lg:order-2">
         <LanguageSelector />
+        <ThemeToggle />
         <ScrollToTop />
       </div>
     </div>
