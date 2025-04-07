@@ -44,6 +44,19 @@ frontend/
 
 The application is configured for development with hot-reload enabled. Any changes you make to the code will automatically trigger a rebuild.
 
+### Git Hooks
+
+The project uses Husky and lint-staged to ensure code quality:
+
+- **Pre-commit**: Runs ESLint and Prettier on staged files
+- **Pre-push**: Verifies that the build passes
+
+These hooks are automatically installed when you run `npm install`. They help maintain code quality by:
+
+- Preventing commits with linting errors
+- Ensuring the build passes before pushing
+- Automatically formatting code according to project standards
+
 ## 📜 Available Scripts
 
 ```bash
