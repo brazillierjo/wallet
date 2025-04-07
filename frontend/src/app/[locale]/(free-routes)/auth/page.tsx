@@ -20,17 +20,17 @@ const Auth = () => {
   const t = useTranslations("AuthPage");
 
   return (
-    <main>
+    <main className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-screen-xl flex-col">
       <Link href={AppRoutes.LANDING}>
         <Button variant="ghost" className="flex items-center gap-2">
           <ArrowLeftCircleIcon className="h-6 w-6" /> {t("back")}
         </Button>
       </Link>
 
-      <div className="mt-10 flex flex-col items-center justify-center lg:flex-row lg:justify-evenly">
+      <div className="flex flex-1 flex-col items-center justify-center lg:flex-row lg:gap-20">
         <Image src={ImageHeroSection} alt="Hero" className="hidden w-1/3 rounded-xl object-cover lg:block" />
 
-        <div>
+        <div className="w-full">
           <Heading as="h3" size="lg" align="center" className="mb-10">
             {isLogin ? (
               <p>

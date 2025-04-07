@@ -8,9 +8,11 @@ type AuthLayoutProps = {
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-background p-6">
-      {children}
-      <Footer />
+    <div className="flex min-h-screen flex-col bg-background">
+      <div className="flex min-h-screen flex-col p-6">
+        <div className="flex-1">{children}</div>
+        <Footer />
+      </div>
     </div>
   );
 };
