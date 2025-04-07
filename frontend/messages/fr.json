@@ -1,7 +1,9 @@
 {
   "Toast": {
     "invalidCredentials": "Identifiants invalides",
-    "checkCredentials": "Veuillez vérifier votre email et votre mot de passe"
+    "checkCredentials": "Veuillez vérifier votre email et votre mot de passe",
+    "loginError": "Échec de la connexion",
+    "tryAgain": "Veuillez réessayer plus tard"
   },
   "Validation": {
     "invalidEmail": "Format d'email invalide",

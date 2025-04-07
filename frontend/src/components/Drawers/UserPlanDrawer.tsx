@@ -25,9 +25,6 @@ interface UserPlanDrawerProps {
 const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
   const { data: userResponse } = useGetUser();
   const user = userResponse?.data?.user;
-  console.log(userResponse);
-
-  if (!user) return null;
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
