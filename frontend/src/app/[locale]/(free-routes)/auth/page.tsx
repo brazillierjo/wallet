@@ -1,21 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import ImageHeroSection from "@/assets/png/landing_hero_section.png";
 import Login from "@/components/Login";
 import Register from "@/components/Register";
 import { Button } from "@/components/ui/button";
+import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { AppRoutes } from "@/router/app_routes";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const router = useRouter();
+  const { data: userResponse, isLoading } = useGetUser();
+  const user = userResponse?.data?.user;
 
   const t = useTranslations("AuthPage");
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      // If user is already authenticated, redirect to dashboard
+      router.push(AppRoutes.DASHBOARD);
+    }
+  }, [user, isLoading, router]);
 
   return (
     <main className="min-h-screen">
