@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -11,10 +9,8 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useGetUser } from "@/hooks/mutations/user/useGetUser";
-import { User } from "@/utils/interfaces/user";
 import { CheckCircleIcon, ClockIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
 interface UserPlanDrawerProps {
@@ -25,9 +21,6 @@ interface UserPlanDrawerProps {
 const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
   const { data: userResponse } = useGetUser();
   const user = userResponse?.data?.user;
-  console.log(userResponse);
-
-  if (!user) return null;
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
