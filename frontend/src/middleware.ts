@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 
 import { routing } from "@/i18n/routing";
+import { AppRoutes } from "@/router/app_routes";
 
 // Create the next-intl middleware
 const intlMiddleware = createIntlMiddleware(routing);
@@ -16,6 +17,30 @@ export default async function middleware(request: NextRequest) {
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+  // Check if the user is authenticated by looking for the accessToken cookie
+  const accessToken = request.cookies.get("accessToken");
+  const isAuthenticated = !!accessToken;
+
+  // Get the pathname from the URL
+  const pathname = request.nextUrl.pathname;
+
+  // Check if the path is a protected route
+  const isProtectedRoute =
+    pathname.includes("/dashboard") || pathname.includes("/profile") || pathname.includes("/settings");
+
+  // Check if the path is an auth route
+  const isAuthRoute = pathname.includes("/auth");
+
+  // Redirect authenticated users away from auth routes
+  if (isAuthenticated && isAuthRoute) {
+    return NextResponse.redirect(new URL(AppRoutes.DASHBOARD, request.url));
+  }
+
+  // Redirect unauthenticated users away from protected routes
+  if (!isAuthenticated && isProtectedRoute) {
+    return NextResponse.redirect(new URL(AppRoutes.AUTH, request.url));
+  }
 
   return response;
 }

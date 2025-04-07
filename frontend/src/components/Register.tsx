@@ -4,15 +4,18 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { useRegister } from "@/hooks/mutations/auth/useRegister";
+import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
 import { AppRoutes } from "@/router/app_routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const Register = () => {
   const router = useRouter();
   const t = useTranslations("AuthPage");
   const tValidation = useTranslations("Validation");
+  const tToast = useTranslations("Toast");
 
   // Définir le schéma à l'intérieur du composant pour accéder aux traductions
   const registerSchema = z
@@ -48,10 +51,14 @@ const Register = () => {
       {
         onSuccess: () => {
           reset();
+          toast.success(tToast("registrationSuccess"));
           router.push(AppRoutes.DASHBOARD);
         },
         onError: (error: Error) => {
           console.error(error);
+          toast.error(tToast("registrationError"), {
+            description: tToast("tryAgain"),
+          });
         },
       }
     );

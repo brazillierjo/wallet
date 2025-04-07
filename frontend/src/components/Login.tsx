@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { useLogin } from "@/hooks/mutations/auth/useLogin";
+import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
 import { AppRoutes } from "@/router/app_routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
