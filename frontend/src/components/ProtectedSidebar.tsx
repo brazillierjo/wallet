@@ -96,7 +96,6 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
       <SidebarFooter className="border-t p-4">
         <div className="flex flex-col gap-2">
           <LogoutButton variant={isCollapsed ? "icon" : "full"} />
-          <ThemeToggle />
         </div>
       </SidebarFooter>
     </Sidebar>
@@ -113,8 +112,9 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
         <SidebarContentWrapper setDrawerPlanOpen={setDrawerPlanOpen} setDrawerUserInfoOpen={setDrawerUserInfoOpen} />
 
         <div className="flex-1">
-          <div className="flex h-16 items-center border-b px-4">
+          <div className="flex h-16 items-center justify-between border-b px-4">
             <SidebarTrigger />
+            <ThemeToggle />
           </div>
 
           <main className="h-full">{children}</main>
