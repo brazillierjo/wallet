@@ -9,6 +9,7 @@ import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
 import UserPlanDrawer from "@/components/Drawers/UserPlanDrawer";
 import WaletooLogo from "@/components/Logo/WaletooLogo";
 import LogoutButton from "@/components/LogoutButton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Sidebar,
   SidebarContent,
@@ -22,6 +23,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { AppRoutes } from "@/router/app_routes";
 import { cn } from "@/utils/utils";
 import { LayoutDashboard, Receipt, User } from "lucide-react";
@@ -106,6 +108,9 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
   const [drawerPlanOpen, setDrawerPlanOpen] = useState(false);
   const [drawerUserInfoOpen, setDrawerUserInfoOpen] = useState(false);
 
+  const { data: userResponse } = useGetUser();
+  const user = userResponse?.data?.user;
+
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-full w-full">
@@ -114,7 +119,15 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
         <div className="flex-1">
           <div className="flex h-16 items-center justify-between border-b px-4">
             <SidebarTrigger />
-            <ThemeToggle />
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              <button onClick={() => setDrawerUserInfoOpen(true)} className="cursor-pointer">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={user?.avatar ?? `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.id}`} />
+                  <AvatarFallback>{user?.name?.charAt(0) ?? "?"}</AvatarFallback>
+                </Avatar>
+              </button>
+            </div>
           </div>
 
           <main className="h-full">{children}</main>
