@@ -21,7 +21,7 @@ const LogoutButton: FC<LogoutButtonProps> = ({ variant = "full", className }) =>
   const t = useTranslations("Sidebar");
 
   const handleLogout = () => {
-    logoutMutation.mutate("", {
+    logoutMutation.mutate(undefined, {
       onSuccess: () => {
         router.push(AppRoutes.LANDING);
       },
