@@ -10,7 +10,6 @@ import { LogOutIcon } from "lucide-react";
 const LogoutButtonMobile: React.FC = () => {
   const router = useRouter();
   const logoutMutation = useLogout();
-  const unusedVariable = "test";
 
   const handleLogout = () => {
     logoutMutation.mutate(undefined, {
