@@ -1,8 +1,8 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import UserInfoDrawer from "@/components/Drawers/UserInfoDrawer";
@@ -22,7 +22,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { AppRoutes } from "@/router/app_routes";
 import { cn } from "@/utils/utils";
 import { LayoutDashboard, Receipt, User } from "lucide-react";
@@ -107,25 +106,6 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
 const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
   const [drawerPlanOpen, setDrawerPlanOpen] = useState(false);
   const [drawerUserInfoOpen, setDrawerUserInfoOpen] = useState(false);
-  const router = useRouter();
-
-  const { data: userResponse, isLoading, error } = useGetUser();
-  const user = userResponse?.data?.user;
-
-  useEffect(() => {
-    if (!isLoading && !user) {
-      // Si l'utilisateur n'est pas connecté, rediriger vers la page d'authentification
-      router.push(AppRoutes.AUTH);
-    }
-  }, [user, isLoading, router]);
-
-  // Afficher un indicateur de chargement pendant la vérification de l'authentification
-  if (isLoading) {
-    return <div className="flex h-full w-full items-center justify-center">Loading...</div>;
-  }
-
-  // Ne rien afficher si l'utilisateur n'est pas connecté (la redirection sera gérée par useEffect)
-  if (!user) return null;
 
   return (
     <SidebarProvider defaultOpen={true}>
