@@ -4,4 +4,6 @@
 // add theme toggle on free routes
 // change position language selector
 
+// remove zoom on mobile input
+
 // find a new way to protect preprod from indexing
