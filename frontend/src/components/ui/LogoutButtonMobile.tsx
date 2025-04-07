@@ -12,7 +12,7 @@ const LogoutButtonMobile: React.FC = () => {
   const logoutMutation = useLogout();
 
   const handleLogout = () => {
-    logoutMutation.mutate("", {
+    logoutMutation.mutate(undefined, {
       onSuccess: () => {
         router.push(AppRoutes.LANDING);
       },
