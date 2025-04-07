@@ -1,50 +1,84 @@
 # Wallet Application
 
-Ce projet est une application de gestion de portefeuille (wallet) qui permet aux utilisateurs de visualiser leurs dépenses pour mieux comprendre leurs habitudes de dépenses.
+This project is a wallet management application that allows users to visualize their expenses to better understand their spending habits.
 
-## Structure du Projet
+## Project Structure
 
-Le projet est divisé en deux parties principales :
+The project is divided into two main parts:
 
 ### Frontend (`/frontend`)
 
-- Application web construite avec Next.js
-- Interface utilisateur moderne et responsive
-- Styling avec Tailwind CSS
-- TypeScript pour un développement type-safe
+- Web application built with Next.js
+- Modern and responsive user interface
+- Styling with Tailwind CSS
+- TypeScript for type-safe development
 
 ### Backend (`/backend`)
 
-- API REST construite avec Node.js
-- Base de données gérée avec Prisma ORM
-- TypeScript pour un développement type-safe
-- Documentation API avec Postman
+- REST API built with Node.js
+- Database managed with Prisma ORM
+- TypeScript for type-safe development
+- API documentation with Postman
 
-## Technologies Utilisées
+## Technologies Used
 
 ### Frontend
 
-- **Next.js** - Framework React pour le développement web
-- **TypeScript** - Langage de programmation typé
-- **Tailwind CSS** - Framework CSS utility-first
-- **ESLint & Prettier** - Outils de linting et de formatage de code
+- **Next.js** - React framework for web development
+- **TypeScript** - Typed programming language
+- **Tailwind CSS** - Utility-first CSS framework
+- **ESLint & Prettier** - Code linting and formatting tools
 
 ### Backend
 
-- **Node.js** - Environnement d'exécution JavaScript
-- **TypeScript** - Langage de programmation typé
-- **Prisma** - ORM moderne pour la gestion de base de données
-- **Postman** - Documentation et tests d'API
+- **Node.js** - JavaScript runtime environment
+- **TypeScript** - Typed programming language
+- **Prisma** - Modern ORM for database management
+- **Postman** - API documentation and testing
 
 ## Installation
 
-### Prérequis
+### Prerequisites
 
-- Node.js (v18 ou supérieur)
-- npm ou yarn
-- Base de données (configurée dans le backend)
+- Node.js (v18 or higher)
+- npm or yarn
+- Database (configured in the backend)
 
-### Frontend
+### Unified Installation
+
+To install all project dependencies with a single command:
+
+```bash
+npm run install:all
+```
+
+This command will install dependencies for:
+
+- Root project
+- Frontend
+- Backend
+
+### Unified Development
+
+To run all services in parallel (frontend, backend, and Prisma Studio):
+
+```bash
+npm run dev
+```
+
+This command will start:
+
+- Next.js frontend on port 3000
+- Backend on its default port
+- Prisma Studio on port 5555
+
+Logs from all services will be displayed in the same terminal with different colors for better readability.
+
+### Separate Installation
+
+If you prefer to install and start services separately:
+
+#### Frontend
 
 ```bash
 cd frontend
@@ -52,7 +86,7 @@ npm install
 npm run dev
 ```
 
-### Backend
+#### Backend
 
 ```bash
 cd backend
@@ -62,31 +96,31 @@ npm run dev
 
 ## GitHub Actions
 
-Le projet utilise GitHub Actions pour l'automatisation du déploiement. Un workflow est configuré pour déployer automatiquement l'application sur un VPS lorsque des modifications sont poussées sur les branches `main` et `dev`. Le déploiement inclut :
+The project uses GitHub Actions for deployment automation. A workflow is configured to automatically deploy the application to a VPS when changes are pushed to the `main` and `dev` branches. The deployment includes:
 
-- Installation des dépendances
-- Migration de la base de données
-- Build et démarrage des applications frontend et backend
-- Gestion des environnements de production et pré-production via les différentes branches git
+- Dependencies installation
+- Database migration
+- Frontend and backend application build and startup
+- Production and pre-production environment management via different git branches
 
 ## Configuration
 
-Les fichiers `.env` sont nécessaires pour le frontend et le backend. Assurez-vous de les configurer correctement en suivant les exemples fournis dans les dossiers respectifs.
+`.env` files are required for both frontend and backend. Make sure to configure them correctly by following the examples provided in their respective directories.
 
 ## Documentation
 
-- La documentation de l'API est disponible dans le fichier `routes.md` du backend
-- Les collections Postman sont disponibles dans le fichier `postman.json`
-- Chaque partie du projet (frontend et backend) possède son propre README avec des instructions détaillées
+- API documentation is available in the backend's `routes.md` file
+- Postman collections are available in the `postman.json` file
+- Each project part (frontend and backend) has its own README with detailed instructions
 
-## Contribution
+## Contributing
 
-1. Fork le projet
-2. Créez votre branche (`git checkout -b feature/AmazingFeature`)
-3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
+1. Fork the project
+2. Create your branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Licence
+## License
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
