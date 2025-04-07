@@ -3,7 +3,9 @@
     "invalidCredentials": "Identifiants invalides",
     "checkCredentials": "Veuillez vérifier votre email et votre mot de passe",
     "loginError": "Échec de la connexion",
-    "tryAgain": "Veuillez réessayer plus tard"
+    "tryAgain": "Veuillez réessayer plus tard",
+    "registrationSuccess": "Inscription réussie",
+    "registrationError": "Échec de l'inscription"
   },
   "Validation": {
     "invalidEmail": "Format d'email invalide",
@@ -18,11 +20,22 @@
     "signUp": "S'inscrire",
     "toContinue": "pour continuer",
     "title": "Bienvenue",
+    "description": "Connectez-vous à votre compte pour continuer",
     "email": "Email",
+    "emailPlaceholder": "Entrez votre email",
     "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
     "login": "Connexion",
+    "loggingIn": "Connexion en cours...",
     "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous",
-    "alreadyHaveAccount": "Vous avez déjà un compte ? Connectez-vous"
+    "alreadyHaveAccount": "Vous avez déjà un compte ? Connectez-vous",
+    "createAccount": "Créer un compte",
+    "createAccountDescription": "Inscrivez-vous pour commencer avec Waletoo",
+    "name": "Nom",
+    "namePlaceholder": "Entrez votre nom",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+    "signingUp": "Inscription en cours..."
   },
   "Landing": {
     "Navigation": {

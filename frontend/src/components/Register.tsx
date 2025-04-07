@@ -3,6 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useRegister } from "@/hooks/mutations/auth/useRegister";
 import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
 import { AppRoutes } from "@/router/app_routes";
@@ -17,7 +21,6 @@ const Register = () => {
   const tValidation = useTranslations("Validation");
   const tToast = useTranslations("Toast");
 
-  // Définir le schéma à l'intérieur du composant pour accéder aux traductions
   const registerSchema = z
     .object({
       name: z.string().min(1, tValidation("nameRequired")),
@@ -32,13 +35,14 @@ const Register = () => {
 
   type RegisterForm = z.infer<typeof registerSchema>;
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<RegisterForm>({
+  const form = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   const registerMutation = useRegister();
@@ -50,7 +54,7 @@ const Register = () => {
       { name, email, password },
       {
         onSuccess: () => {
-          reset();
+          form.reset();
           toast.success(tToast("registrationSuccess"));
           router.push(AppRoutes.DASHBOARD);
         },
@@ -65,66 +69,74 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <h1 className="text-center text-xl font-bold text-gray-900">Create an Account</h1>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-6">
-          <div>
-            <input
-              type="text"
-              placeholder="Name"
-              {...register("name")}
-              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            />
-
-            {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>}
-          </div>
-
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              {...register("email")}
-              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            />
-
-            {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
-          </div>
-
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password")}
-              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            />
-
-            {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
-          </div>
-
-          <div>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              {...register("confirmPassword")}
-              className="block w-full rounded-lg border-gray-300 p-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            />
-
-            {errors.confirmPassword && <p className="mt-1 text-sm text-red-500">{errors.confirmPassword.message}</p>}
-          </div>
-
-          <button
-            type="submit"
-            className={`w-full rounded-lg bg-blue-500 p-3 font-semibold text-white shadow transition hover:bg-blue-600 ${
-              registerMutation.isPending ? "opacity-50" : ""
-            }`}
-            disabled={registerMutation.isPending}
-          >
-            {registerMutation.isPending ? "Signing Up..." : "Sign Up"}
-          </button>
-        </form>
-      </div>
+    <div className="flex items-center justify-center px-4 py-8">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">{t("createAccount")}</CardTitle>
+          <CardDescription className="text-center">{t("createAccountDescription")}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("name")}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t("namePlaceholder")} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("email")}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t("emailPlaceholder")} type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("password")}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t("passwordPlaceholder")} type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("confirmPassword")}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t("confirmPasswordPlaceholder")} type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full" disabled={registerMutation.isPending}>
+                {registerMutation.isPending ? t("signingUp") : t("signUp")}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   );
 };

@@ -3,6 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useLogin } from "@/hooks/mutations/auth/useLogin";
 import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
 import { AppRoutes } from "@/router/app_routes";
@@ -24,12 +28,12 @@ const Login = () => {
 
   type LoginForm = z.infer<typeof loginSchema>;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginForm>({
+  const form = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const loginMutation = useLogin();
@@ -61,41 +65,48 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-        <h1 className="text-center text-xl font-bold text-gray-900">{t("title")}</h1>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-6">
-          <div>
-            <input
-              type="email"
-              placeholder={t("email")}
-              {...register("email")}
-              className="block w-full rounded-lg border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            />
-
-            {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
-          </div>
-
-          <div>
-            <input
-              type="password"
-              placeholder={t("password")}
-              {...register("password")}
-              className="block w-full rounded-lg border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            />
-
-            {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-blue-500 p-3 text-white transition-all duration-300 hover:bg-blue-600"
-          >
-            {t("login")}
-          </button>
-        </form>
-      </div>
+    <div className="flex items-center justify-center px-4 py-8">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">{t("title")}</CardTitle>
+          <CardDescription className="text-center">{t("description")}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("email")}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t("emailPlaceholder")} type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("password")}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t("passwordPlaceholder")} type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
+                {loginMutation.isPending ? t("loggingIn") : t("login")}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   );
 };
