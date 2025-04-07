@@ -9,7 +9,11 @@
     "start": "cross-env PORT=$PORT next start",
     "lint": "next lint",
     "postinstall": "npm rebuild sharp",
-    "prepare": "husky"
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx eslint --fix . && npx prettier --write .",
+    "pre-push": "npm run build"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -60,9 +64,8 @@
     "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-config-next": "15.1.2",
-    "husky": "^8.0.0",
-    "lint-staged": "^15.5.0",
     "postcss": "^8.4.49",
+    "simple-git-hooks": "^2.12.1",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
