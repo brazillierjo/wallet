@@ -41,6 +41,8 @@ jobs:
             cd backend
             bun install
             bunx prisma migrate deploy
+            echo "🚀 Restarting backend app"
+            pm2 delete wallet-backend || true
             pm2 start "bun run start" --name wallet-backend -- --port $PORT_BACK --update-env
 
             echo "🌐 Building frontend..."
@@ -50,4 +52,5 @@ jobs:
             npm run build
 
             echo "🚀 Restarting frontend app"
+            pm2 delete wallet-frontend || true
             pm2 start npm --name wallet-frontend -- start --env "PORT=$PORT_FRONT" --update-env
