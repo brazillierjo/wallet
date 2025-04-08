@@ -96,12 +96,12 @@ npm run dev
 
 ## GitHub Actions
 
-The project uses GitHub Actions for deployment automation. A workflow is configured to automatically deploy the application to a VPS when changes are pushed to the `main` and `dev` branches. The deployment includes:
+The project uses GitHub Actions for deployment automation. A workflow is configured to automatically deploy the application to a VPS when changes are pushed to the `main` branch. The deployment includes:
 
 - Dependencies installation
 - Database migration
 - Frontend and backend application build and startup
-- Production and pre-production environment management via different git branches
+- Production environment management via git branches
 
 ## Configuration
 
