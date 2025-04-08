@@ -32,6 +32,7 @@ jobs:
             echo "🛠️  Backend port: $PORT_BACK"
 
             cd ~/apps/$FOLDER
+            git clean -fd
             git reset --hard
             git pull origin $BRANCH
 
