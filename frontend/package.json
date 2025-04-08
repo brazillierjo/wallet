@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "cross-env PORT=$PORT next start",
+    "start": "next start",
     "lint": "next lint",
     "postinstall": "npm rebuild sharp"
   },
