@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
@@ -14,10 +15,11 @@ import {
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { expenseCategories, incomeCategories } from "@/utils/categories";
+import { expenseCategoryKeys, incomeCategoryKeys } from "@/utils/categories";
 import { OperationType } from "@/utils/enums/operationType";
 import { OperationInput } from "@/utils/interfaces/operation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Trash2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,8 +33,10 @@ interface OperationFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (data: OperationInput) => void;
+  onDelete?: () => void;
   title: string;
   isLoading?: boolean;
+  isDeleteLoading?: boolean;
   type: OperationType;
   initialData?: OperationInput;
 }
@@ -41,12 +45,15 @@ export const OperationFormDialog = ({
   open,
   onOpenChange,
   onSubmit,
+  onDelete,
   title,
   isLoading = false,
+  isDeleteLoading = false,
   type,
   initialData,
 }: OperationFormDialogProps) => {
-  const t = useTranslations("Dashboard");
+  const t = useTranslations();
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -56,7 +63,7 @@ export const OperationFormDialog = ({
     },
   });
 
-  const categories = type === OperationType.INCOMES ? incomeCategories : expenseCategories;
+  const categoryKeys = type === OperationType.INCOMES ? incomeCategoryKeys : expenseCategoryKeys;
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     onSubmit(values);
@@ -65,12 +72,30 @@ export const OperationFormDialog = ({
     }
   };
 
+  const handleDeleteClick = () => {
+    if (isConfirmingDelete && onDelete) {
+      onDelete();
+    } else {
+      setIsConfirmingDelete(true);
+    }
+  };
+
+  // Reset confirmation state when dialog closes
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      setIsConfirmingDelete(false);
+    }
+    onOpenChange(open);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{initialData ? t("form.editDescription") : t("form.addDescription")}</DialogDescription>
+          <DialogDescription>
+            {initialData ? t("Dashboard.form.editDescription") : t("Dashboard.form.addDescription")}
+          </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
@@ -80,9 +105,9 @@ export const OperationFormDialog = ({
               name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("label")}</FormLabel>
+                  <FormLabel>{t("Dashboard.label")}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t("form.enterLabel")} {...field} />
+                    <Input placeholder={t("Dashboard.form.enterLabel")} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -94,11 +119,11 @@ export const OperationFormDialog = ({
               name="amount"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("amount")}</FormLabel>
+                  <FormLabel>{t("Dashboard.amount")}</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder={t("form.enterAmount")}
+                      placeholder={t("Dashboard.form.enterAmount")}
                       {...field}
                       value={field.value === 0 ? "" : field.value}
                       onChange={(e) => {
@@ -119,17 +144,17 @@ export const OperationFormDialog = ({
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("category")}</FormLabel>
+                  <FormLabel>{t("Dashboard.category")}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={t("form.selectCategory")} />
+                        <SelectValue placeholder={t("Dashboard.form.selectCategory")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category: string) => (
-                        <SelectItem key={category} value={category}>
-                          {category}
+                      {categoryKeys.map((categoryKey) => (
+                        <SelectItem key={categoryKey} value={categoryKey}>
+                          {t(categoryKey)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -139,9 +164,25 @@ export const OperationFormDialog = ({
               )}
             />
 
-            <DialogFooter>
+            <DialogFooter className="gap-2">
+              {initialData && onDelete && (
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={handleDeleteClick}
+                  disabled={isDeleteLoading}
+                  className={isConfirmingDelete ? "animate-pulse" : ""}
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  {isConfirmingDelete ? t("Dashboard.confirmDelete") : t("Dashboard.delete")}
+                </Button>
+              )}
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? t("form.saving") : initialData ? t("form.update") : t("form.create")}
+                {isLoading
+                  ? t("Dashboard.form.saving")
+                  : initialData
+                    ? t("Dashboard.form.update")
+                    : t("Dashboard.form.create")}
               </Button>
             </DialogFooter>
           </form>

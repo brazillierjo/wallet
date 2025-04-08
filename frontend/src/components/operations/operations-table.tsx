@@ -12,10 +12,9 @@ import { useDeleteIncome } from "@/hooks/mutations/income/useDeleteIncome";
 import { useUpdateIncome } from "@/hooks/mutations/income/useUpdateIncome";
 import { OperationType } from "@/utils/enums/operationType";
 import { Operation, OperationInput } from "@/utils/interfaces/operation";
-import { Edit2, Plus, Trash2 } from "lucide-react";
+import { Edit2, Plus } from "lucide-react";
 import { toast } from "sonner";
 
-import { DeleteOperationDrawer } from "./delete-operation-drawer";
 import { OperationFormDialog } from "./operation-form-dialog";
 
 interface OperationsTableProps {
@@ -28,22 +27,16 @@ interface OperationsTableProps {
 }
 
 export const OperationsTable = ({ title, operations, isLoading, onAdd, type, shortcut }: OperationsTableProps) => {
-  const t = useTranslations("Dashboard");
+  const t = useTranslations();
   const [editingOperation, setEditingOperation] = useState<Operation | null>(null);
-  const [deletingOperation, setDeletingOperation] = useState<Operation | null>(null);
 
   const deleteIncome = useDeleteIncome();
   const deleteExpense = useDeleteExpense();
   const updateIncome = useUpdateIncome();
   const updateExpense = useUpdateExpense();
 
-  // Définir le raccourci par défaut en fonction du type d'opération
   const defaultShortcut = type === OperationType.INCOMES ? ["Command", "A"] : ["Command", "Z"];
-
-  // Utiliser le raccourci fourni en props ou le raccourci par défaut
   const keyboardShortcut = shortcut || defaultShortcut;
-
-  // Utiliser le hook pour gérer le raccourci clavier
   useKeyboardShortcut(keyboardShortcut, onAdd);
 
   const handleEdit = (operation: Operation) => {
@@ -51,21 +44,17 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
   };
 
   const handleDelete = (operation: Operation) => {
-    setDeletingOperation(operation);
-  };
-
-  const handleConfirmDelete = () => {
-    if (!deletingOperation) return;
-
     const deleteMutation = type === OperationType.INCOMES ? deleteIncome : deleteExpense;
 
-    deleteMutation.mutate(deletingOperation.id, {
+    deleteMutation.mutate(operation.id, {
       onSuccess: () => {
-        toast.success(type === OperationType.INCOMES ? t("incomeDeleted") : t("expenseDeleted"));
-        setDeletingOperation(null);
+        toast.success(type === OperationType.INCOMES ? t("Dashboard.incomeDeleted") : t("Dashboard.expenseDeleted"));
+        setEditingOperation(null);
       },
       onError: () => {
-        toast.error(type === OperationType.INCOMES ? t("failedToDeleteIncome") : t("failedToDeleteExpense"));
+        toast.error(
+          type === OperationType.INCOMES ? t("Dashboard.failedToDeleteIncome") : t("Dashboard.failedToDeleteExpense")
+        );
       },
     });
   };
@@ -79,11 +68,13 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
       { id: editingOperation.id, data },
       {
         onSuccess: () => {
-          toast.success(type === OperationType.INCOMES ? t("incomeUpdated") : t("expenseUpdated"));
+          toast.success(type === OperationType.INCOMES ? t("Dashboard.incomeUpdated") : t("Dashboard.expenseUpdated"));
           setEditingOperation(null);
         },
         onError: () => {
-          toast.error(type === OperationType.INCOMES ? t("failedToUpdateIncome") : t("failedToUpdateExpense"));
+          toast.error(
+            type === OperationType.INCOMES ? t("Dashboard.failedToUpdateIncome") : t("Dashboard.failedToUpdateExpense")
+          );
         },
       }
     );
@@ -94,7 +85,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">{title}</h2>
         <Button onClick={onAdd} size="sm">
-          {t("add")}
+          {t("Dashboard.add")}
           <KeyboardShortcut keys={keyboardShortcut} />
         </Button>
       </div>
@@ -103,38 +94,35 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t("label")}</TableHead>
-              <TableHead>{t("category")}</TableHead>
-              <TableHead>{t("amount")}</TableHead>
-              <TableHead className="w-[100px]">{t("actions")}</TableHead>
+              <TableHead className="w-[35%]">{t("Dashboard.label")}</TableHead>
+              <TableHead className="w-[35%]">{t("Dashboard.category")}</TableHead>
+              <TableHead className="w-[20%] text-right">{t("Dashboard.amount")}</TableHead>
+              <TableHead className="w-[10%] text-center">{t("Dashboard.actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
-                  {t("loading")}
+                  {t("Dashboard.loading")}
                 </TableCell>
               </TableRow>
             ) : operations.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
-                  {t("noOperations", { type: title.toLowerCase() })}
+                  {t("Dashboard.noOperations", { type: title.toLowerCase() })}
                 </TableCell>
               </TableRow>
             ) : (
               operations.map((operation) => (
                 <TableRow key={operation.id} className="group">
-                  <TableCell className="font-medium">{operation.label}</TableCell>
-                  <TableCell>{operation.category || "-"}</TableCell>
-                  <TableCell>{operation.amount.toFixed(2)} €</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                  <TableCell className="w-[35%] font-medium">{operation.label}</TableCell>
+                  <TableCell className="w-[35%]">{operation.category ? t(operation.category) : "-"}</TableCell>
+                  <TableCell className="w-[20%] text-right">{operation.amount.toFixed(2)} €</TableCell>
+                  <TableCell className="w-[10%]">
+                    <div className="flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
                       <Button variant="ghost" size="icon" onClick={() => handleEdit(operation)}>
                         <Edit2 className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(operation)}>
-                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </TableCell>
@@ -150,20 +138,13 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
           open={!!editingOperation}
           onOpenChange={(open) => !open && setEditingOperation(null)}
           onSubmit={handleEditSubmit}
-          title={`${t("edit")} ${type === OperationType.INCOMES ? t("incomes") : t("expenses")}`}
+          onDelete={() => handleDelete(editingOperation)}
+          title={`${t("Dashboard.edit")} ${type === OperationType.INCOMES ? t("Dashboard.incomes") : t("Dashboard.expenses")}`}
           initialData={editingOperation}
           type={type}
+          isDeleteLoading={type === OperationType.INCOMES ? deleteIncome.isPending : deleteExpense.isPending}
         />
       )}
-
-      <DeleteOperationDrawer
-        open={!!deletingOperation}
-        onOpenChange={(open) => !open && setDeletingOperation(null)}
-        onConfirm={handleConfirmDelete}
-        operation={deletingOperation}
-        type={type}
-        isLoading={type === OperationType.INCOMES ? deleteIncome.isPending : deleteExpense.isPending}
-      />
     </div>
   );
 };

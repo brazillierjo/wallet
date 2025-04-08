@@ -1,33 +1,33 @@
-export const incomeCategories = [
-  "Salary",
-  "Freelance",
-  "Rental",
-  "Investment",
-  "Business",
-  "Pension",
-  "Bonuses",
-  "Dividends",
-  "Grants",
-  "Other income",
+export const incomeCategoryKeys = [
+  "categories.income.salary",
+  "categories.income.freelance",
+  "categories.income.rental",
+  "categories.income.investment",
+  "categories.income.business",
+  "categories.income.pension",
+  "categories.income.bonuses",
+  "categories.income.dividends",
+  "categories.income.grants",
+  "categories.income.other",
 ] as const;
 
-export const expenseCategories = [
-  "Housing",
-  "Transportation",
-  "Food",
-  "Utilities",
-  "Insurance",
-  "Healthcare",
-  "Entertainment",
-  "Shopping",
-  "Education",
-  "Debt",
-  "Savings",
-  "Gifts",
-  "Travel",
-  "Taxes",
-  "Other expenses",
+export const expenseCategoryKeys = [
+  "categories.expense.housing",
+  "categories.expense.transportation",
+  "categories.expense.food",
+  "categories.expense.utilities",
+  "categories.expense.insurance",
+  "categories.expense.healthcare",
+  "categories.expense.entertainment",
+  "categories.expense.shopping",
+  "categories.expense.education",
+  "categories.expense.debt",
+  "categories.expense.savings",
+  "categories.expense.gifts",
+  "categories.expense.travel",
+  "categories.expense.taxes",
+  "categories.expense.other",
 ] as const;
 
-export type IncomeCategory = (typeof incomeCategories)[number];
-export type ExpenseCategory = (typeof expenseCategories)[number];
+export type IncomeCategoryKey = (typeof incomeCategoryKeys)[number];
+export type ExpenseCategoryKey = (typeof expenseCategoryKeys)[number];

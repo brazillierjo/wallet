@@ -126,6 +126,7 @@
     "add": "Add",
     "edit": "Edit",
     "delete": "Delete",
+    "confirmDelete": "Click to confirm",
     "label": "Label",
     "category": "Category",
     "amount": "Amount",
@@ -149,6 +150,37 @@
       "category": "Category: {category}",
       "deleting": "Deleting...",
       "cancel": "Cancel"
+    }
+  },
+  "categories": {
+    "income": {
+      "salary": "Salary",
+      "freelance": "Freelance",
+      "rental": "Rental",
+      "investment": "Investment",
+      "business": "Business",
+      "pension": "Pension",
+      "bonuses": "Bonuses",
+      "dividends": "Dividends",
+      "grants": "Grants",
+      "other": "Other income"
+    },
+    "expense": {
+      "housing": "Housing",
+      "transportation": "Transportation",
+      "food": "Food",
+      "utilities": "Utilities",
+      "insurance": "Insurance",
+      "healthcare": "Healthcare",
+      "entertainment": "Entertainment",
+      "shopping": "Shopping",
+      "education": "Education",
+      "debt": "Debt",
+      "savings": "Savings",
+      "gifts": "Gifts",
+      "travel": "Travel",
+      "taxes": "Taxes",
+      "other": "Other expenses"
     }
   }
 }
