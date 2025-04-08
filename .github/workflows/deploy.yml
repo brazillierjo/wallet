@@ -51,4 +51,4 @@ jobs:
 
             # Start frontend with proper environment variables
             cd ~/apps/$FOLDER/frontend
-            PORT=$PORT_FRONT pm2 start npm --name "wallet-frontend$NAME_SUFFIX" -- start --env "PORT=$PORT_FRONT"
+            pm2 start npm --name "wallet-frontend$NAME_SUFFIX" -- start
