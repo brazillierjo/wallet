@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev
 
 jobs:
   deploy:
@@ -23,21 +22,10 @@ jobs:
           script: |
             BRANCH=${{ github.ref_name }}
 
-            if [ "$BRANCH" = "main" ]; then
-              FOLDER=wallet
-              PORT_FRONT=3000
-              PORT_BACK=3001
-              NAME_SUFFIX=""
-            elif [ "$BRANCH" = "dev" ]; then
-              FOLDER=wallet-preprod
-              PORT_FRONT=3100
-              PORT_BACK=3101
-              NAME_SUFFIX="-preprod"
-            else
-              echo "🚫 Branch $BRANCH is not configured for deployment."
-              exit 0
-            fi
-
+            FOLDER=wallet
+            PORT_FRONT=3000
+            PORT_BACK=3001
+            NAME_SUFFIX=""
 
             echo "📁 Target folder: $FOLDER"
             echo "🌐 Frontend port: $PORT_FRONT"
