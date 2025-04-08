@@ -38,7 +38,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={cn(appFont.className, "mx-auto max-w-screen-2xl")}>
+      <body className={cn(appFont.className, "mx-auto")}>
         <NextIntlClientProvider>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>
