@@ -46,7 +46,9 @@ jobs:
             npm install
             npm run build
 
+            # Stop existing frontend process if it exists
             pm2 delete wallet-frontend$NAME_SUFFIX || true
-            PORT=$PORT_FRONT pm2 start "npm run start" --name wallet-frontend$NAME_SUFFIX --cwd ~/apps/$FOLDER/frontend
 
-            pm2 restart wallet-frontend$NAME_SUFFIX || PORT=$PORT_FRONT pm2 start "npm run start" --name wallet-frontend$NAME_SUFFIX --cwd ~/apps/$FOLDER/frontend
+            # Start frontend with proper environment variables
+            cd ~/apps/$FOLDER/frontend
+            PORT=$PORT_FRONT pm2 start npm --name "wallet-frontend$NAME_SUFFIX" -- start
