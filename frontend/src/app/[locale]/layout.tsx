@@ -23,12 +23,6 @@ const appFont = Poppins({
 export const metadata: Metadata = {
   title: "Waletoo | Simplified Financial Management",
   description: "Manage your monthly budget with ease.",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
 };
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
