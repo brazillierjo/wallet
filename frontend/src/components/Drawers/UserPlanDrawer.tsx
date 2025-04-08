@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +24,7 @@ interface UserPlanDrawerProps {
 }
 
 const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
+  const t = useTranslations("UserPlanDrawer");
   const { data: userResponse } = useGetUser();
   const user = userResponse?.data?.user;
 
@@ -31,15 +33,15 @@ const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
       <DrawerContent className="bg-background">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Current user plan</DrawerTitle>
+            <DrawerTitle>{t("title")}</DrawerTitle>
             <DrawerDescription asChild>
               {!user?.isSubscribed ? (
                 <p className="my-6 flex items-center justify-start gap-3 text-base">
-                  <CheckCircleIcon className="h-5 w-5 text-yellow-500" /> Pro plan
+                  <CheckCircleIcon className="h-5 w-5 text-yellow-500" /> {t("proPlan")}
                 </p>
               ) : (
                 <p className="my-6 flex items-center justify-start gap-3 text-base">
-                  <XCircleIcon className="h-5 w-5 text-red-500" /> Free plan
+                  <XCircleIcon className="h-5 w-5 text-red-500" /> {t("freePlan")}
                 </p>
               )}
             </DrawerDescription>
@@ -50,37 +52,37 @@ const UserPlanDrawer = ({ isOpen, setIsOpen }: UserPlanDrawerProps) => {
               <div>
                 <div className="mb-4 flex items-center justify-between font-semibold">
                   <p className="flex items-center rounded-full px-2 py-1 text-xs font-semibold">
-                    <ClockIcon className="mr-1 h-3 w-3" /> TODO Days Left
+                    <ClockIcon className="mr-1 h-3 w-3" /> {t("daysLeft")}
                   </p>
 
-                  <p className="text-xs">$2.99 / month</p>
+                  <p className="text-xs">{t("perMonth")}</p>
                 </div>
 
                 <div className="mx-auto w-full max-w-sm overflow-hidden rounded-lg border border-gray-300 bg-gray-200">
                   <div className="w-[50%] bg-green-500 py-1 text-xs leading-none" />
                 </div>
 
-                <p className="mt-4 text-xs text-gray-400">Automatic renewal on 03/22/2023</p>
+                <p className="mt-4 text-xs text-gray-400">{t("automaticRenewal")}</p>
               </div>
             ) : (
               <>
-                <h4 className="mb-4">Why choose Waletoo&apos;s Pro plan?</h4>
+                <h4 className="mb-4">{t("whyChoosePro")}</h4>
 
                 <ul className="mb-7 list-inside list-decimal space-y-2 text-xs">
-                  <li>Advanced financial comparisons with industry standards</li>
-                  <li>Personalized financial alerts for issues like debt overload</li>
-                  <li>Recommendations for optimizing your budget</li>
+                  <li>{t("proFeatures.comparisons")}</li>
+                  <li>{t("proFeatures.alerts")}</li>
+                  <li>{t("proFeatures.recommendations")}</li>
                 </ul>
               </>
             )}
 
-            <Button className="w-full">{user?.isSubscribed ? "Change plan" : "Subscribe"}</Button>
+            <Button className="w-full">{user?.isSubscribed ? t("changePlan") : t("subscribe")}</Button>
           </div>
 
           <DrawerFooter>
             <DrawerClose asChild>
               <Button variant="outline" className="w-full">
-                Close
+                {t("close")}
               </Button>
             </DrawerClose>
           </DrawerFooter>

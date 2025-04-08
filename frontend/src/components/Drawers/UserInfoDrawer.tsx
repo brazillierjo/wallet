@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import AvatarSelector from "@/components/ui/avatar-selector";
 import { Button } from "@/components/ui/button";
@@ -36,24 +37,26 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
   const user = userResponse?.data?.user;
   const [name, setName] = useState(user?.name);
 
+  const t = useTranslations("UserInfoDrawer");
+
   const handleDeleteClick = () => {
     if (confirmDelete) {
       toast.promise(deleteUser(), {
-        loading: "Deleting your account...",
-        success: "Account deleted successfully",
-        error: "Failed to delete account",
+        loading: t("deletingAccount"),
+        success: t("accountDeleted"),
+        error: t("deleteFailed"),
       });
     } else {
       setConfirmDelete(true);
-      toast.warning("Click again to confirm account deletion", {
-        description: "This action cannot be undone",
+      toast.warning(t("confirmDeletion"), {
+        description: t("deletionWarning"),
       });
     }
   };
 
   const handleNameUpdate = () => {
     if (name?.trim() === "") {
-      toast.error("Name cannot be empty");
+      toast.error(t("nameEmpty"));
       return;
     }
 
@@ -62,7 +65,7 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
       {
         onSuccess: () => {
           setIsEditingName(false);
-          toast.success("Name updated successfully");
+          toast.success(t("nameUpdated"));
         },
       }
     );
@@ -75,8 +78,8 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
       <DrawerContent className="bg-background">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>User Profile</DrawerTitle>
-            <DrawerDescription>Manage your account settings and preferences.</DrawerDescription>
+            <DrawerTitle>{t("title")}</DrawerTitle>
+            <DrawerDescription>{t("description")}</DrawerDescription>
           </DrawerHeader>
 
           <div className="p-4 pb-0">
@@ -121,7 +124,7 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
                     </div>
                   ) : (
                     <p onClick={() => setIsEditingName(true)} className="font-semibold">
-                      <span className="font-normal">Name :</span>{" "}
+                      <span className="font-normal">{t("name")} :</span>{" "}
                       <span className="group-hover:cursor-pointer">{user.name ?? "User"}</span>
                       <Button
                         variant="ghost"
@@ -134,7 +137,7 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
                   )}
 
                   <p className="font-semibold">
-                    <span className="font-normal">Email :</span> {user.email}
+                    <span className="font-normal">{t("email")} :</span> {user.email}
                   </p>
                 </div>
               </div>
@@ -142,12 +145,12 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
 
             <div className="space-y-2">
               <p className="text-sm">
-                <span className="font-medium">Account Created:</span>{" "}
+                <span className="font-medium">{t("accountCreated")}:</span>{" "}
                 <span className="">{user?.createdAt ? format(new Date(user.createdAt), "PPp") : "N/A"}</span>
               </p>
 
               <p className="text-sm">
-                <span className="font-medium">Last Updated:</span>{" "}
+                <span className="font-medium">{t("lastUpdated")}:</span>{" "}
                 <span className="">{user?.updatedAt ? format(new Date(user.updatedAt), "PPp") : "N/A"}</span>
               </p>
             </div>
@@ -156,11 +159,11 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
           <DrawerFooter>
             <Button variant="destructive" onClick={handleDeleteClick} disabled={isDeleting}>
               <Trash2 className="mr-2 h-4 w-4" />
-              {confirmDelete ? "Confirm Delete" : "Delete User"}
+              {confirmDelete ? t("confirmDelete") : t("deleteUser")}
             </Button>
 
             <DrawerClose asChild>
-              <Button variant="outline">Close</Button>
+              <Button variant="outline">{t("close")}</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

@@ -182,5 +182,40 @@
       "taxes": "Impôts",
       "other": "Autres dépenses"
     }
+  },
+  "UserInfoDrawer": {
+    "title": "Profil utilisateur",
+    "description": "Gérez vos paramètres de compte et vos préférences.",
+    "name": "Nom",
+    "email": "Email",
+    "accountCreated": "Compte créé le",
+    "lastUpdated": "Dernière mise à jour",
+    "deleteUser": "Supprimer l'utilisateur",
+    "confirmDelete": "Confirmer la suppression",
+    "close": "Fermer",
+    "nameUpdated": "Nom mis à jour avec succès",
+    "nameEmpty": "Le nom ne peut pas être vide",
+    "deletingAccount": "Suppression de votre compte en cours...",
+    "accountDeleted": "Compte supprimé avec succès",
+    "deleteFailed": "Échec de la suppression du compte",
+    "confirmDeletion": "Cliquez à nouveau pour confirmer la suppression du compte",
+    "deletionWarning": "Cette action ne peut pas être annulée"
+  },
+  "UserPlanDrawer": {
+    "title": "Forfait actuel",
+    "proPlan": "Forfait Pro",
+    "freePlan": "Forfait gratuit",
+    "daysLeft": "Jours restants",
+    "perMonth": "2,99€ / mois",
+    "automaticRenewal": "Renouvellement automatique le 22/03/2023",
+    "whyChoosePro": "Pourquoi choisir le forfait Pro de Waletoo ?",
+    "proFeatures": {
+      "comparisons": "Comparaisons financières avancées avec les standards du secteur",
+      "alerts": "Alertes financières personnalisées pour les problèmes comme la surcharge de dettes",
+      "recommendations": "Recommandations pour optimiser votre budget"
+    },
+    "changePlan": "Changer de forfait",
+    "subscribe": "S'abonner",
+    "close": "Fermer"
   }
 }

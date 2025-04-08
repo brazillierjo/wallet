@@ -182,5 +182,40 @@
       "taxes": "Taxes",
       "other": "Other expenses"
     }
+  },
+  "UserInfoDrawer": {
+    "title": "User Profile",
+    "description": "Manage your account settings and preferences.",
+    "name": "Name",
+    "email": "Email",
+    "accountCreated": "Account Created",
+    "lastUpdated": "Last Updated",
+    "deleteUser": "Delete User",
+    "confirmDelete": "Confirm Delete",
+    "close": "Close",
+    "nameUpdated": "Name updated successfully",
+    "nameEmpty": "Name cannot be empty",
+    "deletingAccount": "Deleting your account...",
+    "accountDeleted": "Account deleted successfully",
+    "deleteFailed": "Failed to delete account",
+    "confirmDeletion": "Click again to confirm account deletion",
+    "deletionWarning": "This action cannot be undone"
+  },
+  "UserPlanDrawer": {
+    "title": "Current user plan",
+    "proPlan": "Pro plan",
+    "freePlan": "Free plan",
+    "daysLeft": "Days Left",
+    "perMonth": "$2.99 / month",
+    "automaticRenewal": "Automatic renewal on 03/22/2023",
+    "whyChoosePro": "Why choose Waletoo's Pro plan?",
+    "proFeatures": {
+      "comparisons": "Advanced financial comparisons with industry standards",
+      "alerts": "Personalized financial alerts for issues like debt overload",
+      "recommendations": "Recommendations for optimizing your budget"
+    },
+    "changePlan": "Change plan",
+    "subscribe": "Subscribe",
+    "close": "Close"
   }
 }
