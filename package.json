@@ -7,9 +7,23 @@
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && npm run dev",
     "dev:studio": "cd backend && npx prisma studio",
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "prepare": "husky",
+    "check:backend": "cd backend && npx prettier --check .",
+    "check:frontend": "cd frontend && npm run lint && npm run build"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0"
+  },
+  "lint-staged": {
+    "backend/**/*.{js,jsx,ts,tsx,json,md}": [
+      "cd backend && npx prettier --write"
+    ],
+    "frontend/**/*.{js,jsx,ts,tsx,json,md}": [
+      "cd frontend && npm run lint",
+      "cd frontend && npm run build"
+    ]
   }
 }
