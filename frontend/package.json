@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start -p ${PORT:-3000}",
     "lint": "next lint",
-    "postinstall": "npm rebuild sharp"
+    "postinstall": "npm rebuild sharp --platform=linux --arch=x64 || true"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",

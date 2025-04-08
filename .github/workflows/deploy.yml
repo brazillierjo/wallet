@@ -20,18 +20,19 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            BRANCH=${{ github.ref_name }}
+            set -e
 
+            BRANCH=${{ github.ref_name }}
             FOLDER=wallet
             PORT_FRONT=3000
             PORT_BACK=3001
-            NAME_SUFFIX=""
 
-            echo "📁 Target folder: $FOLDER"
-            echo "🌐 Frontend port: $PORT_FRONT"
-            echo "🛠️  Backend port: $PORT_BACK"
+            echo "📁 Deploying branch: $BRANCH → folder: $FOLDER"
+            echo "🌐 Frontend port: $PORT_FRONT | Backend port: $PORT_BACK"
 
             cd ~/apps/$FOLDER
+
+            echo "🔄 Reset repo"
             git clean -fd
             git reset --hard
             git pull origin $BRANCH
@@ -40,16 +41,13 @@ jobs:
             cd backend
             bun install
             bunx prisma migrate deploy
-            pm2 restart wallet-backend$NAME_SUFFIX || pm2 start "bun run start" --name wallet-backend$NAME_SUFFIX -- --port $PORT_BACK
+            pm2 start "bun run start" --name wallet-backend -- --port $PORT_BACK --update-env
 
             echo "🌐 Building frontend..."
             cd ../frontend
             npm install
+            npm install --platform=linux --arch=x64 sharp
             npm run build
 
-            # Stop existing frontend process if it exists
-            pm2 delete wallet-frontend$NAME_SUFFIX || true
-
-            # Start frontend with proper environment variables
-            cd ~/apps/$FOLDER/frontend
-            pm2 start npm --name "wallet-frontend$NAME_SUFFIX" -- start
+            echo "🚀 Restarting frontend app"
+            pm2 start npm --name wallet-frontend -- start --env "PORT=$PORT_FRONT" --update-env
