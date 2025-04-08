@@ -53,4 +53,4 @@ jobs:
 
             echo "🚀 Restarting frontend app"
             pm2 delete wallet-frontend || true
-            pm2 start npm --name wallet-frontend -- start --env "PORT=$PORT_FRONT" --update-env
+            pm2 start npm --name wallet-frontend --env PORT=$PORT_FRONT -- start
