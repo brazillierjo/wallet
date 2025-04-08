@@ -7,9 +7,7 @@ export const authenticate = (headers: Record<string, string | string[] | undefin
   const cookieHeader = headers.cookie;
   const cookieString = Array.isArray(cookieHeader) ? cookieHeader[0] : cookieHeader;
   const cookies = cookieString?.split(';') || [];
-  const accessTokenCookie = cookies.find((cookie: string) =>
-    cookie.trim().startsWith('accessToken=')
-  );
+  const accessTokenCookie = cookies.find((cookie: string) => cookie.trim().startsWith('accessToken='));
 
   if (!accessTokenCookie) {
     throw new Error('Unauthorized');

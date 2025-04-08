@@ -115,8 +115,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
         const accessToken = generateAccessToken((decoded as any).userId);
 
-        set.headers['Set-Cookie'] =
-          `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}`; // 1 heure
+        set.headers['Set-Cookie'] = `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}`; // 1 heure
 
         return {
           message: 'Token refreshed successfully',
