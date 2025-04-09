@@ -124,6 +124,6 @@
 ### Internationalisation
 
 - [x] i18n + l10n (Next-intl)
-- [ ] Gestion des devises
+- [x] Gestion des devises
 - [ ] Conformité légale
 - [ ] Formats de dates / nombres locaux
