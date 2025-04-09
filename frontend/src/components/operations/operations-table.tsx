@@ -113,13 +113,13 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
             <TableRow>
               <TableHead className="w-[35%]">{t("Dashboard.label")}</TableHead>
               <TableHead className="w-[35%]">{t("Dashboard.category")}</TableHead>
-              <TableHead className="w-[20%]">
+              <TableHead className="hidden md:table-cell w-[20%]">
                 {type === OperationType.INCOMES 
                   ? t("Dashboard.receptionDay") 
                   : t("Dashboard.dueDay")}
               </TableHead>
               <TableHead className="w-[20%] text-right">{t("Dashboard.amount")}</TableHead>
-              <TableHead className="w-[10%] text-center">{t("Dashboard.actions")}</TableHead>
+              <TableHead className="hidden md:table-cell w-[10%] text-center">{t("Dashboard.actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -137,10 +137,14 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
               </TableRow>
             ) : (
               operations.map((operation) => (
-                <TableRow key={operation.id} className="group">
+                <TableRow 
+                  key={operation.id} 
+                  className="group cursor-pointer hover:bg-muted/50"
+                  onClick={() => handleEdit(operation)}
+                >
                   <TableCell className="w-[35%] font-medium">{operation.label}</TableCell>
                   <TableCell className="w-[35%]">{operation.category ? t(operation.category) : "-"}</TableCell>
-                  <TableCell className="w-[20%]">
+                  <TableCell className="hidden md:table-cell w-[20%]">
                     {operation.dueDay ? (
                       <span className={cn(
                         "font-medium",
@@ -153,9 +157,16 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
                     ) : "-"}
                   </TableCell>
                   <TableCell className="w-[20%] text-right">{operation.amount.toFixed(2)} €</TableCell>
-                  <TableCell className="w-[10%]">
+                  <TableCell className="hidden md:table-cell w-[10%]">
                     <div className="flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                      <Button variant="ghost" size="icon" onClick={() => handleEdit(operation)}>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={(e) => {
+                          e.stopPropagation(); // Empêcher la propagation du clic
+                          handleEdit(operation);
+                        }}
+                      >
                         <Edit2 className="h-4 w-4" />
                       </Button>
                     </div>
