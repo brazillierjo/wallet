@@ -103,24 +103,6 @@
 - [ ] Sauvegardes automatiques BDD
 - [ ] Documentation du processus de déploiement
 
-## Documentation & Support
-
-### Utilisateur
-
-- [ ] Guide d'utilisation
-- [ ] Tutoriels vidéos
-- [ ] FAQ
-- [ ] Présentation des fonctionnalités premium
-- [ ] Exemples d'usage
-
-### Technique
-
-- [ ] Documentation de l'architecture
-- [ ] Documentation des API
-- [ ] Modèles de données
-- [ ] Déploiement
-- [ ] Tests
-
 ### Internationalisation
 
 - [x] i18n + l10n (Next-intl)
