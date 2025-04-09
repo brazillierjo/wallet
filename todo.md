@@ -126,4 +126,4 @@
 - [x] i18n + l10n (Next-intl)
 - [x] Gestion des devises
 - [ ] Conformité légale
-- [ ] Formats de dates / nombres locaux
+- [x] Formats de dates / nombres locaux
