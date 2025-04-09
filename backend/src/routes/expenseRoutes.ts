@@ -1,10 +1,10 @@
-import { Elysia } from 'elysia';
-import { prisma } from '@lib/prisma';
-import { authenticate } from '@lib/auth';
-import { createOperationSchema, updateOperationSchema } from '@schemas/operationSchemas';
+import { authenticate } from "@lib/auth";
+import { prisma } from "@lib/prisma";
+import { createOperationSchema, updateOperationSchema } from "@schemas/operationSchemas";
+import { Elysia } from "elysia";
 
-export const expenseRoutes = new Elysia({ prefix: '/expenses' })
-  .get('/', async ({ headers, query }) => {
+export const expenseRoutes = new Elysia({ prefix: "/expenses" })
+  .get("/", async ({ headers, query }) => {
     try {
       const userId = authenticate(headers);
       const { month, year } = query;
@@ -32,19 +32,19 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
       });
 
       return {
-        message: 'Expenses fetched successfully',
+        message: "Expenses fetched successfully",
         data: expenses,
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   })
 
   .post(
-    '/',
+    "/",
     async ({
       headers,
       body,
@@ -60,7 +60,7 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
             userId,
             label: body.label,
             amount: body.amount ?? 0,
-            category: body.category ?? '',
+            category: body.category ?? "",
             dueDay: body.dueDay ?? null,
           },
           select: {
@@ -75,13 +75,13 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
         });
 
         return {
-          message: 'Expense added successfully',
+          message: "Expense added successfully",
           data: expense,
         };
       } catch (error) {
         return {
-          status: 'Unauthorized',
-          message: 'Invalid or expired token' + error,
+          status: "Unauthorized",
+          message: "Invalid or expired token" + error,
         };
       }
     },
@@ -90,7 +90,7 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
     }
   )
 
-  .get('/:id', async ({ headers, params }) => {
+  .get("/:id", async ({ headers, params }) => {
     try {
       const userId = authenticate(headers);
       const expenseId = parseInt(params.id, 10);
@@ -110,25 +110,25 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
 
       if (!expense) {
         return {
-          status: 'Not Found',
-          message: 'Expense not found',
+          status: "Not Found",
+          message: "Expense not found",
         };
       }
 
       return {
-        message: 'Expense fetched successfully',
+        message: "Expense fetched successfully",
         data: expense,
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   })
 
   .put(
-    '/:id',
+    "/:id",
     async ({
       headers,
       params,
@@ -154,13 +154,13 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
 
         if (updatedExpense.count === 0) {
           return {
-            status: 'Not Found',
-            message: 'Expense not found or not updated',
+            status: "Not Found",
+            message: "Expense not found or not updated",
           };
         }
 
         return {
-          message: 'Expense updated successfully',
+          message: "Expense updated successfully",
           data: {
             id: expenseId,
             ...body,
@@ -168,8 +168,8 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
         };
       } catch (error) {
         return {
-          status: 'Unauthorized',
-          message: 'Invalid or expired token' + error,
+          status: "Unauthorized",
+          message: "Invalid or expired token" + error,
         };
       }
     },
@@ -178,7 +178,7 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
     }
   )
 
-  .delete('/:id', async ({ headers, params }) => {
+  .delete("/:id", async ({ headers, params }) => {
     try {
       const userId = authenticate(headers);
       const expenseId = parseInt(params.id, 10);
@@ -189,18 +189,18 @@ export const expenseRoutes = new Elysia({ prefix: '/expenses' })
 
       if (deletedExpense.count === 0) {
         return {
-          status: 'Not Found',
-          message: 'Expense not found or not deleted',
+          status: "Not Found",
+          message: "Expense not found or not deleted",
         };
       }
 
       return {
-        message: 'Expense deleted successfully',
+        message: "Expense deleted successfully",
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   });

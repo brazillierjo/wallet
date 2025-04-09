@@ -1,6 +1,6 @@
-import { Elysia } from 'elysia';
-import jwt from 'jsonwebtoken';
-import { prisma } from '@lib/prisma';
+import { prisma } from "@lib/prisma";
+import { Elysia } from "elysia";
+import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -15,13 +15,13 @@ export const authMiddleware = new Elysia().derive(({ headers, set }) => {
     // Middleware de vérification du token
     authenticate: async () => {
       const accessToken = headers.cookie
-        ?.split(';')
-        .find((cookie) => cookie.trim().startsWith('accessToken='))
-        ?.split('=')[1];
+        ?.split(";")
+        .find((cookie) => cookie.trim().startsWith("accessToken="))
+        ?.split("=")[1];
 
       if (!accessToken) {
         set.status = 401;
-        throw new Error('No access token provided');
+        throw new Error("No access token provided");
       }
 
       try {
@@ -37,13 +37,13 @@ export const authMiddleware = new Elysia().derive(({ headers, set }) => {
 
         if (!user) {
           set.status = 401;
-          throw new Error('User not found');
+          throw new Error("User not found");
         }
 
         return { user } as AuthenticatedRequest;
       } catch (error) {
         set.status = 401;
-        throw new Error('Invalid or expired token');
+        throw new Error("Invalid or expired token");
       }
     },
   };

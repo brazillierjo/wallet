@@ -16,13 +16,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { expenseCategoryKeys, incomeCategoryKeys } from "@/utils/categories";
+import { cn } from "@/utils/cn";
 import { OperationType } from "@/utils/enums/operationType";
 import { OperationInput } from "@/utils/interfaces/operation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { cn } from "@/utils/cn";
 
 const formSchema = z.object({
   label: z.string().min(1, "Label is required"),
@@ -173,9 +173,7 @@ export const OperationFormDialog = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    {type === OperationType.INCOMES 
-                      ? t("Dashboard.receptionDay") 
-                      : t("Dashboard.dueDay")}
+                    {type === OperationType.INCOMES ? t("Dashboard.receptionDay") : t("Dashboard.dueDay")}
                   </FormLabel>
                   <FormControl>
                     <Input

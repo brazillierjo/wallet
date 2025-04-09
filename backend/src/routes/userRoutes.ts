@@ -1,10 +1,10 @@
-import { Elysia } from 'elysia';
-import { prisma } from '@lib/prisma';
-import { updateUserProfileSchema } from '@schemas/userSchemas';
-import { authenticate } from '@lib/auth';
+import { authenticate } from "@lib/auth";
+import { prisma } from "@lib/prisma";
+import { updateUserProfileSchema } from "@schemas/userSchemas";
+import { Elysia } from "elysia";
 
-export const userRoutes = new Elysia({ prefix: '/user' })
-  .get('/profile', async ({ headers }) => {
+export const userRoutes = new Elysia({ prefix: "/user" })
+  .get("/profile", async ({ headers }) => {
     try {
       const userId = authenticate(headers);
 
@@ -23,27 +23,27 @@ export const userRoutes = new Elysia({ prefix: '/user' })
 
       if (!user) {
         return {
-          status: 'Not Found',
-          message: 'User not found',
+          status: "Not Found",
+          message: "User not found",
         };
       }
 
       return {
-        message: 'User profile fetched successfully',
+        message: "User profile fetched successfully",
         data: {
           user,
         },
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   })
 
   .put(
-    '/profile',
+    "/profile",
     async ({
       headers,
       body,
@@ -69,15 +69,15 @@ export const userRoutes = new Elysia({ prefix: '/user' })
         });
 
         return {
-          message: 'User profile updated successfully',
+          message: "User profile updated successfully",
           data: {
             user: updatedUser,
           },
         };
       } catch (error) {
         return {
-          status: 'Unauthorized',
-          message: 'Invalid or expired token' + error,
+          status: "Unauthorized",
+          message: "Invalid or expired token" + error,
         };
       }
     },
@@ -86,7 +86,7 @@ export const userRoutes = new Elysia({ prefix: '/user' })
     }
   )
 
-  .delete('/account', async ({ headers, set }) => {
+  .delete("/account", async ({ headers, set }) => {
     try {
       const userId = authenticate(headers);
 
@@ -95,18 +95,18 @@ export const userRoutes = new Elysia({ prefix: '/user' })
       });
 
       // Clear auth cookies
-      set.headers['Set-Cookie'] = [
+      set.headers["Set-Cookie"] = [
         `accessToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
         `refreshToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
-      ].join('; ');
+      ].join("; ");
 
       return {
-        message: 'Account deleted successfully',
+        message: "Account deleted successfully",
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   });

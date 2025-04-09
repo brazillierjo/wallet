@@ -51,11 +51,11 @@ export const DeleteOperationDrawer = ({
           <div className="p-4 pb-0">
             <div className="space-y-2">
               <p className="font-medium">{operation.label}</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 {t("deleteDialog.amount", { amount: operation.amount.toFixed(2) })}
               </p>
               {operation.category && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {t("deleteDialog.category", { category: operation.category })}
                 </p>
               )}

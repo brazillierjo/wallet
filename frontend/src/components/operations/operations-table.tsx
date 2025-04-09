@@ -10,14 +10,14 @@ import { useDeleteExpense } from "@/hooks/mutations/expense/useDeleteExpense";
 import { useUpdateExpense } from "@/hooks/mutations/expense/useUpdateExpense";
 import { useDeleteIncome } from "@/hooks/mutations/income/useDeleteIncome";
 import { useUpdateIncome } from "@/hooks/mutations/income/useUpdateIncome";
+import { cn } from "@/utils/cn";
 import { OperationType } from "@/utils/enums/operationType";
 import { Operation, OperationInput } from "@/utils/interfaces/operation";
+import { format, isAfter, isBefore, isSameDay, startOfDay } from "date-fns";
 import { Edit2, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { OperationFormDialog } from "./operation-form-dialog";
-import { format, isAfter, isBefore, isSameDay, startOfDay } from "date-fns";
-import { cn } from "@/utils/cn";
 
 interface OperationsTableProps {
   title: string;
@@ -85,20 +85,20 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
   // Fonction pour vérifier si une date est passée ou à venir
   const isDatePassed = (day: number) => {
     if (!day) return false;
-    
+
     const today = startOfDay(new Date());
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
-    
+
     // Créer une date pour le jour spécifié du mois courant
     const operationDate = new Date(currentYear, currentMonth, day);
-    
+
     // Si la date est avant aujourd'hui, elle est passée
     return isBefore(operationDate, today);
   };
 
   return (
-    <div className="space-y-4 rounded-md bg-card p-4 shadow-md lg:p-8">
+    <div className="bg-card space-y-4 rounded-md p-4 shadow-md lg:p-8">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">{title}</h2>
         <Button onClick={onAdd} size="sm">
@@ -113,13 +113,11 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
             <TableRow>
               <TableHead className="w-[35%]">{t("Dashboard.label")}</TableHead>
               <TableHead className="w-[35%]">{t("Dashboard.category")}</TableHead>
-              <TableHead className="hidden md:table-cell w-[20%]">
-                {type === OperationType.INCOMES 
-                  ? t("Dashboard.receptionDay") 
-                  : t("Dashboard.dueDay")}
+              <TableHead className="hidden w-[20%] md:table-cell">
+                {type === OperationType.INCOMES ? t("Dashboard.receptionDay") : t("Dashboard.dueDay")}
               </TableHead>
               <TableHead className="w-[20%] text-right">{t("Dashboard.amount")}</TableHead>
-              <TableHead className="hidden md:table-cell w-[10%] text-center">{t("Dashboard.actions")}</TableHead>
+              <TableHead className="hidden w-[10%] text-center md:table-cell">{t("Dashboard.actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -137,31 +135,35 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
               </TableRow>
             ) : (
               operations.map((operation) => (
-                <TableRow 
-                  key={operation.id} 
-                  className="group cursor-pointer hover:bg-muted/50"
+                <TableRow
+                  key={operation.id}
+                  className="hover:bg-muted/50 group cursor-pointer"
                   onClick={() => handleEdit(operation)}
                 >
                   <TableCell className="w-[35%] font-medium">{operation.label}</TableCell>
                   <TableCell className="w-[35%]">{operation.category ? t(operation.category) : "-"}</TableCell>
-                  <TableCell className="hidden md:table-cell w-[20%]">
+                  <TableCell className="hidden w-[20%] md:table-cell">
                     {operation.dueDay ? (
-                      <span className={cn(
-                        "font-medium",
-                        isDatePassed(operation.dueDay) 
-                          ? "text-green-600 dark:text-green-400" 
-                          : "text-amber-600 dark:text-amber-400"
-                      )}>
+                      <span
+                        className={cn(
+                          "font-medium",
+                          isDatePassed(operation.dueDay)
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-amber-600 dark:text-amber-400"
+                        )}
+                      >
                         {operation.dueDay}
                       </span>
-                    ) : "-"}
+                    ) : (
+                      "-"
+                    )}
                   </TableCell>
                   <TableCell className="w-[20%] text-right">{operation.amount.toFixed(2)} €</TableCell>
-                  <TableCell className="hidden md:table-cell w-[10%]">
+                  <TableCell className="hidden w-[10%] md:table-cell">
                     <div className="flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         onClick={(e) => {
                           e.stopPropagation(); // Empêcher la propagation du clic
                           handleEdit(operation);

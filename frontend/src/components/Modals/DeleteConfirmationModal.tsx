@@ -27,7 +27,7 @@ const DeleteConfirmationModal: FC<ConfirmDeletionModalProps> = ({ isOpen, onClos
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
-            <AlertTriangleIcon className="h-5 w-5 text-destructive" />
+            <AlertTriangleIcon className="text-destructive h-5 w-5" />
             Confirm Deletion
           </DialogTitle>
 

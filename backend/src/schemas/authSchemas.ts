@@ -1,10 +1,11 @@
-import { t } from 'elysia';
-import { isValidEmail } from '../utils/emailValidation';
+import { t } from "elysia";
+
+import { isValidEmail } from "../utils/emailValidation";
 
 const registerBodySchema = t.Object({
   email: t.String({
-    format: 'email',
-    error: 'Invalid email format',
+    format: "email",
+    error: "Invalid email format",
     validate: (value: string) => isValidEmail(value),
   }),
   password: t.String({ minLength: 8 }),
@@ -13,8 +14,8 @@ const registerBodySchema = t.Object({
 
 const loginBodySchema = t.Object({
   email: t.String({
-    format: 'email',
-    error: 'Invalid email format',
+    format: "email",
+    error: "Invalid email format",
     validate: (value: string) => isValidEmail(value),
   }),
   password: t.String({ minLength: 8 }),

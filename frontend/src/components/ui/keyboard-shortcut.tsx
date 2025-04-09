@@ -32,13 +32,13 @@ export const KeyboardShortcut = ({ keys, className, showOnMobile = false }: Keyb
   return (
     <span
       className={cn(
-        "ml-2 inline-flex items-center gap-1 text-[11px] text-muted-foreground",
+        "text-muted-foreground ml-2 inline-flex items-center gap-1 text-[11px]",
         !showOnMobile && "hidden md:inline-flex",
         className
       )}
     >
       {displayKeys.map((key, index) => (
-        <span key={index} className="rounded bg-muted px-[4px] py-[1.5px] font-semibold text-muted-foreground">
+        <span key={index} className="bg-muted text-muted-foreground rounded px-[4px] py-[1.5px] font-semibold">
           {key}
         </span>
       ))}

@@ -18,8 +18,8 @@ export const isValidEmail = (email: string): boolean => {
   }
 
   // Vérifie que le domaine a au moins un point
-  const [, domain] = email.split('@');
-  if (!domain.includes('.')) {
+  const [, domain] = email.split("@");
+  if (!domain.includes(".")) {
     return false;
   }
 

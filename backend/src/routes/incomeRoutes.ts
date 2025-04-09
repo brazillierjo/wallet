@@ -1,10 +1,10 @@
-import { Elysia } from 'elysia';
-import { prisma } from '@lib/prisma';
-import { authenticate } from '@lib/auth';
-import { createOperationSchema, updateOperationSchema } from '@schemas/operationSchemas';
+import { authenticate } from "@lib/auth";
+import { prisma } from "@lib/prisma";
+import { createOperationSchema, updateOperationSchema } from "@schemas/operationSchemas";
+import { Elysia } from "elysia";
 
-export const incomeRoutes = new Elysia({ prefix: '/incomes' })
-  .get('/', async ({ headers, query }) => {
+export const incomeRoutes = new Elysia({ prefix: "/incomes" })
+  .get("/", async ({ headers, query }) => {
     try {
       const userId = authenticate(headers);
       const { month, year } = query;
@@ -32,19 +32,19 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
       });
 
       return {
-        message: 'Incomes fetched successfully',
+        message: "Incomes fetched successfully",
         data: incomes,
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   })
 
   .post(
-    '/',
+    "/",
     async ({
       headers,
       body,
@@ -60,7 +60,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
             userId,
             label: body.label,
             amount: body.amount ?? 0,
-            category: body.category ?? '',
+            category: body.category ?? "",
             dueDay: body.dueDay ?? null,
           },
           select: {
@@ -75,13 +75,13 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
         });
 
         return {
-          message: 'Income added successfully',
+          message: "Income added successfully",
           data: income,
         };
       } catch (error) {
         return {
-          status: 'Unauthorized',
-          message: 'Invalid or expired token' + error,
+          status: "Unauthorized",
+          message: "Invalid or expired token" + error,
         };
       }
     },
@@ -90,7 +90,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
     }
   )
 
-  .get('/:id', async ({ headers, params }) => {
+  .get("/:id", async ({ headers, params }) => {
     try {
       const userId = authenticate(headers);
       const incomeId = parseInt(params.id, 10);
@@ -110,25 +110,25 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
 
       if (!income) {
         return {
-          status: 'Not Found',
-          message: 'Income not found',
+          status: "Not Found",
+          message: "Income not found",
         };
       }
 
       return {
-        message: 'Income fetched successfully',
+        message: "Income fetched successfully",
         data: income,
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   })
 
   .put(
-    '/:id',
+    "/:id",
     async ({
       headers,
       params,
@@ -154,13 +154,13 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
 
         if (updatedIncome.count === 0) {
           return {
-            status: 'Not Found',
-            message: 'Income not found or not updated',
+            status: "Not Found",
+            message: "Income not found or not updated",
           };
         }
 
         return {
-          message: 'Income updated successfully',
+          message: "Income updated successfully",
           data: {
             id: incomeId,
             ...body,
@@ -168,8 +168,8 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
         };
       } catch (error) {
         return {
-          status: 'Unauthorized',
-          message: 'Invalid or expired token' + error,
+          status: "Unauthorized",
+          message: "Invalid or expired token" + error,
         };
       }
     },
@@ -178,7 +178,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
     }
   )
 
-  .delete('/:id', async ({ headers, params }) => {
+  .delete("/:id", async ({ headers, params }) => {
     try {
       const userId = authenticate(headers);
       const incomeId = parseInt(params.id, 10);
@@ -189,18 +189,18 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
 
       if (deletedIncome.count === 0) {
         return {
-          status: 'Not Found',
-          message: 'Income not found or not deleted',
+          status: "Not Found",
+          message: "Income not found or not deleted",
         };
       }
 
       return {
-        message: 'Income deleted successfully',
+        message: "Income deleted successfully",
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   });

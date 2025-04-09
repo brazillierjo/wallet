@@ -1,4 +1,4 @@
-import { t } from 'elysia';
+import { t } from "elysia";
 
 const updateUserProfileSchema = t.Object({
   name: t.Optional(t.String()),

@@ -36,7 +36,7 @@ const LogoutButton: FC<LogoutButtonProps> = ({ variant = "full", className }) =>
       onClick={handleLogout}
       variant="ghost"
       className={cn(
-        "flex w-full items-center justify-start gap-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+        "text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-start gap-2",
         variant === "icon" && "justify-center px-2",
         className
       )}

@@ -1,9 +1,9 @@
-import { Elysia } from 'elysia';
-import { prisma } from '@lib/prisma';
-import { authenticate } from '@lib/auth';
+import { authenticate } from "@lib/auth";
+import { prisma } from "@lib/prisma";
+import { Elysia } from "elysia";
 
-export const statsRoutes = new Elysia({ prefix: '/stats' })
-  .get('/overview', async ({ headers, query }) => {
+export const statsRoutes = new Elysia({ prefix: "/stats" })
+  .get("/overview", async ({ headers, query }) => {
     try {
       const userId = authenticate(headers);
       const { month, year } = query;
@@ -33,19 +33,19 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
       // Higher income for the month
       const highestIncome = await prisma.income.findFirst({
         where: { userId, createdAt: { gte: startOfMonth, lt: endOfMonth } },
-        orderBy: { amount: 'desc' },
+        orderBy: { amount: "desc" },
         select: { id: true, label: true, amount: true, category: true },
       });
 
       // Higher expense for the month
       const highestExpense = await prisma.expense.findFirst({
         where: { userId, createdAt: { gte: startOfMonth, lt: endOfMonth } },
-        orderBy: { amount: 'desc' },
+        orderBy: { amount: "desc" },
         select: { id: true, label: true, amount: true, category: true },
       });
 
       return {
-        message: 'Overview fetched successfully',
+        message: "Overview fetched successfully",
         data: {
           totalIncome: totalIncome._sum.amount || 0,
           totalExpenses: totalExpenses._sum.amount || 0,
@@ -56,13 +56,13 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   })
 
-  .get('/categories', async ({ headers, query }) => {
+  .get("/categories", async ({ headers, query }) => {
     try {
       const userId = authenticate(headers);
       const { month, year } = query;
@@ -73,7 +73,7 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
 
       // Group by categories for incomes
       const incomeByCategory = await prisma.income.groupBy({
-        by: ['category'],
+        by: ["category"],
         _sum: { amount: true },
         where: {
           userId,
@@ -83,7 +83,7 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
 
       // Group by categories for expenses
       const expenseByCategory = await prisma.expense.groupBy({
-        by: ['category'],
+        by: ["category"],
         _sum: { amount: true },
         where: {
           userId,
@@ -92,7 +92,7 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
       });
 
       return {
-        message: 'Categories fetched successfully',
+        message: "Categories fetched successfully",
         data: {
           incomeByCategory,
           expenseByCategory,
@@ -100,8 +100,8 @@ export const statsRoutes = new Elysia({ prefix: '/stats' })
       };
     } catch (error) {
       return {
-        status: 'Unauthorized',
-        message: 'Invalid or expired token' + error,
+        status: "Unauthorized",
+        message: "Invalid or expired token" + error,
       };
     }
   });

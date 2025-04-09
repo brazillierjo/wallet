@@ -1,12 +1,12 @@
-import { Elysia } from 'elysia';
-import { registerBodySchema, loginBodySchema, refreshBodySchema } from '@schemas/authSchemas';
-import { prisma } from '@lib/prisma';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import { prisma } from "@lib/prisma";
+import { loginBodySchema, refreshBodySchema, registerBodySchema } from "@schemas/authSchemas";
+import bcrypt from "bcryptjs";
+import { Elysia } from "elysia";
+import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
-const JWT_EXPIRATION = '1h';
-const JWT_REFRESH_EXPIRATION = '7d';
+const JWT_EXPIRATION = "1h";
+const JWT_REFRESH_EXPIRATION = "7d";
 
 /**
  * Génère un accessToken
@@ -26,15 +26,15 @@ const generateRefreshToken = (userId: number): string => {
  * Définit les cookies pour l'accessToken et le refreshToken
  */
 const setAuthCookies = (set: any, accessToken: string, refreshToken: string) => {
-  set.headers['Set-Cookie'] = [
+  set.headers["Set-Cookie"] = [
     `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}; SameSite=Strict`,
     `refreshToken=${refreshToken}; HttpOnly; Secure; Path=/; Max-Age=${7 * 24 * 60 * 60}; SameSite=Strict`,
-  ].join('; ');
+  ].join("; ");
 };
 
-export const authRoutes = new Elysia({ prefix: '/auth' })
+export const authRoutes = new Elysia({ prefix: "/auth" })
   .post(
-    '/register',
+    "/register",
     async ({ body, set }) => {
       const password = await bcrypt.hash(body.password, 10);
 
@@ -51,16 +51,16 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
       setAuthCookies(set, accessToken, refreshToken);
 
       return {
-        message: 'Account created and logged in successfully',
+        message: "Account created and logged in successfully",
       };
     },
     {
       body: registerBodySchema,
       error({ code, set, body }) {
-        if ((code as unknown) === 'P2002') {
-          set.status = 'Conflict';
+        if ((code as unknown) === "P2002") {
+          set.status = "Conflict";
           return {
-            name: 'Error',
+            name: "Error",
             message: `User with email ${body.email} already exists`,
           };
         }
@@ -69,7 +69,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
   )
 
   .post(
-    '/login',
+    "/login",
     async ({ body, set }) => {
       const user = await prisma.user.findUnique({
         where: { email: body.email },
@@ -77,8 +77,8 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
       if (!user || !(await bcrypt.compare(body.password, user.password))) {
         return {
-          status: 'Unauthorized',
-          message: 'Invalid credentials',
+          status: "Unauthorized",
+          message: "Invalid credentials",
         };
       }
 
@@ -88,7 +88,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
       setAuthCookies(set, accessToken, refreshToken);
 
       return {
-        message: 'Login successful',
+        message: "Login successful",
       };
     },
     {
@@ -97,7 +97,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
   )
 
   .post(
-    '/refresh',
+    "/refresh",
     async ({ body, set }) => {
       try {
         const decoded = jwt.verify(body.refreshToken, JWT_SECRET);
@@ -108,22 +108,22 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
         if (!user) {
           return {
-            status: 'Unauthorized',
-            message: 'User no longer exists',
+            status: "Unauthorized",
+            message: "User no longer exists",
           };
         }
 
         const accessToken = generateAccessToken((decoded as any).userId);
 
-        set.headers['Set-Cookie'] = `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}`; // 1 heure
+        set.headers["Set-Cookie"] = `accessToken=${accessToken}; HttpOnly; Secure; Path=/; Max-Age=${60 * 60}`; // 1 heure
 
         return {
-          message: 'Token refreshed successfully',
+          message: "Token refreshed successfully",
         };
       } catch (error) {
         return {
-          status: 'Unauthorized',
-          message: 'Invalid refresh token',
+          status: "Unauthorized",
+          message: "Invalid refresh token",
         };
       }
     },
@@ -132,13 +132,13 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
     }
   )
 
-  .post('/logout', async ({ set }) => {
-    set.headers['Set-Cookie'] = [
+  .post("/logout", async ({ set }) => {
+    set.headers["Set-Cookie"] = [
       `accessToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
       `refreshToken=; HttpOnly; Secure; Path=/; Max-Age=0`,
-    ].join('; ');
+    ].join("; ");
 
     return {
-      message: 'Logout successful',
+      message: "Logout successful",
     };
   });

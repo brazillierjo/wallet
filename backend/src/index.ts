@@ -1,17 +1,18 @@
-import { Elysia } from 'elysia';
-import { authRoutes } from '@routes/authRoutes';
-import dotenv from 'dotenv';
-import path from 'path';
-import { incomeRoutes } from '@routes/incomeRoutes';
-import { expenseRoutes } from '@routes/expenseRoutes';
-import { statsRoutes } from '@routes/statsRoutes';
-import { userRoutes } from '@routes/userRoutes';
-import cors from '@elysiajs/cors';
-import { authMiddleware } from '@lib/authMiddleware';
+import path from "path";
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+import cors from "@elysiajs/cors";
+import { authMiddleware } from "@lib/authMiddleware";
+import { authRoutes } from "@routes/authRoutes";
+import { expenseRoutes } from "@routes/expenseRoutes";
+import { incomeRoutes } from "@routes/incomeRoutes";
+import { statsRoutes } from "@routes/statsRoutes";
+import { userRoutes } from "@routes/userRoutes";
+import dotenv from "dotenv";
+import { Elysia } from "elysia";
 
-const REQUIRED_ENV_VARS = ['DATABASE_URL', 'JWT_SECRET'];
+dotenv.config({ path: path.resolve(process.cwd(), ".env") });
+
+const REQUIRED_ENV_VARS = ["DATABASE_URL", "JWT_SECRET"];
 
 REQUIRED_ENV_VARS.forEach((envVar) => {
   if (!process.env[envVar]) {
@@ -26,20 +27,20 @@ const protectedRoutes = new Elysia()
   .use(expenseRoutes)
   .use(statsRoutes);
 
-const app = new Elysia({ prefix: '/api' })
+const app = new Elysia({ prefix: "/api" })
   .use(
     cors({
-      origin: 'http://localhost:3000',
-      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
     })
   )
-  .get('/', () => 'Hello World!')
-  .get('/health', () => ({
-    status: 'ok',
+  .get("/", () => "Hello World!")
+  .get("/health", () => ({
+    status: "ok",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development',
+    environment: process.env.NODE_ENV || "development",
   }))
   .use(authRoutes)
   .use(protectedRoutes)

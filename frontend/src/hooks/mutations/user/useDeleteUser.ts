@@ -1,8 +1,8 @@
 import { useRouter } from "next/navigation";
 
+import { AppRoutes } from "@/router/app_routes";
 import { deleteUser } from "@/services/user/deleteUser";
 import { useMutation } from "@tanstack/react-query";
-import { AppRoutes } from "@/router/app_routes";
 
 export const useDeleteUser = () => {
   const router = useRouter();

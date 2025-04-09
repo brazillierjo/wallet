@@ -59,7 +59,7 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
               <Link
                 href={AppRoutes.DASHBOARD}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-foreground transition-all hover:bg-accent",
+                  "text-foreground hover:bg-accent flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
                   pathname === AppRoutes.DASHBOARD ? "bg-secondary" : "transparent"
                 )}
               >
@@ -73,7 +73,7 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
             <SidebarMenuButton asChild>
               <button
                 onClick={() => setDrawerUserInfoOpen(true)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent"
+                className="hover:bg-accent flex items-center gap-3 rounded-lg px-3 py-2 transition-all"
               >
                 <User className="h-5 w-5" />
                 <span>{t("account")}</span>
@@ -85,7 +85,7 @@ const SidebarContentWrapper = ({ setDrawerPlanOpen, setDrawerUserInfoOpen }: Sid
             <SidebarMenuButton asChild>
               <button
                 onClick={() => setDrawerPlanOpen(true)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent"
+                className="hover:bg-accent flex items-center gap-3 rounded-lg px-3 py-2 transition-all"
               >
                 <Receipt className="h-5 w-5" />
                 <span>{t("myPlan")}</span>
@@ -117,7 +117,7 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
         <SidebarContentWrapper setDrawerPlanOpen={setDrawerPlanOpen} setDrawerUserInfoOpen={setDrawerUserInfoOpen} />
 
         <div className="flex-1">
-          <div className="flex h-16 items-center justify-between border-b bg-card px-4">
+          <div className="bg-card flex h-16 items-center justify-between border-b px-4">
             <SidebarTrigger />
             <div className="flex items-center gap-4">
               <ThemeToggle />
