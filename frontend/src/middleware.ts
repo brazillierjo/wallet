@@ -4,6 +4,7 @@ import createIntlMiddleware from "next-intl/middleware";
 
 import { routing } from "@/i18n/routing";
 import { AppRoutes } from "@/router/app_routes";
+import { isTokenValid } from "@/utils/auth";
 
 // Create the next-intl middleware
 const intlMiddleware = createIntlMiddleware(routing);
@@ -19,8 +20,10 @@ export default async function middleware(request: NextRequest) {
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 
   // Check if the user is authenticated by looking for the accessToken cookie
-  const accessToken = request.cookies.get("accessToken");
-  const isAuthenticated = !!accessToken;
+  const accessToken = request.cookies.get("accessToken")?.value;
+  const isAuthenticated = isTokenValid(accessToken);
+
+  console.log("isAuthenticated", isAuthenticated);
 
   // Get the pathname from the URL
   const pathname = request.nextUrl.pathname;

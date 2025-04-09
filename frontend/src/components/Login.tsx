@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useLogin } from "@/hooks/mutations/auth/useLogin";
-import { useIsAuthenticated } from "@/hooks/useIsAuthenticated";
 import { AppRoutes } from "@/router/app_routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -42,7 +41,6 @@ const Login = () => {
     try {
       await loginMutation.mutateAsync(formData, {
         onSuccess: (res) => {
-          console.log("Login response:", res);
 
           if (res.status === "Unauthorized" && res.message === "Invalid credentials") {
             toast.error(tToast("invalidCredentials"), {
