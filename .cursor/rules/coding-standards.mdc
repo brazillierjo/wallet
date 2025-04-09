@@ -13,6 +13,7 @@ alwaysApply: true
 - Document complex logic and important decisions
 - Write self-documenting code with clear naming
 
+
 ## Code Structure
 
 - Organize code into logical modules and features
