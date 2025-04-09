@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useLogout } from "@/hooks/mutations/auth/useLogout";
 import { AppRoutes } from "@/router/app_routes";
 import { cn } from "@/utils/utils";
-import { LogOut, LogOutIcon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 
 interface LogoutButtonProps {
   variant?: "icon" | "full";
@@ -18,6 +18,7 @@ interface LogoutButtonProps {
 const LogoutButton: FC<LogoutButtonProps> = ({ variant = "full", className }) => {
   const router = useRouter();
   const logoutMutation = useLogout();
+
   const t = useTranslations("Sidebar");
 
   const handleLogout = () => {
