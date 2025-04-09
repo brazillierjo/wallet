@@ -22,7 +22,7 @@
 - [x] Backend : Validation des données (Zod/Prisma)
 - [x] Frontend : Formulaire de création / édition
 - [x] Frontend : Sélecteur de catégorie
-- [ ] Backend/frontend : Ajout de la date de prélèvement
+- [x] Backend/frontend : Ajout du jour de réception
 
 ### Dépenses – Ajouter une charge mensuelle
 
@@ -32,7 +32,7 @@
 - [x] Backend : Validation des données
 - [x] Frontend : Formulaire de création / édition
 - [x] Frontend : Sélecteur de catégorie
-- [ ] Backend/frontend : Ajout de la date de prélèvement
+- [x] Backend/frontend : Ajout du jour de prélèvement
 
 ### Statistiques - Calculs
 
