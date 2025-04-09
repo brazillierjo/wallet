@@ -52,6 +52,7 @@
 - [x] Frontend : Thème clair/sombre
 - [ ] Frontend : Accessibilité (aria, clavier, contrastes)
 - [ ] Frontend : Tests d'utilisabilité
+- [ ] Frontend : Ajout d'un sélecteur de thème
 
 ## Version Premium (Abonnement Stripe)
 
