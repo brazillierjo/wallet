@@ -7,10 +7,9 @@ interface UseFormattedAmountProps {
   amount: number;
 }
 
-export function useFormattedAmount({ locale, amount }: UseFormattedAmountProps): string {
+export function formatAmount({ locale, amount }: UseFormattedAmountProps): string {
   const currency = getCurrencyFromLocale(locale);
 
-  // Check if the amount is a whole number
   const isWholeNumber = Math.floor(amount) === amount;
 
   const formattedAmount = new Intl.NumberFormat(locale, {

@@ -10,9 +10,9 @@ import { useDeleteExpense } from "@/hooks/mutations/expense/useDeleteExpense";
 import { useUpdateExpense } from "@/hooks/mutations/expense/useUpdateExpense";
 import { useDeleteIncome } from "@/hooks/mutations/income/useDeleteIncome";
 import { useUpdateIncome } from "@/hooks/mutations/income/useUpdateIncome";
-import { useFormattedAmount } from "@/hooks/useFormattedAmount";
 import { cn } from "@/utils/cn";
 import { OperationType } from "@/utils/enums/operationType";
+import { formatAmount } from "@/utils/formatAmount";
 import { Operation, OperationInput } from "@/utils/interfaces/operation";
 import { isBefore, startOfDay } from "date-fns";
 import { Edit2 } from "lucide-react";
@@ -164,7 +164,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
                   </TableCell>
 
                   <TableCell className="w-[20%] text-right">
-                    {useFormattedAmount({ locale, amount: operation.amount })}
+                    {formatAmount({ locale, amount: operation.amount })}
                   </TableCell>
 
                   <TableCell className="hidden w-[10%] md:table-cell">
