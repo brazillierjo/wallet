@@ -39,11 +39,11 @@ jobs:
 
             echo "📦 Installing backend dependencies..."
             cd backend
-            npm install
-            npm prisma migrate deploy
+            bun install
+            bunx prisma migrate deploy
             echo "🚀 Restarting backend app"
             pm2 delete wallet-backend || true
-            pm2 start "npm start" --name wallet-backend -- --port $PORT_BACK --update-env
+            pm2 start "bun start" --name wallet-backend -- --port $PORT_BACK --update-env
 
             echo "🌐 Building frontend..."
             cd ../frontend

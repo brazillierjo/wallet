@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:studio\"",
     "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && npm run dev",
-    "dev:studio": "cd backend && npx prisma studio",
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "dev:backend": "cd backend && bun run dev",
+    "dev:studio": "cd backend && bunx prisma studio",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && bun install",
     "prepare": "husky",
-    "check:backend": "cd backend && npx prettier --check .",
+    "check:backend": "cd backend && bunx prettier --check .",
     "check:frontend": "cd frontend && npm run lint && npm run build"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
   },
   "lint-staged": {
     "backend/**/*.{js,jsx,ts,tsx,json,md}": [
-      "cd backend && npx prettier --write"
+      "cd backend && bunx prettier --write"
     ],
     "frontend/**/*.{js,jsx,ts,tsx,json,md}": [
       "cd frontend && npm run lint",

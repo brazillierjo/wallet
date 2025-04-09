@@ -29,7 +29,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
-    "bun-types": "latest",
+    "bun-types": "^1.2.9",
     "eslint": "^9.24.0",
     "i": "^0.3.7",
     "npm": "^11.2.0",
