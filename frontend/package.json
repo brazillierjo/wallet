@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "npm rebuild sharp --platform=linux --arch=x64 || true"
+    "postinstall": "npm rebuild sharp --platform=linux --arch=x64 || true",
+    "knip": "knip"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -33,7 +34,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
-    "date-fns": "^4.1.0",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.15.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.469.0",
@@ -59,9 +60,9 @@
     "@types/react-dom": "19.0.2",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
-    "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-config-next": "15.1.2",
+    "knip": "^5.48.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
