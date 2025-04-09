@@ -205,6 +205,17 @@
     "confirmDeletion": "Click again to confirm account deletion",
     "deletionWarning": "This action cannot be undone"
   },
+  "Avatar": {
+    "waitBeforeGenerating": "Please wait before generating a new avatar",
+    "waitFewSeconds": "Please wait a few seconds",
+    "invalidFileType": "Invalid file type",
+    "pleaseUploadImage": "Please upload an image",
+    "fileTooLarge": "File too large",
+    "imageSmallerThan2MB": "File size must be less than 2 MB",
+    "generating": "Generating avatar...",
+    "generateNewAvatar": "Generate new avatar",
+    "upload": "Upload"
+  },
   "UserPlanDrawer": {
     "title": "Current user plan",
     "proPlan": "Pro plan",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ interface AvatarSelectorProps {
 }
 
 const AvatarSelector = ({ user }: AvatarSelectorProps) => {
+  const t = useTranslations();
   const [seed, setSeed] = useState(Math.random().toString(36).substring(7));
   const [isGenerating, setIsGenerating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -22,8 +24,8 @@ const AvatarSelector = ({ user }: AvatarSelectorProps) => {
 
   const generateNewAvatar = useCallback(() => {
     if (isGenerating) {
-      toast.warning("Please wait before generating another avatar", {
-        description: "Wait a few seconds before trying again",
+      toast.warning(t("Avatar.waitBeforeGenerating"), {
+        description: t("Avatar.waitFewSeconds"),
       });
       return;
     }
@@ -36,7 +38,7 @@ const AvatarSelector = ({ user }: AvatarSelectorProps) => {
     setTimeout(() => {
       setIsGenerating(false);
     }, 300);
-  }, [isGenerating, updateUser]);
+  }, [isGenerating, updateUser, t]);
 
   const handleFileUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,16 +47,16 @@ const AvatarSelector = ({ user }: AvatarSelectorProps) => {
 
       // Vérifier le type de fichier
       if (!file.type.startsWith("image/")) {
-        toast.error("Invalid file type", {
-          description: "Please upload an image file",
+        toast.error(t("Avatar.invalidFileType"), {
+          description: t("Avatar.pleaseUploadImage"),
         });
         return;
       }
 
       // Vérifier la taille du fichier (max 2MB)
       if (file.size > 2 * 1024 * 1024) {
-        toast.error("File too large", {
-          description: "Please upload an image smaller than 2MB",
+        toast.error(t("Avatar.fileTooLarge"), {
+          description: t("Avatar.imageSmallerThan2MB"),
         });
         return;
       }
@@ -65,7 +67,7 @@ const AvatarSelector = ({ user }: AvatarSelectorProps) => {
       };
       reader.readAsDataURL(file);
     },
-    [updateUser]
+    [updateUser, t]
   );
 
   return (
@@ -83,7 +85,7 @@ const AvatarSelector = ({ user }: AvatarSelectorProps) => {
           <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50">
             <Button variant="ghost" className="w-10/12" size="sm" onClick={() => fileInputRef.current?.click()}>
               <Upload className="mr-2 h-4 w-4" />
-              Upload
+              {t("Avatar.upload")}
             </Button>
           </div>
         )}
@@ -99,7 +101,7 @@ const AvatarSelector = ({ user }: AvatarSelectorProps) => {
         className="flex items-center gap-2"
       >
         <RefreshCw className={`h-4 w-4 ${isGenerating ? "animate-spin" : ""}`} />
-        {isPending || isGenerating ? "Generating..." : "Generate new avatar"}
+        {isPending || isGenerating ? t("Avatar.generating") : t("Avatar.generateNewAvatar")}
       </Button>
     </div>
   );
