@@ -1,4 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+#!/usr/bin/env node
 
-npm run check:backend && npm run check:frontend
+pnpm run check:backend && pnpm run check:frontend
