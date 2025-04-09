@@ -47,8 +47,8 @@ jobs:
 
             echo "🌐 Building frontend..."
             cd ../frontend
-            npm install
-            npm install --platform=linux --arch=x64 sharp
+            npm install --legacy-peer-deps
+            npm install --platform=linux --arch=x64 sharp --legacy-peer-deps
             npm run build
 
             echo "🚀 Restarting frontend app"
