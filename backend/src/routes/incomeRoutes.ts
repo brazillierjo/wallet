@@ -25,6 +25,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
           label: true,
           amount: true,
           category: true,
+          dueDate: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -60,12 +61,14 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
             label: body.label,
             amount: body.amount ?? 0,
             category: body.category ?? '',
+            dueDate: body.dueDate ?? null,
           },
           select: {
             id: true,
             label: true,
             amount: true,
             category: true,
+            dueDate: true,
             createdAt: true,
             updatedAt: true,
           },
@@ -99,6 +102,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
           label: true,
           amount: true,
           category: true,
+          dueDate: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -144,6 +148,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
             ...(body.label && { label: body.label }),
             ...(body.amount !== undefined && { amount: body.amount }),
             ...(body.category && { category: body.category }),
+            ...(body.dueDate && { dueDate: body.dueDate }),
           },
         });
 

@@ -17,6 +17,7 @@ const createOperationSchema = t.Object({
       error: 'Category must be between 1 and 50 characters',
     })
   ),
+  dueDate: t.Optional(t.String({ format: 'date-time' })),
 });
 
 const updateOperationSchema = t.Object({
@@ -40,6 +41,7 @@ const updateOperationSchema = t.Object({
       error: 'Category must be between 1 and 50 characters',
     })
   ),
+  dueDate: t.Optional(t.String({ format: 'date-time' })),
 });
 
 export { createOperationSchema, updateOperationSchema };
