@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm run check:backend && pnpm run check:frontend
+npm run check:backend && npm run check:frontend
