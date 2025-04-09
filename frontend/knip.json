@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "entry": ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "lib/**/*.{ts,tsx}"],
+  "project": ["**/*.{ts,tsx}"],
+  "ignoreDependencies": ["sharp"],
+  "ignore": ["**/*.d.ts", "node_modules/**", ".next/**", "dist/**"],
+  "rules": {
+    "dependencies": "error",
+    "devDependencies": "error",
+    "unlisted": "error",
+    "duplicates": "error"
+  }
+}
