@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import AvatarSelector from "@/components/ui/avatar-selector";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { useDeleteUser } from "@/hooks/mutations/user/useDeleteUser";
 import { useGetUser } from "@/hooks/mutations/user/useGetUser";
 import { useUpdateUser } from "@/hooks/mutations/user/useUpdateUser";
-import { format } from "date-fns";
+import { formatDate } from "@/utils/formatDate";
 import { Edit2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -33,6 +33,7 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
   const { mutateAsync: deleteUser, isPending: isDeleting } = useDeleteUser();
   const { mutate: updateUser, isPending: isUpdating } = useUpdateUser();
   const { data: userResponse } = useGetUser();
+  const locale = useLocale();
 
   const user = userResponse?.data?.user;
   const [name, setName] = useState(user?.name);
@@ -146,12 +147,42 @@ const UserInfoDrawer = ({ isOpen, setIsOpen }: UserInfoDrawerProps) => {
             <div className="space-y-2">
               <p className="text-sm">
                 <span className="font-medium">{t("accountCreated")}:</span>{" "}
-                <span className="">{user?.createdAt ? format(new Date(user.createdAt), "PPp") : "N/A"}</span>
+                <span className="">
+                  {user?.createdAt
+                    ? formatDate({
+                        locale,
+                        date: user.createdAt,
+                        options: {
+                          weekday: "short",
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        },
+                      })
+                    : "N/A"}
+                </span>
               </p>
 
               <p className="text-sm">
                 <span className="font-medium">{t("lastUpdated")}:</span>{" "}
-                <span className="">{user?.updatedAt ? format(new Date(user.updatedAt), "PPp") : "N/A"}</span>
+                <span className="">
+                  {user?.updatedAt
+                    ? formatDate({
+                        locale,
+                        date: user.updatedAt,
+                        options: {
+                          weekday: "short",
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        },
+                      })
+                    : "N/A"}
+                </span>
               </p>
             </div>
           </div>

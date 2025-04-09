@@ -1,5 +1,3 @@
-"use client";
-
 import { getCurrencyFromLocale } from "@/utils/getCurrencyFromLocale";
 
 interface UseFormattedAmountProps {
