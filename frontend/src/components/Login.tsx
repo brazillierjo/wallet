@@ -41,7 +41,6 @@ const Login = () => {
     try {
       await loginMutation.mutateAsync(formData, {
         onSuccess: (res) => {
-
           if (res.status === "Unauthorized" && res.message === "Invalid credentials") {
             toast.error(tToast("invalidCredentials"), {
               description: tToast("checkCredentials"),
@@ -100,7 +99,7 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              
+
               <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
                 {loginMutation.isPending ? t("loggingIn") : t("login")}
               </Button>

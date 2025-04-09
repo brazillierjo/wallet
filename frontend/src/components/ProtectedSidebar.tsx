@@ -117,7 +117,7 @@ const ProtectedSidebar: FC<ProtectedSidebarProps> = ({ children }) => {
         <SidebarContentWrapper setDrawerPlanOpen={setDrawerPlanOpen} setDrawerUserInfoOpen={setDrawerUserInfoOpen} />
 
         <div className="flex-1">
-          <div className="flex h-16 items-center bg-card justify-between border-b px-4">
+          <div className="flex h-16 items-center justify-between border-b bg-card px-4">
             <SidebarTrigger />
             <div className="flex items-center gap-4">
               <ThemeToggle />

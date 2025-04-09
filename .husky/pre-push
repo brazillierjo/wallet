@@ -1,3 +1,4 @@
-#!/usr/bin/env node
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
 pnpm run check:backend && pnpm run check:frontend
