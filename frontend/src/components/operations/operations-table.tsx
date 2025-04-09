@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { KeyboardShortcut, useKeyboardShortcut } from "@/components/ui/keyboard-shortcut";
@@ -10,11 +10,12 @@ import { useDeleteExpense } from "@/hooks/mutations/expense/useDeleteExpense";
 import { useUpdateExpense } from "@/hooks/mutations/expense/useUpdateExpense";
 import { useDeleteIncome } from "@/hooks/mutations/income/useDeleteIncome";
 import { useUpdateIncome } from "@/hooks/mutations/income/useUpdateIncome";
+import { useFormattedAmount } from "@/hooks/useFormattedAmount";
 import { cn } from "@/utils/cn";
 import { OperationType } from "@/utils/enums/operationType";
 import { Operation, OperationInput } from "@/utils/interfaces/operation";
-import { format, isAfter, isBefore, isSameDay, startOfDay } from "date-fns";
-import { Edit2, Plus } from "lucide-react";
+import { isBefore, startOfDay } from "date-fns";
+import { Edit2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { OperationFormDialog } from "./operation-form-dialog";
@@ -29,8 +30,10 @@ interface OperationsTableProps {
 }
 
 export const OperationsTable = ({ title, operations, isLoading, onAdd, type, shortcut }: OperationsTableProps) => {
-  const t = useTranslations();
   const [editingOperation, setEditingOperation] = useState<Operation | null>(null);
+
+  const t = useTranslations();
+  const locale = useLocale();
 
   const deleteIncome = useDeleteIncome();
   const deleteExpense = useDeleteExpense();
@@ -39,6 +42,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
 
   const defaultShortcut = type === OperationType.INCOMES ? ["Command", "A"] : ["Command", "Z"];
   const keyboardShortcut = shortcut || defaultShortcut;
+
   useKeyboardShortcut(keyboardShortcut, onAdd);
 
   const handleEdit = (operation: Operation) => {
@@ -82,15 +86,12 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
     );
   };
 
-  // Fonction pour vérifier si une date est passée ou à venir
   const isDatePassed = (day: number) => {
     if (!day) return false;
 
     const today = startOfDay(new Date());
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
-
-    // Créer une date pour le jour spécifié du mois courant
     const operationDate = new Date(currentYear, currentMonth, day);
 
     // Si la date est avant aujourd'hui, elle est passée
@@ -120,6 +121,7 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
               <TableHead className="hidden w-[10%] text-center md:table-cell">{t("Dashboard.actions")}</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody>
             {isLoading ? (
               <TableRow>
@@ -141,7 +143,9 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
                   onClick={() => handleEdit(operation)}
                 >
                   <TableCell className="w-[35%] font-medium">{operation.label}</TableCell>
+
                   <TableCell className="w-[35%]">{operation.category ? t(operation.category) : "-"}</TableCell>
+
                   <TableCell className="hidden w-[20%] md:table-cell">
                     {operation.dueDay ? (
                       <span
@@ -158,14 +162,18 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
                       "-"
                     )}
                   </TableCell>
-                  <TableCell className="w-[20%] text-right">{operation.amount.toFixed(2)} €</TableCell>
+
+                  <TableCell className="w-[20%] text-right">
+                    {useFormattedAmount({ locale, amount: operation.amount })}
+                  </TableCell>
+
                   <TableCell className="hidden w-[10%] md:table-cell">
                     <div className="flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={(e) => {
-                          e.stopPropagation(); // Empêcher la propagation du clic
+                          e.stopPropagation();
                           handleEdit(operation);
                         }}
                       >

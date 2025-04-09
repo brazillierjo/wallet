@@ -8,8 +8,9 @@ import { cn } from "@/utils/cn";
 import { ChevronDown } from "lucide-react";
 
 const locales = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "fr", name: "Français", flag: "🇫🇷" },
+  { code: "en-GB", name: "English (UK)", flag: "🇬🇧" },
+  { code: "en-US", name: "English (US)", flag: "🇺🇸" },
+  { code: "fr-FR", name: "Français", flag: "🇫🇷" },
 ];
 
 const LanguageSelector = () => {
