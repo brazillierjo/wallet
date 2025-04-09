@@ -27,30 +27,40 @@ jobs:
             PORT_FRONT=3000
             PORT_BACK=3001
 
-            echo "📁 Deploying branch: $BRANCH → folder: $FOLDER"
-            echo "🌐 Frontend port: $PORT_FRONT | Backend port: $PORT_BACK"
+            echo "📁 Déploiement de la branche : $BRANCH → dossier : $FOLDER"
+            echo "🌐 Ports → Frontend : $PORT_FRONT | Backend : $PORT_BACK"
 
             cd ~/apps/$FOLDER
 
-            echo "🔄 Reset repo"
+            echo "🗑️ Nettoyage des anciens modules et builds"
+            rm -rf backend/node_modules
+            rm -rf frontend/node_modules frontend/.next
+
+            echo "🔄 Reset du dépôt Git"
             git clean -fd
             git reset --hard
             git pull origin $BRANCH
 
-            echo "📦 Installing backend dependencies..."
+            echo "📦 Backend – installation des dépendances avec Bun"
             cd backend
             bun install
-            bunx prisma migrate deploy
-            echo "🚀 Restarting backend app"
+
+            echo "🧬 Prisma – application des migrations"
+            bunx prisma migrate deploy || {
+              echo "❌ Migration échouée, exécute prisma migrate resolve manuellement"
+              exit 1
+            }
+
+            echo "🚀 Backend – redémarrage via PM2"
             pm2 delete wallet-backend || true
             pm2 start "bun start" --name wallet-backend -- --port $PORT_BACK --update-env
 
-            echo "🌐 Building frontend..."
+            echo "🌐 Frontend – installation des dépendances et build"
             cd ../frontend
             npm install --legacy-peer-deps
             npm install --platform=linux --arch=x64 sharp --legacy-peer-deps
             npm run build
 
-            echo "🚀 Restarting frontend app"
+            echo "🚀 Frontend – redémarrage via PM2"
             pm2 delete wallet-frontend || true
             pm2 start npm --name wallet-frontend --env PORT=$PORT_FRONT -- start
