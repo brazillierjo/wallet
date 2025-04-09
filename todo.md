@@ -8,9 +8,9 @@
 - [x] Backend : Modèle `User`
 - [x] Backend : Routes d'inscription / connexion
 - [x] Backend : Validation email
-- [ ] Backend : Réinitialisation de mot de passe
 - [x] Backend : Gestion du profil utilisateur
 - [x] Frontend : Formulaires inscription / connexion
+- [ ] Backend : Réinitialisation de mot de passe
 - [ ] Frontend : Formulaire mot de passe oublié / reset
 - [x] Frontend : Page de profil utilisateur
 
@@ -19,7 +19,7 @@
 - [x] Backend : Modèle `Income`
 - [x] Backend : Routes CRUD
 - [x] Backend : Création des catégories
-- [ ] Backend : Validation des données (Zod/Prisma)
+- [x] Backend : Validation des données (Zod/Prisma)
 - [x] Frontend : Formulaire de création / édition
 - [x] Frontend : Sélecteur de catégorie
 - [ ] Backend/frontend : Ajout de la date de prélèvement
@@ -29,9 +29,7 @@
 - [x] Backend : Modèle `Expense`
 - [x] Backend : Routes CRUD
 - [x] Backend : Création des catégories
-- [ ] Backend : Validation des données
-- [ ] Backend : Ajout de la récurrence
-- [ ] Backend : Upload de documents
+- [x] Backend : Validation des données
 - [x] Frontend : Formulaire de création / édition
 - [x] Frontend : Sélecteur de catégorie
 - [ ] Backend/frontend : Ajout de la date de prélèvement

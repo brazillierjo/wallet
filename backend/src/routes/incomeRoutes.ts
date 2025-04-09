@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { prisma } from '@lib/prisma';
 import { authenticate } from '@lib/auth';
-import { createOperationSchema } from '@schemas/operationSchemas';
+import { createOperationSchema, updateOperationSchema } from '@schemas/operationSchemas';
 
 export const incomeRoutes = new Elysia({ prefix: '/incomes' })
   .get('/', async ({ headers, query }) => {
@@ -132,7 +132,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
     }: {
       headers: Record<string, string | string[] | undefined>;
       params: { id: string };
-      body: typeof createOperationSchema;
+      body: typeof updateOperationSchema;
     }) => {
       try {
         const userId = authenticate(headers);
@@ -141,9 +141,9 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
         const updatedIncome = await prisma.income.updateMany({
           where: { id: incomeId, userId },
           data: {
-            label: body.label,
-            amount: body.amount,
-            category: body.category,
+            ...(body.label && { label: body.label }),
+            ...(body.amount !== undefined && { amount: body.amount }),
+            ...(body.category && { category: body.category }),
           },
         });
 
@@ -169,7 +169,7 @@ export const incomeRoutes = new Elysia({ prefix: '/incomes' })
       }
     },
     {
-      body: createOperationSchema,
+      body: updateOperationSchema,
     }
   )
 

@@ -23,8 +23,6 @@ export default async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
   const isAuthenticated = isTokenValid(accessToken);
 
-  console.log("isAuthenticated", isAuthenticated);
-
   // Get the pathname from the URL
   const pathname = request.nextUrl.pathname;
 
