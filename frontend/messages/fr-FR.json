@@ -205,6 +205,17 @@
     "confirmDeletion": "Cliquez à nouveau pour confirmer la suppression du compte",
     "deletionWarning": "Cette action ne peut pas être annulée"
   },
+  "Avatar": {
+    "waitBeforeGenerating": "Veuillez patienter avant de générer une nouvelle image",
+    "waitFewSeconds": "Veuillez patienter quelques secondes",
+    "invalidFileType": "Type de fichier invalide",
+    "pleaseUploadImage": "Veuillez télécharger une image",
+    "fileTooLarge": "Fichier trop volumineux",
+    "imageSmallerThan2MB": "La taille du fichier doit être inférieure à 2 Mo",
+    "generating": "Génération de l'avatar...",
+    "generateNewAvatar": "Générer un nouvel avatar",
+    "upload": "Télécharger"
+  },
   "UserPlanDrawer": {
     "title": "Forfait actuel",
     "proPlan": "Forfait Pro",
