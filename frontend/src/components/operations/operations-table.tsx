@@ -16,6 +16,8 @@ import { Edit2, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { OperationFormDialog } from "./operation-form-dialog";
+import { format, isAfter, isBefore, isSameDay, startOfDay } from "date-fns";
+import { cn } from "@/utils/cn";
 
 interface OperationsTableProps {
   title: string;
@@ -80,6 +82,21 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
     );
   };
 
+  // Fonction pour vérifier si une date est passée ou à venir
+  const isDatePassed = (day: number) => {
+    if (!day) return false;
+    
+    const today = startOfDay(new Date());
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    
+    // Créer une date pour le jour spécifié du mois courant
+    const operationDate = new Date(currentYear, currentMonth, day);
+    
+    // Si la date est avant aujourd'hui, elle est passée
+    return isBefore(operationDate, today);
+  };
+
   return (
     <div className="space-y-4 rounded-md bg-card p-4 shadow-md lg:p-8">
       <div className="flex items-center justify-between">
@@ -96,6 +113,11 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
             <TableRow>
               <TableHead className="w-[35%]">{t("Dashboard.label")}</TableHead>
               <TableHead className="w-[35%]">{t("Dashboard.category")}</TableHead>
+              <TableHead className="w-[20%]">
+                {type === OperationType.INCOMES 
+                  ? t("Dashboard.receptionDay") 
+                  : t("Dashboard.dueDay")}
+              </TableHead>
               <TableHead className="w-[20%] text-right">{t("Dashboard.amount")}</TableHead>
               <TableHead className="w-[10%] text-center">{t("Dashboard.actions")}</TableHead>
             </TableRow>
@@ -118,6 +140,18 @@ export const OperationsTable = ({ title, operations, isLoading, onAdd, type, sho
                 <TableRow key={operation.id} className="group">
                   <TableCell className="w-[35%] font-medium">{operation.label}</TableCell>
                   <TableCell className="w-[35%]">{operation.category ? t(operation.category) : "-"}</TableCell>
+                  <TableCell className="w-[20%]">
+                    {operation.dueDay ? (
+                      <span className={cn(
+                        "font-medium",
+                        isDatePassed(operation.dueDay) 
+                          ? "text-green-600 dark:text-green-400" 
+                          : "text-amber-600 dark:text-amber-400"
+                      )}>
+                        {operation.dueDay}
+                      </span>
+                    ) : "-"}
+                  </TableCell>
                   <TableCell className="w-[20%] text-right">{operation.amount.toFixed(2)} €</TableCell>
                   <TableCell className="w-[10%]">
                     <div className="flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">

@@ -190,7 +190,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\"label\": \"Salary\", \"amount\": 5000, \"category\": \"Income\", \"dueDate\": \"2025-01-01\"}"
+              "raw": "{\"label\": \"Salary\", \"amount\": 5000, \"category\": \"Income\", \"dueDay\": 1}"
             },
             "header": [
               {
@@ -211,7 +211,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\"label\": \"Updated Salary\", \"amount\": 5500, \"category\": \"Income\", \"dueDate\": \"2025-01-01\"}"
+              "raw": "{\"label\": \"Updated Salary\", \"amount\": 5500, \"category\": \"Income\", \"dueDay\": 1}"
             },
             "header": [
               {
@@ -270,7 +270,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\"label\": \"Rent\", \"amount\": 1200, \"category\": \"Housing\", \"dueDate\": \"2025-01-01\"}"
+              "raw": "{\"label\": \"Rent\", \"amount\": 1200, \"category\": \"Housing\", \"dueDay\": 1}"
             },
             "header": [
               {
@@ -291,7 +291,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\"label\": \"Updated Rent\", \"amount\": 1300, \"category\": \"Housing\", \"dueDate\": \"2025-01-01\"}"
+              "raw": "{\"label\": \"Updated Rent\", \"amount\": 1300, \"category\": \"Housing\", \"dueDay\": 1}"
             },
             "header": [
               {

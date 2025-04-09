@@ -28,9 +28,9 @@ model Income {
   label     String
   amount    Float
   category  String?
-  dueDate   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  dueDay    Int?
   user      User     @relation("UserIncomes", fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -40,8 +40,8 @@ model Expense {
   label     String
   amount    Float
   category  String?
-  dueDate   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  dueDay    Int?
   user      User     @relation("UserExpenses", fields: [userId], references: [id], onDelete: Cascade)
 }

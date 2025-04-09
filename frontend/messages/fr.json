@@ -130,6 +130,8 @@
     "label": "Libellé",
     "category": "Catégorie",
     "amount": "Montant",
+    "dueDay": "Jour de prélèvement",
+    "receptionDay": "Jour de réception",
     "actions": "Actions",
     "loading": "Chargement...",
     "noOperations": "Aucun {type} trouvé",
@@ -139,6 +141,8 @@
       "enterLabel": "Saisissez un libellé",
       "enterAmount": "Saisissez un montant",
       "selectCategory": "Sélectionnez une catégorie",
+      "selectDueDay": "Sélectionnez un jour de prélèvement",
+      "selectReceptionDay": "Sélectionnez un jour de réception",
       "saving": "Enregistrement...",
       "update": "Mettre à jour",
       "create": "Créer"

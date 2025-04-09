@@ -3,6 +3,7 @@ export interface Operation {
   label: string;
   amount: number;
   category?: string;
+  dueDay?: number;
   createdAt: Date;
   updatedAt: Date;
 }

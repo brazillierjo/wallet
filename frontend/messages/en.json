@@ -130,6 +130,8 @@
     "label": "Label",
     "category": "Category",
     "amount": "Amount",
+    "dueDay": "Due Day",
+    "receptionDay": "Reception Day",
     "actions": "Actions",
     "loading": "Loading...",
     "noOperations": "No {type} found",
@@ -139,6 +141,8 @@
       "enterLabel": "Enter label",
       "enterAmount": "Enter amount",
       "selectCategory": "Select a category",
+      "selectDueDay": "Select due day",
+      "selectReceptionDay": "Select reception day",
       "saving": "Saving...",
       "update": "Update",
       "create": "Create"

@@ -22,11 +22,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { cn } from "@/utils/cn";
 
 const formSchema = z.object({
   label: z.string().min(1, "Label is required"),
   amount: z.coerce.number().min(0, "Amount must be positive"),
   category: z.string().optional(),
+  dueDay: z.number().optional(),
 });
 
 interface OperationFormDialogProps {
@@ -60,6 +62,7 @@ export const OperationFormDialog = ({
       label: "",
       amount: 0,
       category: "",
+      dueDay: undefined,
     },
   });
 
@@ -159,6 +162,41 @@ export const OperationFormDialog = ({
                       ))}
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="dueDay"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {type === OperationType.INCOMES 
+                      ? t("Dashboard.receptionDay") 
+                      : t("Dashboard.dueDay")}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      min={1}
+                      max={31}
+                      placeholder={
+                        type === OperationType.INCOMES
+                          ? t("Dashboard.form.selectReceptionDay")
+                          : t("Dashboard.form.selectDueDay")
+                      }
+                      {...field}
+                      value={field.value || ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "" || (parseInt(value) >= 1 && parseInt(value) <= 31)) {
+                          field.onChange(value === "" ? undefined : parseInt(value));
+                        }
+                      }}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
