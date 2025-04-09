@@ -6,7 +6,7 @@
 - [x] Backend : Authentification JWT
 - [x] Backend : Modèle `User`
 - [x] Backend : Routes d'inscription / connexion
-- [ ] Backend : Validation email
+- [x] Backend : Validation email
 - [ ] Backend : Réinitialisation de mot de passe
 - [x] Backend : Gestion du profil utilisateur
 - [x] Frontend : Formulaires inscription / connexion
