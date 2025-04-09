@@ -8,14 +8,12 @@
     "dev:backend": "cd backend && bun run dev",
     "dev:studio": "cd backend && bunx prisma studio",
     "install:all": "npm install && cd frontend && npm install && cd ../backend && bun install",
-    "prepare": "husky",
     "check:backend": "cd backend && bunx prettier --check .",
     "check:frontend": "cd frontend && npm run lint && npm run build"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "concurrently": "^8.2.2",
-    "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "prettier-plugin-tailwindcss": "^0.6.11"
   },
