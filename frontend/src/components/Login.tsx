@@ -69,6 +69,7 @@ const Login = () => {
           <CardTitle className="text-center text-2xl">{t("title")}</CardTitle>
           <CardDescription className="text-center">{t("description")}</CardDescription>
         </CardHeader>
+
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -85,6 +86,7 @@ const Login = () => {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="password"
@@ -98,6 +100,7 @@ const Login = () => {
                   </FormItem>
                 )}
               />
+              
               <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
                 {loginMutation.isPending ? t("loggingIn") : t("login")}
               </Button>

@@ -20,7 +20,7 @@ html {
   :root {
     --background: 181.1 41.4% 95.5%;
     --foreground: 178.1 21.5% 5.3%;
-    --card: 181.1 41.4% 95.5%;
+    --card: 0 0% 100%;
     --card-foreground: 178.1 21.5% 5.3%;
     --popover: 181.1 41.4% 95.5%;
     --popover-foreground: 178.1 21.5% 5.3%;
@@ -43,7 +43,7 @@ html {
   .dark {
     --background: 201.1 8.5% 1.9%;
     --foreground: 246.7 6.7% 90.2%;
-    --card: 201.1 8.5% 1.9%;
+    --card: 201.1 8.5% 10%;
     --card-foreground: 246.7 6.7% 90.2%;
     --popover: 201.1 8.5% 1.9%;
     --popover-foreground: 246.7 6.7% 90.2%;
