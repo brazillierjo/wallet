@@ -37,23 +37,20 @@ jobs:
             git reset --hard
             git pull origin $BRANCH
 
-            echo "📦 Installing pnpm globally if not installed..."
-            npm install -g pnpm
-
             echo "📦 Installing backend dependencies..."
             cd backend
-            pnpm install
-            pnpm prisma migrate deploy
+            npm install
+            npm prisma migrate deploy
             echo "🚀 Restarting backend app"
             pm2 delete wallet-backend || true
-            pm2 start "pnpm start" --name wallet-backend -- --port $PORT_BACK --update-env
+            pm2 start "npm start" --name wallet-backend -- --port $PORT_BACK --update-env
 
             echo "🌐 Building frontend..."
             cd ../frontend
-            pnpm install
-            pnpm install --platform=linux --arch=x64 sharp
-            pnpm run build
+            npm install
+            npm install --platform=linux --arch=x64 sharp
+            npm run build
 
             echo "🚀 Restarting frontend app"
             pm2 delete wallet-frontend || true
-            pm2 start pnpm --name wallet-frontend --env PORT=$PORT_FRONT -- start
+            pm2 start npm --name wallet-frontend --env PORT=$PORT_FRONT -- start
