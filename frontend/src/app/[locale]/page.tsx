@@ -1,16 +1,23 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-import { FloatingDock } from "@/components/FloatingDock";
 import Footer from "@/components/Footer/Footer";
 import HeroSection from "@/components/Landing/HeroSection";
 import KeyFeatures from "@/components/Landing/KeyFeatures";
 import Pricing from "@/components/Landing/Pricing";
 import WaletooLogo from "@/components/Logo/WaletooLogo";
 import { TracingBeam } from "@/components/TracingBeam";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import { AppRoutes } from "@/router/app_routes";
-import { ArrowRightIcon, CurrencyDollarIcon, InformationCircleIcon } from "@heroicons/react/16/solid";
+import { CurrencyDollarIcon, InformationCircleIcon, WalletIcon } from "@heroicons/react/16/solid";
 
 export default function Landing() {
   const t = useTranslations("Landing.Navigation");
@@ -18,24 +25,44 @@ export default function Landing() {
   return (
     <TracingBeam className="w-full">
       <div className="flex flex-col">
-        <FloatingDock
-          desktopClassName="fixed left-1/2 -translate-x-1/2 bottom-4"
-          mobileClassName="fixed bottom-4 right-4"
-          items={[
-            { href: "#about", title: t("about"), icon: <InformationCircleIcon /> },
-            { href: "#pricing", title: t("pricing"), icon: <CurrencyDollarIcon /> },
-            {
-              href: AppRoutes.DASHBOARD,
-              title: t("myWallet"),
-              icon: <ArrowRightIcon />,
-            },
-          ]}
-        />
-
-        <main className="px-6">
-          <div className="absolute left-1/2 top-2 -translate-x-1/2 lg:left-4 lg:top-4 lg:translate-x-0">
+        <div className="relative flex w-full flex-col items-center justify-center py-4 lg:flex-row">
+          <div className="border-foreground left-4 border-b-2 lg:absolute lg:border-0">
             <WaletooLogo />
           </div>
+
+          <NavigationMenu className="z-10">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="#about" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <InformationCircleIcon className="mr-2 h-4 w-4" />
+                    {t("about")}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href="#pricing" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <CurrencyDollarIcon className="mr-2 h-4 w-4" />
+                    {t("pricing")}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href={AppRoutes.DASHBOARD} legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <WalletIcon className="mr-2 h-4 w-4" />
+                    {t("myWallet")}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+
+        <main className="px-6">
           <HeroSection />
           <KeyFeatures />
           <Pricing />
